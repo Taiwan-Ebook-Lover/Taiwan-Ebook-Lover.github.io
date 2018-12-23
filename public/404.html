@@ -21,16 +21,16 @@
       // This way the code will only replace the route part of the path, and not
       // the real directory in which the app resides, for example:
       // https://username.github.io/repo-name/one/two?a=b&c=d#qwe becomes
-      // https://username.github.io/repo-name/?p=/one/two&q=a=b~and~c=d#qwe
+      // https://username.github.io/repo-name/one/two?a=b~and~c=d#qwe
       // Otherwise, leave segmentCount as 0.
-      var segmentCount = 0;
+      var segmentCount = 1;
 
       var l = window.location;
       l.replace(
         l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-        l.pathname.split('/').slice(0, 1 + segmentCount).join('/') + '/?p=/' +
+        l.pathname.split('/').slice(0, 1 + segmentCount).join('/') + '/' +
         l.pathname.slice(1).split('/').slice(segmentCount).join('/').replace(/&/g, '~and~') +
-        (l.search ? '&q=' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+        (l.search ? '?' + l.search.slice(1).replace(/&/g, '~and~') : '') +
         l.hash
       );
 
