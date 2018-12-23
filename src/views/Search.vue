@@ -11,6 +11,7 @@
               append-icon="search"
               solo
               clearable
+              @keyup.enter.native='submitSearch'
             ></v-text-field>
           </v-flex>
 
@@ -42,7 +43,26 @@
     </div>
 
     <v-container grid-list-md>
-    <div>Search</div>
+      <v-layout row wrap>
+        <v-flex v-for="(book, key) in books" :key='key' xs12 sm12 md12>
+
+          <v-card>
+            <v-layout row wrap>
+              <v-flex md1>
+                <v-img :src="book.thumbnail" :alt="book.title"/>
+              </v-flex>
+              <v-flex md8>
+                <v-card-title>
+                  {{ book.title }}
+                  <span>{{ booksCompanyTable[book.company] }}</span>
+                </v-card-title>
+                <v-card-text>{{ book.about ? book.about.substr(0, 150) + '...' : '' }}</v-card-text>
+                <span>{{ book.price }} {{ book.priceCurrency }}</span>
+              </v-flex>
+            </v-layout>
+          </v-card>
+        </v-flex>
+      </v-layout>
     </v-container>
   </div>
 
@@ -60,10 +80,54 @@ export default {
   data: () => ({
     sorts: ['綜合排名', '價格低至高', '價格高至低'],
     companies: ['Readmoo', '博客來', '樂天 kobo', 'Play 圖書', 'Pubu', 'Hyread', 'Taaze'],
+    booksCompanyTable: {
+      booksCompany: '博客來',
+      readmoo: 'Readmoo 讀墨',
+      kobo: 'Rakuten kobo',
+      taaze: 'TAAZE 讀冊生活',
+      bookWalker: 'BOOKWALKER',
+      playStore: 'Google Play 圖書',
+      pubu: 'Pubu 電子書城',
+    },
     selectedCompanies: [],
     selectedSort: '',
     searchword: '',
-  })
+    searchResut: {},
+    books: [],
+  }),
+  mounted() {
+    if (this.$route.query.q) {
+      this.searchword = this.$route.query.q;
+      this.submitSearch();
+    }
+  },
+  methods: {
+    submitSearch() {
+      if (this.searchword === '') return;
+      this.$router.push({ path: 'search', query: { q: this.searchword } });
+
+      const api = new URL('https://ebook.yuer.tw/search');
+      const params = { q: this.searchword };
+      api.search = new URLSearchParams(params);
+
+      fetch(api).then((response) => {
+        return response.json();
+      }).then((data) => {
+        this.searchResut = data;
+
+        for (const company in data) {
+          data[company].forEach((book) => {
+            const bookData = { ...book, company };
+            this.books.push(bookData);
+          });
+        }
+      }).catch((err) => {
+        // eslint-disable-next-line
+        console.error(err);
+      });
+    },
+  },
+
 };
 </script>
 
