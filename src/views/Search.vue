@@ -53,7 +53,7 @@
               <v-flex md8>
                 <v-card-title>
                   <h2 class="title">{{ book.title }}</h2>
-                   <v-chip>
+                   <v-chip small>
                     <v-avatar>
                       <img :src="`/img/${book.company}.png`" :alt="book.title">
                     </v-avatar>
@@ -96,7 +96,8 @@ export default {
     selectedCompanies: [],
     selectedSort: '',
     searchword: '',
-    searchResut: {},
+    searchResult: {},
+    booksResult: [],
     books: [],
   }),
   mounted() {
@@ -117,7 +118,7 @@ export default {
       fetch(api).then((response) => {
         return response.json();
       }).then((data) => {
-        this.searchResut = data;
+        this.searchResult = data;
 
         for (const company in data) {
           data[company].forEach((book) => {
@@ -125,12 +126,20 @@ export default {
             this.books.push(bookData);
           });
         }
+        this.searchResult = this.books;
       }).catch((err) => {
         // eslint-disable-next-line
         console.error(err);
       });
     },
   },
+  // filterCompanies() {
+  //   if (selectedCompanies.length == 0) {
+  //     this.books = this.booksResult;
+  //     return;
+  //   }
+
+  // }
 
 };
 </script>
