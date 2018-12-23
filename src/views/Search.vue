@@ -45,7 +45,6 @@
     <v-container grid-list-md>
       <v-layout row wrap>
         <v-flex v-for="(book, key) in books" :key='key' xs12 sm12 md12>
-
           <v-card>
             <v-layout row wrap>
               <v-flex md1>
@@ -53,11 +52,16 @@
               </v-flex>
               <v-flex md8>
                 <v-card-title>
-                  {{ book.title }}
-                  <span>{{ booksCompanyTable[book.company] }}</span>
+                  <h2 class="title">{{ book.title }}</h2>
+                   <v-chip>
+                    <v-avatar>
+                      <img :src="`/img/${book.company}.png`" :alt="book.title">
+                    </v-avatar>
+                    {{ booksCompanyTable[book.company] }}
+                  </v-chip>
                 </v-card-title>
-                <v-card-text>{{ book.about ? book.about.substr(0, 150) + '...' : '' }}</v-card-text>
-                <span>{{ book.price }} {{ book.priceCurrency }}</span>
+                <v-card-text class="subheading">{{ book.about ? book.about.substr(0, 150) + '...' : '' }}</v-card-text>
+                <span class="subheading price">{{ book.price }} {{ book.priceCurrency }}</span>
               </v-flex>
             </v-layout>
           </v-card>
@@ -135,5 +139,9 @@ export default {
 <style lang="scss">
 .bg-grey {
   background-color: #f2f2f2;
+}
+.price {
+  color: #fa4181;
+  padding: 0 16px;
 }
 </style>
