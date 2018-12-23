@@ -1,29 +1,24 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
-  </div>
+  <v-app>
+    <v-toolbar app color="#0eb29a">
+      <v-toolbar-title class="white--text">
+        <v-avatar tile="true" class="mx-2">
+          <img src="./assets/ebook-logo.png" alt="avatar">
+        </v-avatar>
+        <span>台灣電子書搜尋</span>
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-toolbar-items class="hidden-sm-and-down">
+        <v-btn flat><router-link to="/search">Search</router-link></v-btn>
+      </v-toolbar-items>
+    </v-toolbar>
+    <router-view class="view-top"/>
+  </v-app>
+
 </template>
 
 <style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+.view-top {
+  margin-top: 58px;
 }
 </style>

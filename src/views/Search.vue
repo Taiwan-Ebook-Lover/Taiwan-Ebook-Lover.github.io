@@ -1,6 +1,6 @@
 <template>
   <v-container grid-list-md>
-    <div>Waiting for ui</div>
+    <div>Search</div>
   </v-container>
 </template>
 
@@ -9,7 +9,7 @@
 // import HelloWorld from '@/components/HelloWorld.vue';
 
 export default {
-  name: 'home',
+  name: 'about',
   components: {
     // HelloWorld,
   },
