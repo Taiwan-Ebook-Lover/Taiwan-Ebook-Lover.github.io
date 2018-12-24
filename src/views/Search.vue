@@ -55,7 +55,7 @@
                   <h2 class="title">{{ book.title }}</h2>
                    <v-chip small>
                     <v-avatar>
-                      <img :src="`/img/${book.company}.png`" :alt="book.title">
+                      <img :src="`img/${book.company}.png`" :alt="book.title">
                     </v-avatar>
                     {{ booksCompanyTable[book.company] }}
                   </v-chip>
