@@ -22,20 +22,24 @@
               label="選擇排序"
               solo
               clearable
+              @change="sortOnChange"
             ></v-select>
           </v-flex>
 
         </v-layout>
         <v-layout>
-           <v-flex xs12 sm6 md4>
+           <v-flex xs12 sm6 md6>
             <v-select
               v-model="selectedCompanies"
               :items="companies"
+              item-text="name"
+              item-value="value"
               chips
               label="過濾書店"
               prepend-icon="filter_list"
               multiple
               clearable
+              @change="filterCompanies"
             ></v-select>
           </v-flex>
         </v-layout>
@@ -50,7 +54,7 @@
               <v-flex md1>
                 <v-img :src="book.thumbnail" :alt="book.title"/>
               </v-flex>
-              <v-flex md8>
+              <v-flex md11>
                 <v-card-title>
                   <h2 class="title">{{ book.title }}</h2>
                    <v-chip small>
@@ -60,7 +64,7 @@
                     {{ booksCompanyTable[book.company] }}
                   </v-chip>
                 </v-card-title>
-                <v-card-text class="subheading">{{ book.about ? book.about.substr(0, 150) + '...' : '' }}</v-card-text>
+                <v-card-text class="subheading">{{ book.about ? `${book.about.substr(0, 150)}...` : '' }}</v-card-text>
                 <span class="subheading price">{{ book.price }} {{ book.priceCurrency }}</span>
               </v-flex>
             </v-layout>
@@ -78,12 +82,17 @@
 
 export default {
   name: 'search',
-  components: {
-    // HelloWorld,
-  },
   data: () => ({
     sorts: ['綜合排名', '價格低至高', '價格高至低'],
-    companies: ['Readmoo', '博客來', '樂天 kobo', 'Play 圖書', 'Pubu', 'Hyread', 'Taaze'],
+    companies: [
+      { name: 'Readmoo 讀墨', value: 'readmoo' },
+      { name: '博客來', value: 'booksCompany' },
+      { name: '樂天 kobo', value: 'kobo' },
+      { name: 'Play 圖書', value: 'playStore' },
+      { name: 'Pubu 電子書城', value: 'pubu' },
+      { name: 'BOOKWALKER', value: 'bookWalker' },
+      { name: 'Taaze 讀冊生活', value: 'taaze' },
+    ],
     booksCompanyTable: {
       booksCompany: '博客來',
       readmoo: 'Readmoo 讀墨',
@@ -106,6 +115,11 @@ export default {
       this.submitSearch();
     }
   },
+  // computed: {
+  //   bookAboutParse(about) {
+  //     return book.about ? book.about.substr(0, 150) + '...' : ''
+  //   }
+  // }
   methods: {
     submitSearch() {
       if (this.searchword === '') return;
@@ -115,31 +129,45 @@ export default {
       const params = { q: this.searchword };
       api.search = new URLSearchParams(params);
 
-      fetch(api).then((response) => {
-        return response.json();
-      }).then((data) => {
-        this.searchResult = data;
+      fetch(api)
+        .then(response => response.json())
+        .then((data) => {
+          this.searchResult = data;
 
-        for (const company in data) {
-          data[company].forEach((book) => {
-            const bookData = { ...book, company };
-            this.books.push(bookData);
-          });
-        }
-        this.searchResult = this.books;
-      }).catch((err) => {
-        // eslint-disable-next-line
-        console.error(err);
+
+          for (const company in data) {
+            data[company].forEach((book) => {
+              const bookData = { ...book, company };
+              this.books.push(bookData);
+            });
+          }
+          this.booksResult = [...this.books];
+        }).catch((err) => {
+          // eslint-disable-next-line
+          console.error(err);
+        });
+    },
+    filterCompanies() {
+      if (this.selectedCompanies.length === 0) {
+        this.books = [...this.booksResult];
+        return;
+      }
+      this.books = [];
+      this.selectedCompanies.forEach((company) => {
+        const data = this.booksResult.filter(book => book.company === company);
+        this.books.push(...data);
       });
     },
+    sortOnChange() {
+      if (this.selectedSort === '價格低至高') {
+        this.books = this.books.sort((a, b) => a.price - b.price);
+      } else if (this.selectedSort === '價格高至低') {
+        this.books = this.books.sort((a, b) => b.price - a.price);
+      } else {
+        this.books = [...this.booksResult];
+      }
+    },
   },
-  // filterCompanies() {
-  //   if (selectedCompanies.length == 0) {
-  //     this.books = this.booksResult;
-  //     return;
-  //   }
-
-  // }
 
 };
 </script>
