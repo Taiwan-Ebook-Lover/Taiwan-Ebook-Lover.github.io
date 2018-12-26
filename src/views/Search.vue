@@ -47,7 +47,7 @@
     </div>
 
     <v-container pb-0>
-      <span>{{ books.length === 0 ? '' : `共有 ${books.length} 筆結果`}}</span>
+      <span class="result-count">{{ books.length === 0 ? '' : `共有 ${books.length} 筆結果`}}</span>
     </v-container>
     <v-container grid-list-md>
       <v-layout row wrap>
@@ -189,6 +189,11 @@ export default {
 .bg-grey {
   background-color: #f2f2f2;
 }
+
+.result-count {
+  color: rgba(0, 0, 0, 0.54);
+}
+
 .price {
   color: #fa4181;
   padding: 0 16px;
