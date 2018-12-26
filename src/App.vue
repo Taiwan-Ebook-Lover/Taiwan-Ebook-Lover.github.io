@@ -34,3 +34,9 @@
   display: flex;
 }
 </style>
+
+<style>
+body {
+  font-family: "Microsoft JhengHei", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+</style>
