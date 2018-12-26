@@ -62,7 +62,7 @@
             <v-flex md11>
               <v-card-title>
                 <h2 class="title">{{ book.title }}</h2>
-                  <v-chip small @click="toggleCompany(book.company)">
+                  <v-chip small @click="toggleCompany(book.company)" class="mouse-pointer">
                   <v-avatar>
                     <img :src="`img/${book.company}.png`" :alt="book.title">
                   </v-avatar>
@@ -184,8 +184,7 @@ export default {
 };
 </script>
 
-
-<style lang="scss">
+<style lang="scss" scoped>
 .bg-grey {
   background-color: #f2f2f2;
 }
@@ -197,5 +196,10 @@ export default {
 .price {
   color: #fa4181;
   padding: 0 16px;
+}
+.mouse-pointer {
+  &:hover {
+    cursor: pointer;
+  }
 }
 </style>
