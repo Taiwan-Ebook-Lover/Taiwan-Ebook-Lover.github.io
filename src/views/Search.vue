@@ -46,29 +46,33 @@
       </v-container>
     </div>
 
+    <v-container pb-0>
+      <span>{{ books.length === 0 ? '' : `共有 ${books.length} 筆結果`}}</span>
+    </v-container>
     <v-container grid-list-md>
       <v-layout row wrap>
-        <v-flex v-for="(book, key) in books" :key='key' xs12 sm12 md12>
-          <v-card>
-            <v-layout row wrap>
-              <v-flex md1>
-                <v-img :src="book.thumbnail" :alt="book.title"/>
-              </v-flex>
-              <v-flex md11>
-                <v-card-title>
-                  <h2 class="title">{{ book.title }}</h2>
-                   <v-chip small>
-                    <v-avatar>
-                      <img :src="`img/${book.company}.png`" :alt="book.title">
-                    </v-avatar>
-                    {{ booksCompanyTable[book.company] }}
-                  </v-chip>
-                </v-card-title>
-                <v-card-text class="subheading">{{ book.about ? `${book.about.substr(0, 150)}...` : '' }}</v-card-text>
-                <span class="subheading price">{{ book.price }} {{ book.priceCurrency }}</span>
-              </v-flex>
-            </v-layout>
-          </v-card>
+        <v-container grid-list-md mt-5 v-if="isLoading">
+          <book-loading class="my-5"/>
+        </v-container>
+        <v-flex v-for="(book, key) in books" :key='key' xs12 sm12 md12 pa-2>
+          <v-layout row wrap>
+            <v-flex md1>
+              <v-img :src="book.thumbnail" :alt="book.title"/>
+            </v-flex>
+            <v-flex md11>
+              <v-card-title>
+                <h2 class="title">{{ book.title }}</h2>
+                  <v-chip small>
+                  <v-avatar>
+                    <img :src="`img/${book.company}.png`" :alt="book.title">
+                  </v-avatar>
+                  {{ booksCompanyTable[book.company] }}
+                </v-chip>
+              </v-card-title>
+              <v-card-text class="subheading">{{ book.about ? `${book.about.substr(0, 150)}...` : '' }}</v-card-text>
+              <span class="subheading price">{{ book.price }} {{ book.priceCurrency }}</span>
+            </v-flex>
+          </v-layout>
         </v-flex>
       </v-layout>
     </v-container>
@@ -78,10 +82,13 @@
 
 <script>
 // @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue';
+import BookLoading from '@/components/BookLoading.vue';
 
 export default {
   name: 'search',
+  components: {
+    'book-loading': BookLoading,
+  },
   data: () => ({
     sorts: ['綜合排名', '價格低至高', '價格高至低'],
     companies: [
@@ -102,12 +109,13 @@ export default {
       playStore: 'Google Play 圖書',
       pubu: 'Pubu 電子書城',
     },
-    selectedCompanies: [],
-    selectedSort: '',
     searchword: '',
+    selectedSort: '',
+    selectedCompanies: [],
     searchResult: {},
     booksResult: [],
     books: [],
+    isLoading: false,
   }),
   mounted() {
     if (this.$route.query.q) {
@@ -115,14 +123,10 @@ export default {
       this.submitSearch();
     }
   },
-  // computed: {
-  //   bookAboutParse(about) {
-  //     return book.about ? book.about.substr(0, 150) + '...' : ''
-  //   }
-  // }
   methods: {
     submitSearch() {
       if (this.searchword === '') return;
+      this.isLoading = true;
       this.$router.push({ path: 'search', query: { q: this.searchword } });
 
       const api = new URL('https://ebook.yuer.tw/search');
@@ -133,8 +137,6 @@ export default {
         .then(response => response.json())
         .then((data) => {
           this.searchResult = data;
-
-
           for (const company in data) {
             data[company].forEach((book) => {
               const bookData = { ...book, company };
@@ -142,9 +144,11 @@ export default {
             });
           }
           this.booksResult = [...this.books];
+          this.isLoading = false;
         }).catch((err) => {
           // eslint-disable-next-line
           console.error(err);
+          this.isLoading = false;
         });
     },
     filterCompanies() {
