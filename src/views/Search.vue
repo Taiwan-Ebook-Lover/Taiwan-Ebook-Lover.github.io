@@ -62,7 +62,7 @@
             <v-flex md11>
               <v-card-title>
                 <h2 class="title">{{ book.title }}</h2>
-                  <v-chip small>
+                  <v-chip small @click="toggleCompany(book.company)">
                   <v-avatar>
                     <img :src="`img/${book.company}.png`" :alt="book.title">
                   </v-avatar>
@@ -95,7 +95,7 @@ export default {
       { name: 'Readmoo 讀墨', value: 'readmoo' },
       { name: '博客來', value: 'booksCompany' },
       { name: '樂天 kobo', value: 'kobo' },
-      { name: 'Play 圖書', value: 'playStore' },
+      { name: 'Google Play 圖書', value: 'playStore' },
       { name: 'Pubu 電子書城', value: 'pubu' },
       { name: 'BOOKWALKER', value: 'bookWalker' },
       { name: 'Taaze 讀冊生活', value: 'taaze' },
@@ -103,7 +103,7 @@ export default {
     booksCompanyTable: {
       booksCompany: '博客來',
       readmoo: 'Readmoo 讀墨',
-      kobo: 'Rakuten kobo',
+      kobo: '樂天 kobo',
       taaze: 'TAAZE 讀冊生活',
       bookWalker: 'BOOKWALKER',
       playStore: 'Google Play 圖書',
@@ -171,6 +171,14 @@ export default {
         this.books = [...this.booksResult];
       }
     },
+    toggleCompany(company) {
+      const index = this.selectedCompanies.indexOf(company);
+      if (index === -1) {
+        this.selectedCompanies.push(company);
+      } else {
+        this.selectedCompanies.splice(index, 1);
+      }
+    }
   },
 
 };
