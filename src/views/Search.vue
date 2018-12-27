@@ -112,8 +112,10 @@ export default {
     searchword: '',
     selectedSort: '',
     selectedCompanies: [],
+    // searchResult, booksResult 暫存做 filter
     searchResult: {},
     booksResult: [],
+    // 畫面上顯示的 books
     books: [],
     isLoading: false,
   }),
@@ -126,6 +128,11 @@ export default {
   methods: {
     submitSearch() {
       if (this.searchword === '') return;
+      // Reset data
+      this.searchResult = {};
+      this.booksResult = [];
+      this.books = [];
+      // start loading and fetch data
       this.isLoading = true;
       this.$router.push({ path: 'search', query: { q: this.searchword } });
 
