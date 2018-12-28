@@ -185,7 +185,7 @@ export default {
       } else {
         this.selectedCompanies.splice(index, 1);
       }
-    }
+    },
   },
 
 };

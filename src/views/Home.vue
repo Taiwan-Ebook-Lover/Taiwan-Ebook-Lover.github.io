@@ -19,15 +19,14 @@
         </v-flex>
         <v-flex>
           <v-btn color="#0eb29a" class="white--text" large @click="redirectToSearch">開始搜尋</v-btn>
-
-          <div class="img-store">
-            <a class="img-flex" href="https://play.google.com/store/apps/details?id=liou.rayyuan.ebooksearchtaiwan">
-              <img class="mt-1" src="../assets/play-store-badge.svg" alt="play-store">
-            </a>
-          </div>
           <div class="img-store">
              <a class="img-flex" href="https://itunes.apple.com/tw/app/%E5%8F%B0%E7%81%A3%E9%9B%BB%E5%AD%90%E6%9B%B8%E6%90%9C%E5%B0%8B/id1279690327">
               <img class="mt-1" src="../assets/app-store-badge.svg" alt="app-store">
+            </a>
+          </div>
+          <div class="img-store">
+            <a class="img-flex" href="https://play.google.com/store/apps/details?id=liou.rayyuan.ebooksearchtaiwan">
+              <img class="mt-1" src="../assets/play-store-badge.svg" alt="play-store">
             </a>
           </div>
         </v-flex>
