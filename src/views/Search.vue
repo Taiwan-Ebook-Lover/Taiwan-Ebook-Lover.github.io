@@ -4,15 +4,17 @@
       <v-container pb-0>
         <v-layout wrap>
           <v-flex xs12 sm6 md4 mr-4>
-            <v-text-field
-              v-model="searchword"
-              label="Solo"
-              placeholder="搜尋您想比價的電子書名關鍵字或 ISBN"
-              append-icon="search"
-              solo
-              clearable
-              @keyup.enter.native='submitSearch'
-            ></v-text-field>
+            <v-form ref="form" @submit.prevent="submitSearch">
+              <v-text-field
+                v-model="searchword"
+                label="Solo"
+                placeholder="搜尋您想比價的電子書名關鍵字或 ISBN"
+                append-icon="search"
+                @click:append="submitSearch"
+                solo
+                clearable
+              ></v-text-field>
+            </v-form>
           </v-flex>
 
           <v-flex xs12 sm6 md2>

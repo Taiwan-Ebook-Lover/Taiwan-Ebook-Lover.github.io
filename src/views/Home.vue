@@ -7,15 +7,17 @@
       <v-flex shrink my-auto>
         <div class="display-3 mb-4">台灣電子書搜尋</div>
         <v-flex>
-          <v-text-field
-            v-model="searchword"
-            label="Solo"
-            placeholder="搜尋您想比價的電子書名關鍵字或 ISBN"
-            append-icon="search"
-            solo
-            clearable
-            @keyup.enter.native='redirectToSearch'
-          ></v-text-field>
+          <v-form ref="form" @submit.prevent="redirectToSearch">
+            <v-text-field
+              v-model="searchword"
+              label="Solo"
+              placeholder="搜尋您想比價的電子書名關鍵字或 ISBN"
+              append-icon="search"
+              @click:append="redirectToSearch"
+              solo
+              clearable
+            ></v-text-field>
+          </v-form>
         </v-flex>
         <v-flex>
           <v-btn color="#0eb29a" class="white--text" large @click="redirectToSearch">開始搜尋</v-btn>
