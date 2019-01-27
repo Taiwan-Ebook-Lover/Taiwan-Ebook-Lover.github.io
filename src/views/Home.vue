@@ -1,9 +1,11 @@
 <template>
   <v-container text-md-center text-sm-center text-xs-center>
     <v-layout wrap justify-center my-4>
-      <v-avatar tile="true" size="256" class="mx-3 my-4">
-        <img src="../assets/ebook-logo.svg" alt="ebook-logo">
-      </v-avatar>
+
+      <div class="book-logo">
+        <book-logo/>
+      </div>
+
       <v-flex shrink my-auto>
         <div class="display-3 mb-4">台灣電子書搜尋</div>
         <v-flex>
@@ -40,8 +42,13 @@
 </template>
 
 <script>
+import BookLogo from '@/components/BookLogo.vue';
+
 export default {
   name: 'home',
+  components: {
+    'book-logo': BookLogo,
+  },
   data: () => ({
     searchword: '',
   }),
@@ -61,5 +68,8 @@ export default {
   align-items: center;
   justify-content: center;
   margin: 8px 12px;
+}
+.book-logo {
+  width: 256px;
 }
 </style>
