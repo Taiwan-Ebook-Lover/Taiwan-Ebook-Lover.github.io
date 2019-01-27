@@ -59,11 +59,13 @@
         <v-flex v-for="(book, key) in books" :key='key' xs12 sm12 md12 pa-2>
           <v-layout row wrap>
             <v-flex md1>
-              <v-img :src="book.thumbnail" :alt="book.title"/>
+              <a :href="book.link">
+                <v-img :src="book.thumbnail" :alt="book.title"/>
+              </a>
             </v-flex>
             <v-flex md11>
               <v-card-title>
-                <h2 class="title">{{ book.title }}</h2>
+                <h2 class="title"><a :href="book.link">{{ book.title }}</a></h2>
                   <v-chip small @click="toggleCompany(book.company)" class="mouse-pointer">
                   <v-avatar>
                     <img :src="`img/${book.company}.png`" :alt="book.title">
@@ -187,13 +189,18 @@ export default {
       } else {
         this.selectedCompanies.splice(index, 1);
       }
-    }
+    },
   },
 
 };
 </script>
 
 <style lang="scss" scoped>
+a {
+  color: initial;
+  text-decoration: initial;
+}
+
 .bg-grey {
   background-color: #f2f2f2;
 }
