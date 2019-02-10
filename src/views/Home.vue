@@ -1,7 +1,6 @@
 <template>
   <v-container text-md-center text-sm-center text-xs-center fluid>
-    <v-layout row wrap>
-
+    <v-layout row wrap mt-5>
       <v-flex lg2 offset-lg5 sm4 offset-sm4 xs6 offset-xs3>
           <v-img
             :src="require('@/assets/ebook-logo-bg.svg')"
@@ -31,9 +30,31 @@
 
       <v-flex xs12>
         <div class="headline grey--text">
-          <span class="hidden-xs-only"><i class="fab fa-twitter"></i>在推特上追蹤我們</span>
+          <span class="hidden-xs-only"><i class="fab fa-twitter"></i> 在推特上追蹤我們</span>
           <span class="hidden-xs-only mx-4 vertical-divider"></span>
-          <span>看看支援哪 8 間台灣線上電子書店</span>
+          <span>
+            看看支援哪
+
+            <v-tooltip
+              bottom
+              color="white"
+              max-width="320"
+              v-model="isTooltipShow"
+            >
+              <span slot="activator" class="theme-color" @click="isTooltipShow = !isTooltipShow" >8 間台灣線上電子書店</span>
+              <v-layout row wrap>
+                <v-flex v-for="(company, key) in companies" :key='key' xs6 my-2>
+                  <v-avatar
+                    size="32">
+                    <img :src="`img/${company.value}.png`" :alt="company.name">
+                  </v-avatar>
+                  <span class="ma-2 grey--text text--darken-1">{{ company.name }}</span>
+                </v-flex>
+
+              </v-layout>
+
+            </v-tooltip>
+          </span>
         </div>
       </v-flex>
 
@@ -46,6 +67,17 @@ export default {
   name: 'home',
   data: () => ({
     searchword: '',
+    isTooltipShow: false,
+    companies: [
+      { name: 'Readmoo 讀墨', value: 'readmoo' },
+      { name: '博客來', value: 'booksCompany' },
+      { name: '樂天 kobo', value: 'kobo' },
+      { name: 'Google Play 圖書', value: 'playStore' },
+      { name: 'Pubu 電子書城', value: 'pubu' },
+      { name: 'BOOKWALKER', value: 'bookWalker' },
+      { name: 'Taaze 讀冊生活', value: 'taaze' },
+      { name: 'HyRead 電子書', value: 'hyread'}
+    ],
   }),
   methods: {
     redirectToSearch() {
@@ -59,5 +91,9 @@ export default {
 <style scoped>
 .vertical-divider {
   border-left: 1px solid;
+}
+
+.theme-color {
+  color: #0eb29a;
 }
 </style>
