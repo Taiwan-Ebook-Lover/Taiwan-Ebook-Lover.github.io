@@ -5,7 +5,7 @@
         <v-avatar tile="true" class="ma-2">
           <img src="./assets/ebook-logo.svg" alt="ebook-logo">
         </v-avatar>
-        <span class="hidden-xd-and-down">台灣電子書搜尋</span>
+        <span class="hidden-xs-only">台灣電子書搜尋</span>
       </v-toolbar-title>
 
       <v-spacer/>
@@ -34,10 +34,8 @@
       max-width="350"
     >
       <v-card>
-        <v-card-title class="headline">Get App</v-card-title>
-
         <v-layout row wrap>
-          <v-flex mx-4 my-3 xs12>
+          <v-flex mx-4 my-4 xs12>
             <a href="https://itunes.apple.com/tw/app/%E5%8F%B0%E7%81%A3%E9%9B%BB%E5%AD%90%E6%9B%B8%E6%90%9C%E5%B0%8B/id1279690327">
               <v-img :src="require('./assets/app-store-badge.svg')" alt="app-store"></v-img>
             </a>
