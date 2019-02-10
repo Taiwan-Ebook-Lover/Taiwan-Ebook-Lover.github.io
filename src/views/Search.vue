@@ -42,7 +42,22 @@
               multiple
               clearable
               @change="filterCompanies"
-            ></v-select>
+            >
+
+              <template
+                slot="selection"
+                slot-scope="{ item, index }"
+              >
+                <v-chip v-if="index === 0">
+                  <span>{{ item.name }}</span>
+                </v-chip>
+                <span
+                  v-if="index === 1"
+                  class="grey--text caption"
+                >(+{{ selectedCompanies.length - 1 }} others)</span>
+              </template>
+
+            </v-select>
           </v-flex>
         </v-layout>
       </v-container>

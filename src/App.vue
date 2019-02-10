@@ -2,7 +2,7 @@
   <v-app>
     <v-toolbar app :color="toolBarColor">
       <v-toolbar-title :class="toolBarTitleClass">
-        <v-avatar tile="true" class="ma-2" size="40">
+        <v-avatar tile class="ma-2" size="40">
           <img src="./assets/ebook-logo.svg" alt="ebook-logo">
         </v-avatar>
         <span class="hidden-xs-only">台灣電子書搜尋</span>
