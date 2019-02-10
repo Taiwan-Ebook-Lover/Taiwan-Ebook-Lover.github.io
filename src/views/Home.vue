@@ -1,7 +1,6 @@
 <template>
-  <v-container text-md-center text-sm-center text-xs-center>
+  <v-container text-md-center text-sm-center text-xs-center fluid>
     <v-layout wrap justify-center my-4>
-
       <div class="book-logo">
         <book-logo/>
       </div>
