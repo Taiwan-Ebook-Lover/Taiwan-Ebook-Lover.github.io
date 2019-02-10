@@ -2,8 +2,8 @@
   <div>
     <div class="bg-grey">
       <v-container pb-0>
-        <v-layout wrap>
-          <v-flex xs12 sm6 md4 mr-4>
+        <v-layout row>
+          <v-flex xs8 sm6 md6 lg6 mr-2>
             <v-form ref="form" @submit.prevent="submitSearch">
               <v-text-field
                 v-model="searchword"
@@ -17,7 +17,7 @@
             </v-form>
           </v-flex>
 
-          <v-flex xs12 sm6 md2>
+          <v-flex xs4 sm4 md4 lg4>
             <v-select
               v-model="selectedSort"
               :items="sorts"
@@ -30,7 +30,7 @@
 
         </v-layout>
         <v-layout>
-           <v-flex xs12 sm6 md6>
+           <v-flex xs12 sm6 md6 lg6>
             <v-select
               v-model="selectedCompanies"
               :items="companies"
@@ -56,25 +56,25 @@
         <v-container grid-list-md mt-5 v-if="isLoading">
           <book-loading class="my-5"/>
         </v-container>
-        <v-flex v-for="(book, key) in books" :key='key' xs12 sm12 md12 pa-2>
+        <v-flex v-for="(book, key) in books" :key='key' xs12 pa-2>
           <v-layout row wrap>
-            <v-flex md1>
+            <v-flex xs5 sm3 md2 lg1>
+              <v-chip small @click="toggleCompany(book.company)" class="mouse-pointer mb-2">
+                <v-avatar>
+                  <img :src="`img/${book.company}.png`" :alt="book.title">
+                </v-avatar>
+                {{ booksCompanyTable[book.company] }}
+              </v-chip>
               <a :href="book.link">
                 <v-img :src="book.thumbnail" :alt="book.title"/>
               </a>
             </v-flex>
-            <v-flex md11>
-              <v-card-title>
+            <v-flex xs7 sm9 md10 lg11>
+              <v-card-title class="pa-2">
                 <h2 class="title"><a :href="book.link">{{ book.title }}</a></h2>
-                  <v-chip small @click="toggleCompany(book.company)" class="mouse-pointer">
-                  <v-avatar>
-                    <img :src="`img/${book.company}.png`" :alt="book.title">
-                  </v-avatar>
-                  {{ booksCompanyTable[book.company] }}
-                </v-chip>
               </v-card-title>
-              <v-card-text class="subheading">{{ book.about ? `${book.about.substr(0, 150)}...` : '' }}</v-card-text>
-              <span class="subheading price">{{ book.price }} {{ book.priceCurrency }}</span>
+              <v-card-text class="subheading pa-2">{{ book.about ? `${book.about.substr(0, 150)}...` : '' }}</v-card-text>
+              <span class="subheading price px-2">{{ book.price }} {{ book.priceCurrency }}</span>
             </v-flex>
           </v-layout>
         </v-flex>
@@ -103,6 +103,7 @@ export default {
       { name: 'Pubu 電子書城', value: 'pubu' },
       { name: 'BOOKWALKER', value: 'bookWalker' },
       { name: 'Taaze 讀冊生活', value: 'taaze' },
+      { name: 'HyRead 電子書', value: 'hyread'},
     ],
     booksCompanyTable: {
       booksCompany: '博客來',
@@ -112,6 +113,7 @@ export default {
       bookWalker: 'BOOKWALKER',
       playStore: 'Google Play 圖書',
       pubu: 'Pubu 電子書城',
+      hyread: 'HyRead 電子書',
     },
     searchword: '',
     selectedSort: '',
@@ -211,7 +213,6 @@ a {
 
 .price {
   color: #fa4181;
-  padding: 0 16px;
 }
 .mouse-pointer {
   &:hover {
