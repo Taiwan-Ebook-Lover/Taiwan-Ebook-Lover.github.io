@@ -70,7 +70,7 @@ export default {
     },
     toolBarTitleClass() {
       return this.$route.path === '/' ? 'disable-all' : 'white--text';
-    }
+    },
   },
   data: () => ({
     isDialogShow: false,
