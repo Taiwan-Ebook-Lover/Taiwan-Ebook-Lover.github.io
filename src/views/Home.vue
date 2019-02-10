@@ -30,7 +30,9 @@
 
       <v-flex xs12>
         <div class="headline grey--text">
-          <span class="hidden-xs-only"><i class="fab fa-twitter"></i> 在推特上追蹤我們</span>
+          <span class="hidden-xs-only">
+            <i class="fab fa-twitter"></i> 在<a class="theme-color" href="https://twitter.com/TaiwanEBook">推特</a>上追蹤我們
+          </span>
           <span class="hidden-xs-only mx-4 vertical-divider"></span>
           <span>
             看看支援哪
@@ -76,7 +78,7 @@ export default {
       { name: 'Pubu 電子書城', value: 'pubu' },
       { name: 'BOOKWALKER', value: 'bookWalker' },
       { name: 'Taaze 讀冊生活', value: 'taaze' },
-      { name: 'HyRead 電子書', value: 'hyread'}
+      { name: 'HyRead 電子書', value: 'hyread'},
     ],
   }),
   methods: {
@@ -95,5 +97,9 @@ export default {
 
 .theme-color {
   color: #0eb29a;
+}
+
+a {
+  text-decoration: none;
 }
 </style>
