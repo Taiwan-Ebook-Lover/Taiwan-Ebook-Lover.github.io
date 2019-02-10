@@ -5,7 +5,7 @@
         <v-avatar tile="true" class="ma-2">
           <img src="./assets/ebook-logo.svg" alt="ebook-logo">
         </v-avatar>
-        <span class="hidden-sm-and-down">台灣電子書搜尋</span>
+        <span class="hidden-xd-and-down">台灣電子書搜尋</span>
       </v-toolbar-title>
 
       <v-spacer/>
@@ -80,7 +80,7 @@ export default {
 
 <style lang="scss" scoped>
 .view-top {
-  margin-top: 58px;
+  margin-top: 48px;
 }
 
 .img-flex {
