@@ -1,52 +1,50 @@
 <template>
   <v-container text-md-center text-sm-center text-xs-center fluid>
-    <v-layout wrap justify-center my-4>
-      <div class="book-logo">
-        <book-logo/>
-      </div>
+    <v-layout column justify-center align-center>
 
-      <v-flex shrink my-auto>
-        <div class="display-3 mb-4">台灣電子書搜尋</div>
-        <v-flex>
-          <v-form ref="form" @submit.prevent="redirectToSearch">
-            <v-text-field
-              v-model="searchword"
-              label="Solo"
-              placeholder="搜尋您想比價的電子書名關鍵字或 ISBN"
-              append-icon="search"
-              @click:append="redirectToSearch"
-              solo
-              clearable
-            ></v-text-field>
-          </v-form>
-        </v-flex>
-        <v-flex>
-          <v-btn color="#0eb29a" class="white--text" large @click="redirectToSearch">開始搜尋</v-btn>
-          <div class="img-store">
-             <a class="img-flex" href="https://itunes.apple.com/tw/app/%E5%8F%B0%E7%81%A3%E9%9B%BB%E5%AD%90%E6%9B%B8%E6%90%9C%E5%B0%8B/id1279690327">
-              <img class="mt-1" src="../assets/app-store-badge.svg" alt="app-store">
-            </a>
-          </div>
-          <div class="img-store">
-            <a class="img-flex" href="https://play.google.com/store/apps/details?id=liou.rayyuan.ebooksearchtaiwan">
-              <img class="mt-1" src="../assets/play-store-badge.svg" alt="play-store">
-            </a>
-          </div>
-        </v-flex>
+      <v-flex>
+        <div>
 
+          <v-img
+            :src="require('@/assets/ebook-logo-bg.svg')"
+            alt="ebook-logo"
+            width="250"
+            aspect-ratio="1"
+          >
+          </v-img>
+
+        </div>
       </v-flex>
+
+      <v-flex>
+        <div class="display-3 mb-4">台灣電子書搜尋</div>
+      </v-flex>
+
+      <v-flex>
+        <v-form ref="form" @submit.prevent="redirectToSearch">
+          <v-text-field
+            v-model="searchword"
+            label="Solo"
+            placeholder="搜尋您想比價的電子書名關鍵字或 ISBN"
+            append-icon="search"
+            @click:append="redirectToSearch"
+            solo
+            clearable
+          ></v-text-field>
+        </v-form>
+      </v-flex>
+
+      <v-flex>
+        <div class="headline"><i class="fab fa-twitter"></i> 在推特上追蹤我們 | 看看支援哪 8 間台灣線上電子書店</div>
+      </v-flex>
+
     </v-layout>
   </v-container>
 </template>
 
 <script>
-import BookLogo from '@/components/BookLogo.vue';
-
 export default {
   name: 'home',
-  components: {
-    'book-logo': BookLogo,
-  },
   data: () => ({
     searchword: '',
   }),
