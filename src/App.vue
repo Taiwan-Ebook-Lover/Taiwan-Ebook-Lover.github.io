@@ -63,7 +63,7 @@ export default {
       return this.$route.path === '/' ? 'elevation-0' : '#0eb29a';
     },
     fontColor() {
-      return this.$route.path === '/' ? '' : 'white--text';
+      return this.$route.path === '/' ? 'grey--text text--darken-1' : 'white--text';
     },
     routeViewBackgoundColor() {
       return this.$route.path === '/' ? 'view-top bg-grey' : 'view-top';
