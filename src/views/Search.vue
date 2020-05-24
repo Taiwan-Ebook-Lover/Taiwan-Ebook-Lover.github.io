@@ -67,9 +67,9 @@
       <span class="result-count">{{ books.length === 0 ? '' : `共有 ${books.length} 筆結果`}}</span>
     </v-container>
     <v-container grid-list-md>
-      <v-layout row wrap>
-        <v-container grid-list-md mt-5 v-if="isLoading">
-          <book-loading class="my-5"/>
+      <v-layout row>
+        <v-container grid-list-md my-10 v-if="isLoading">
+          <book-loading class="my-10"/>
         </v-container>
         <v-flex v-for="(book, key) in books" :key='key' xs12 pa-2>
           <v-layout row wrap>
@@ -88,7 +88,9 @@
               <v-card-title class="pa-2">
                 <h2 class="title"><a :href="book.link">{{ book.title }}</a></h2>
               </v-card-title>
-              <v-card-text class="subheading pa-2">{{ book.about ? `${book.about.substr(0, 150)}...` : '' }}</v-card-text>
+              <v-card-text class="subheading pa-2">
+                {{ book.about ? `${book.about.substr(0, 150)}...` : '' }}
+              </v-card-text>
               <span class="subheading price px-2">{{ book.price }} {{ book.priceCurrency }}</span>
             </v-flex>
           </v-layout>
@@ -118,7 +120,7 @@ export default {
       { name: 'Pubu 電子書城', value: 'pubu' },
       { name: 'BOOKWALKER', value: 'bookWalker' },
       { name: 'Taaze 讀冊生活', value: 'taaze' },
-      { name: 'HyRead 電子書', value: 'hyread'},
+      { name: 'HyRead 電子書', value: 'hyread' },
     ],
     booksCompanyTable: {
       booksCompany: '博客來',
@@ -162,9 +164,10 @@ export default {
       api.search = new URLSearchParams(params);
 
       fetch(api)
-        .then(response => response.json())
+        .then((response) => response.json())
         .then((data) => {
           this.searchResult = data;
+          // eslint-disable-next-line
           for (const company in data) {
             data[company].forEach((book) => {
               const bookData = { ...book, company };
@@ -186,7 +189,7 @@ export default {
       }
       this.books = [];
       this.selectedCompanies.forEach((company) => {
-        const data = this.booksResult.filter(book => book.company === company);
+        const data = this.booksResult.filter((book) => book.company === company);
         this.books.push(...data);
       });
     },

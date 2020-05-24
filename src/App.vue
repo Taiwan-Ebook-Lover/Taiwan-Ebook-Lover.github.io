@@ -1,6 +1,8 @@
 <template>
   <v-app>
-    <v-toolbar app :color="toolBarColor">
+
+    <v-toolbar short class="elevation-0" :color="toolBarColor">
+
       <v-toolbar-title :class="toolBarTitleClass">
         <v-avatar tile class="ma-2" size="40">
           <img src="./assets/ebook-logo.svg" alt="ebook-logo">
@@ -58,13 +60,13 @@ export default {
   name: 'ebook-search',
   computed: {
     toolBarColor() {
-      return this.$route.path === '/' ? 'elevation-0' : '#0eb29a';
+      return this.$route.path === '/' ? '#f5f5f5' : '#0eb29a';
     },
     fontColor() {
       return this.$route.path === '/' ? 'grey--text text--darken-1' : 'white--text';
     },
     routeViewBackgoundColor() {
-      return this.$route.path === '/' ? 'view-top bg-grey' : 'view-top';
+      return this.$route.path === '/' ? 'bg-grey height-100' : 'height-100';
     },
     toolBarTitleClass() {
       return this.$route.path === '/' ? 'disable-all' : 'white--text';
@@ -77,9 +79,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.view-top {
-  margin-top: 48px;
-}
 
 .img-flex {
   display: flex;
@@ -89,6 +88,10 @@ export default {
   display: none;
 }
 
+.height-100 {
+  height: 100vh;
+}
+
 .bg-grey {
   background: #f5f5f5;
 }
@@ -96,6 +99,7 @@ export default {
 
 <style>
 body {
-  font-family: "Microsoft JhengHei", -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: "Microsoft JhengHei", -apple-system, BlinkMacSystemFont, 'Segoe UI',
+              Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 </style>
