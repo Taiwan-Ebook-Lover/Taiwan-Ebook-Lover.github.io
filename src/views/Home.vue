@@ -43,7 +43,9 @@
               max-width="320"
               v-model="isTooltipShow"
             >
-              <span slot="activator" class="theme-color" @click="isTooltipShow = !isTooltipShow" >8 間台灣線上電子書店</span>
+              <span slot="activator" class="theme-color" @click="isTooltipShow = !isTooltipShow" >
+                  8 間台灣線上電子書店
+              </span>
               <v-layout row wrap>
                 <v-flex v-for="(company, key) in companies" :key='key' xs6 my-2>
                   <v-avatar
@@ -78,7 +80,7 @@ export default {
       { name: 'Pubu 電子書城', value: 'pubu' },
       { name: 'BOOKWALKER', value: 'bookWalker' },
       { name: 'Taaze 讀冊生活', value: 'taaze' },
-      { name: 'HyRead 電子書', value: 'hyread'},
+      { name: 'HyRead 電子書', value: 'hyread' },
     ],
   }),
   methods: {
