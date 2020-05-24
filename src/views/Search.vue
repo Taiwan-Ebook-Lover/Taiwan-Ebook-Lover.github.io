@@ -73,7 +73,7 @@
         </v-container>
         <v-flex v-for="(book, key) in books" :key='key' xs12 pa-2>
           <v-layout row wrap>
-            <v-flex xs5 sm3 md2 lg1>
+            <v-flex xs5 sm3 md2 lg2>
               <v-chip small @click="toggleCompany(book.company)" class="mouse-pointer mb-2">
                 <v-avatar>
                   <img :src="`img/${book.company}.png`" :alt="book.title">
@@ -84,7 +84,7 @@
                 <v-img :src="book.thumbnail" :alt="book.title"/>
               </a>
             </v-flex>
-            <v-flex xs7 sm9 md10 lg11>
+            <v-flex xs7 sm9 md10 lg10>
               <v-card-title class="pa-2">
                 <h2 class="title"><a :href="book.link">{{ book.title }}</a></h2>
               </v-card-title>
@@ -167,6 +167,15 @@ export default {
         .then((response) => response.json())
         .then((data) => {
           this.searchResult = data;
+          // eslint-disable-next-line
+          for (const company in data) {
+            if (data[company].length !== 0) {
+              const tmp = data[company][0];
+              data[company].splice(0, 1);
+              const bookData = { ...tmp, company };
+              this.books.push(bookData);
+            }
+          }
           // eslint-disable-next-line
           for (const company in data) {
             data[company].forEach((book) => {
