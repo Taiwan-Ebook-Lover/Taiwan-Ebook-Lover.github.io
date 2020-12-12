@@ -70,19 +70,26 @@
             <v-tooltip
               bottom
               color="white"
-              max-width="320"
+              max-width="400"
               v-model="isTooltipShow"
             >
-              <span slot="activator" class="theme-color" @click="isTooltipShow = !isTooltipShow" >
-                  8 間台灣線上電子書店
+              <span slot="activator" class="theme-color" @mouseover="handleTooltip"
+              @mouseleave="handleTooltip">
+                  {{bookstores.length}} 間台灣線上電子書店
               </span>
+
               <v-layout row wrap>
-                <v-flex v-for="(company, key) in companies" :key='key' xs6 my-2>
+                <v-flex v-for="(bookstore, key) in bookstores" :key='key' xs6 my-2>
                   <v-avatar
                     size="32">
-                    <img :src="`img/${company.value}.png`" :alt="company.name">
+                    <img :src="`img/${bookstore.id}.png`" :alt="bookstore.displayName">
                   </v-avatar>
-                  <span class="ma-2 grey--text text--darken-1">{{ company.name }}</span>
+                  <span class="ma-2 grey--text text--darken-1">
+                    {{ bookstore.displayName }}
+                  </span>
+                  <span class='float-right mr-3'>
+                    {{bookstore.isOnline? '🟢' : '🔴'}}
+                  </span>
                 </v-flex>
               </v-layout>
             </v-tooltip>
@@ -105,6 +112,9 @@ export default {
     validBookstores: [],
     selectedBookstores: [],
   }),
+  mounted() {
+    this.getBookstores();
+  },
   methods: {
     redirectToSearch() {
       if (this.searchWord === '') return;
@@ -116,7 +126,19 @@ export default {
         },
       });
     },
-      });
+    getBookstores() {
+      const api = new URL('http://127.0.0.1:3000/bookstores');
+
+      fetch(api)
+        .then((response) => response.json())
+        .then((bookstores) => {
+          this.bookstores = bookstores;
+          this.validBookstores = bookstores.filter((bookstore) => bookstore.isOnline);
+          this.selectedBookstores = this.validBookstores.map((bookstore) => bookstore.id);
+        });
+    },
+    handleTooltip() {
+      this.isTooltipShow = !this.isTooltipShow;
     },
     remove(index) {
       this.selectedBookstores.splice(index, 1);
