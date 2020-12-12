@@ -17,26 +17,29 @@
       <v-flex my-3 lg6 offset-lg3 sm8 offset-sm2>
         <v-form ref="form" @submit.prevent="redirectToSearch" >
           <v-text-field
-              v-model="searchword"
+              v-model="searchWord"
               label="Solo"
               placeholder="搜尋您想比價的電子書名關鍵字或 ISBN"
               append-icon="search"
               @click:append="redirectToSearch"
               solo
               clearable
+              hide-details
             ></v-text-field>
         </v-form>
       </v-flex>
 
       <v-flex xs12>
         <div class="headline grey--text">
+
           <span class="hidden-xs-only">
             <i class="fab fa-twitter"></i> 在<a class="theme-color" href="https://twitter.com/TaiwanEBook">推特</a>上追蹤我們
           </span>
+
           <span class="hidden-xs-only mx-4 vertical-divider"></span>
+
           <span>
             看看支援哪
-
             <v-tooltip
               bottom
               color="white"
@@ -54,11 +57,10 @@
                   </v-avatar>
                   <span class="ma-2 grey--text text--darken-1">{{ company.name }}</span>
                 </v-flex>
-
               </v-layout>
-
             </v-tooltip>
           </span>
+
         </div>
       </v-flex>
 
@@ -70,18 +72,11 @@
 export default {
   name: 'home',
   data: () => ({
-    searchword: '',
+    searchWord: '',
     isTooltipShow: false,
-    companies: [
-      { name: 'Readmoo 讀墨', value: 'readmoo' },
-      { name: '博客來', value: 'booksCompany' },
-      { name: '樂天 kobo', value: 'kobo' },
-      { name: 'Google Play 圖書', value: 'playStore' },
-      { name: 'Pubu 電子書城', value: 'pubu' },
-      { name: 'BOOKWALKER', value: 'bookWalker' },
-      { name: 'Taaze 讀冊生活', value: 'taaze' },
-      { name: 'HyRead 電子書', value: 'hyread' },
-    ],
+    bookstores: [],
+    validBookstores: [],
+    selectedBookstores: [],
   }),
   methods: {
     redirectToSearch() {
