@@ -3,7 +3,7 @@
 
     <v-toolbar short class="elevation-0" :color="toolBarColor">
 
-      <v-toolbar-title :class="toolBarTitleClass">
+      <v-toolbar-title :class="toolBarTitleClass" class="home" @click="redirectHome">
         <v-avatar tile class="ma-2" size="40">
           <img src="./assets/ebook-logo.svg" alt="ebook-logo">
         </v-avatar>
@@ -75,10 +75,19 @@ export default {
   data: () => ({
     isDialogShow: false,
   }),
+  methods: {
+    redirectHome() {
+      this.$router.push({ path: '/' });
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
+
+.home {
+  cursor: pointer;
+}
 
 .img-flex {
   display: flex;
