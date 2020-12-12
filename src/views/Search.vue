@@ -6,7 +6,7 @@
           <v-flex xs8 sm6 md6 lg6 mr-2>
             <v-form ref="form" @submit.prevent="submitSearch">
               <v-text-field
-                v-model="searchword"
+                v-model="searchWord"
                 label="Solo"
                 placeholder="搜尋您想比價的電子書名關鍵字或 ISBN"
                 append-icon="search"
@@ -29,32 +29,31 @@
           </v-flex>
 
         </v-layout>
+
         <v-layout>
            <v-flex xs12 sm6 md6 lg6>
             <v-select
-              v-model="selectedCompanies"
-              :items="companies"
-              item-text="name"
-              item-value="value"
+              v-model="selectedBookstores"
+              :items="validBookstores"
+              item-text="displayName"
+              item-value="id"
               chips
-              label="過濾書店"
+              label="選擇書店"
               prepend-icon="filter_list"
               multiple
               clearable
-              @change="filterCompanies"
             >
 
               <template
                 slot="selection"
                 slot-scope="{ item, index }"
               >
-                <v-chip v-if="index === 0">
-                  <span>{{ item.name }}</span>
+                <v-chip
+                  close
+                  @click:close="remove(index)"
+                >
+                  <span>{{ item.displayName }}</span>
                 </v-chip>
-                <span
-                  v-if="index === 1"
-                  class="grey--text caption"
-                >(+{{ selectedCompanies.length - 1 }} others)</span>
               </template>
 
             </v-select>
@@ -63,40 +62,71 @@
       </v-container>
     </div>
 
+    <v-container grid-list-md my-12 v-if="isLoading">
+      <book-loading class="my-12"/>
+    </v-container>
+
     <v-container pb-0>
-      <span class="result-count">{{ books.length === 0 ? '' : `共有 ${books.length} 筆結果`}}</span>
+      <v-flex v-if="total != 0">
+        <span class="result-count"> 共有 {{total}} 筆結果</span>
+      </v-flex>
+      <v-tabs
+        v-if="total != 0"
+        v-model="tab"
+        show-arrows
+      >
+        <v-tab
+          v-for="result in bookstoresResults"
+          :key="result"
+        >
+        {{result.bookstore.displayName}}
+        </v-tab>
+      </v-tabs>
+
+      <v-tabs-items v-if="total != 0" v-model="tab">
+        <v-tab-item
+          v-for="result in bookstoresResults"
+          :key="result"
+        >
+          <v-flex v-if="result.books.length === 0">
+            <span class="result-not-found">查無結果</span>
+          </v-flex>
+
+          <v-container grid-list-md>
+            <v-layout row>
+              <v-flex v-for="(book, key) in result.books" :key='key' xs12 pa-2>
+                <v-layout row wrap>
+                  <v-flex xs5 sm3 md2 lg2>
+                    <v-chip small class="mb-2">
+                      <v-avatar>
+                        <img :src="`img/${result.bookstore.id}.png`"
+                          :alt="result.bookstore.displayName">
+                      </v-avatar>
+                      {{ result.bookstore.displayName }}
+                    </v-chip>
+                    <a :href="book.link">
+                      <v-img :src="book.thumbnail" :alt="book.title"/>
+                    </a>
+                  </v-flex>
+                  <v-flex xs7 sm9 md10 lg10>
+                    <v-card-title class="pa-2">
+                      <h2 class="title"><a :href="book.link">{{ book.title }}</a></h2>
+                    </v-card-title>
+                    <v-card-text class="subheading pa-2">
+                      {{ book.about ? `${book.about.substr(0, 150)}...` : '' }}
+                    </v-card-text>
+                    <span class="subheading price px-2">
+                      {{ book.price }} {{ book.priceCurrency }}
+                    </span>
+                  </v-flex>
+                </v-layout>
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-tab-item>
+      </v-tabs-items>
     </v-container>
-    <v-container grid-list-md>
-      <v-layout row>
-        <v-container grid-list-md my-10 v-if="isLoading">
-          <book-loading class="my-10"/>
-        </v-container>
-        <v-flex v-for="(book, key) in books" :key='key' xs12 pa-2>
-          <v-layout row wrap>
-            <v-flex xs5 sm3 md2 lg2>
-              <v-chip small @click="toggleCompany(book.company)" class="mouse-pointer mb-2">
-                <v-avatar>
-                  <img :src="`img/${book.company}.png`" :alt="book.title">
-                </v-avatar>
-                {{ booksCompanyTable[book.company] }}
-              </v-chip>
-              <a :href="book.link">
-                <v-img :src="book.thumbnail" :alt="book.title"/>
-              </a>
-            </v-flex>
-            <v-flex xs7 sm9 md10 lg10>
-              <v-card-title class="pa-2">
-                <h2 class="title"><a :href="book.link">{{ book.title }}</a></h2>
-              </v-card-title>
-              <v-card-text class="subheading pa-2">
-                {{ book.about ? `${book.about.substr(0, 150)}...` : '' }}
-              </v-card-text>
-              <span class="subheading price px-2">{{ book.price }} {{ book.priceCurrency }}</span>
-            </v-flex>
-          </v-layout>
-        </v-flex>
-      </v-layout>
-    </v-container>
+
   </div>
 
 </template>
@@ -111,79 +141,77 @@ export default {
     'book-loading': BookLoading,
   },
   data: () => ({
-    sorts: ['綜合排名', '價格低至高', '價格高至低'],
-    companies: [
-      { name: 'Readmoo 讀墨', value: 'readmoo' },
-      { name: '博客來', value: 'booksCompany' },
-      { name: '樂天 kobo', value: 'kobo' },
-      { name: 'Google Play 圖書', value: 'playStore' },
-      { name: 'Pubu 電子書城', value: 'pubu' },
-      { name: 'BOOKWALKER', value: 'bookWalker' },
-      { name: 'Taaze 讀冊生活', value: 'taaze' },
-      { name: 'HyRead 電子書', value: 'hyread' },
-    ],
-    booksCompanyTable: {
-      booksCompany: '博客來',
-      readmoo: 'Readmoo 讀墨',
-      kobo: '樂天 kobo',
-      taaze: 'TAAZE 讀冊生活',
-      bookWalker: 'BOOKWALKER',
-      playStore: 'Google Play 圖書',
-      pubu: 'Pubu 電子書城',
-      hyread: 'HyRead 電子書',
-    },
-    searchword: '',
-    selectedSort: '',
-    selectedCompanies: [],
-    // searchResult, booksResult 暫存做 filter
-    searchResult: {},
-    booksResult: [],
-    // 畫面上顯示的 books
-    books: [],
+    tab: null,
     isLoading: false,
+    // search
+    searchWord: '',
+    selectedSort: '',
+    sorts: ['價格低至高', '價格高至低'],
+    selectedBookstores: [],
+    // data from api
+    bookstores: [],
+    validBookstores: [],
+    total: 0,
+    searchResult: {},
+    bookstoresResults: [],
   }),
-  mounted() {
+  async mounted() {
+    await this.getBookstores();
+
+    if (this.$route.query.bookstores && this.$route.query.bookstores.length > 0) {
+      const tmpBookstores = this.validBookstores.filter((bookstore) => this.$route.query
+        .bookstores.includes(bookstore.id));
+      this.selectedBookstores = tmpBookstores.map((bookstore) => bookstore.id);
+    } else {
+      this.selectedBookstores = this.validBookstores.map((bookstore) => bookstore.id);
+    }
     if (this.$route.query.q) {
-      this.searchword = this.$route.query.q;
+      this.searchWord = this.$route.query.q;
       this.submitSearch();
     }
   },
   methods: {
+    async getBookstores() {
+      const api = new URL('http://127.0.0.1:3000/bookstores');
+
+      await fetch(api)
+        .then((response) => response.json())
+        .then((bookstores) => {
+          this.bookstores = bookstores;
+          this.validBookstores = bookstores.filter((bookstore) => bookstore.isOnline);
+        });
+    },
     submitSearch() {
-      if (this.searchword === '') return;
+      if (this.searchWord === '') return;
       // Reset data
+      this.total = 0;
       this.searchResult = {};
-      this.booksResult = [];
-      this.books = [];
+      this.bookstoresResults = [];
       // start loading and fetch data
       this.isLoading = true;
-      this.$router.push({ path: 'search', query: { q: this.searchword } });
+      if (this.selectedBookstores.length === 0) {
+        this.selectedBookstores = this.validBookstores.map((bookstore) => bookstore.id);
+      }
+      this.$router.push({
+        path: 'search',
+        query: {
+          q: this.searchWord,
+          bookstores: this.selectedBookstores,
+        },
+      });
 
-      const api = new URL('https://ebook.yuer.tw/search');
-      const params = { q: this.searchword };
-      api.search = new URLSearchParams(params);
+      const api = new URL('http://127.0.0.1:3000/searches');
+      const params = new URLSearchParams();
+      params.append('q', this.searchWord);
+      this.selectedBookstores.map((bookstore) => params.append('bookstores', bookstore));
+      api.search = params;
 
-      fetch(api)
+      fetch(api, { method: 'POST' })
         .then((response) => response.json())
         .then((data) => {
           this.searchResult = data;
-          // eslint-disable-next-line
-          for (const company in data) {
-            if (data[company].length !== 0) {
-              const tmp = data[company][0];
-              data[company].splice(0, 1);
-              const bookData = { ...tmp, company };
-              this.books.push(bookData);
-            }
-          }
-          // eslint-disable-next-line
-          for (const company in data) {
-            data[company].forEach((book) => {
-              const bookData = { ...book, company };
-              this.books.push(bookData);
-            });
-          }
-          this.booksResult = [...this.books];
+          this.total = this.searchResult.totalQuantity;
+          this.bookstoresResults = this.searchResult.results;
           this.isLoading = false;
         }).catch((err) => {
           // eslint-disable-next-line
@@ -191,33 +219,20 @@ export default {
           this.isLoading = false;
         });
     },
-    filterCompanies() {
-      if (this.selectedCompanies.length === 0) {
-        this.books = [...this.booksResult];
-        return;
-      }
-      this.books = [];
-      this.selectedCompanies.forEach((company) => {
-        const data = this.booksResult.filter((book) => book.company === company);
-        this.books.push(...data);
-      });
-    },
     sortOnChange() {
       if (this.selectedSort === '價格低至高') {
-        this.books = this.books.sort((a, b) => a.price - b.price);
+        this.bookstoresResults.forEach((bookstoreResult) => {
+          bookstoreResult.books.sort((a, b) => a.price - b.price);
+        });
       } else if (this.selectedSort === '價格高至低') {
-        this.books = this.books.sort((a, b) => b.price - a.price);
-      } else {
-        this.books = [...this.booksResult];
+        this.bookstoresResults.forEach((bookstoreResult) => {
+          bookstoreResult.books.sort((a, b) => b.price - a.price);
+        });
       }
     },
-    toggleCompany(company) {
-      const index = this.selectedCompanies.indexOf(company);
-      if (index === -1) {
-        this.selectedCompanies.push(company);
-      } else {
-        this.selectedCompanies.splice(index, 1);
-      }
+    remove(index) {
+      this.selectedBookstores.splice(index, 1);
+      this.selectedBookstores = [...this.selectedBookstores];
     },
   },
 
@@ -234,7 +249,7 @@ a {
   background-color: #f2f2f2;
 }
 
-.result-count {
+.result-count .result-not-found {
   color: rgba(0, 0, 0, 0.54);
 }
 
