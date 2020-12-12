@@ -1,6 +1,7 @@
 <template>
   <v-container text-md-center text-sm-center text-xs-center fluid>
     <v-layout row wrap mt-5>
+
       <v-flex lg2 offset-lg5 sm4 offset-sm4 xs6 offset-xs3>
           <v-img
             :src="require('@/assets/ebook-logo-bg.svg')"
@@ -27,6 +28,32 @@
               hide-details
             ></v-text-field>
         </v-form>
+      </v-flex>
+
+      <v-flex lg6 offset-lg3 sm8 offset-sm2>
+        <v-select
+          v-model="selectedBookstores"
+          :items="validBookstores"
+          item-text="displayName"
+          item-value="id"
+          chips
+          label="選擇書店"
+          prepend-icon="filter_list"
+          multiple
+          clearable
+        >
+          <template
+            slot="selection"
+            slot-scope="{ item, index }"
+          >
+            <v-chip
+              close
+              @click:close="remove(index)"
+            >
+              <span>{{ item.displayName }}</span>
+            </v-chip>
+          </template>
+        </v-select>
       </v-flex>
 
       <v-flex xs12>
@@ -80,8 +107,20 @@ export default {
   }),
   methods: {
     redirectToSearch() {
-      if (this.searchword === '') return;
-      this.$router.push({ path: 'search', query: { q: this.searchword } });
+      if (this.searchWord === '') return;
+      this.$router.push({
+        path: 'search',
+        query: {
+          q: this.searchWord,
+          bookstores: this.selectedBookstores,
+        },
+      });
+    },
+      });
+    },
+    remove(index) {
+      this.selectedBookstores.splice(index, 1);
+      this.selectedBookstores = [...this.selectedBookstores];
     },
   },
 };
