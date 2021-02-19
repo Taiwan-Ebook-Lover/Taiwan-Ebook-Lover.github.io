@@ -13,7 +13,7 @@
       <v-spacer/>
 
       <v-toolbar-items class="hidden-sm-and-down mr-2">
-        <a class="img-flex" href="https://itunes.apple.com/tw/app/%E5%8F%B0%E7%81%A3%E9%9B%BB%E5%AD%90%E6%9B%B8%E6%90%9C%E5%B0%8B/id1279690327">
+        <a class="img-flex" href="https://denkeni.medium.com/farewell-ebooktw-ios-dea6fd5e542b">
           <img src="./assets/app-store-badge.svg" alt="app-store">
         </a>
       </v-toolbar-items>
@@ -38,7 +38,7 @@
       <v-card>
         <v-layout row wrap>
           <v-flex mx-4 my-4 xs12>
-            <a href="https://itunes.apple.com/tw/app/%E5%8F%B0%E7%81%A3%E9%9B%BB%E5%AD%90%E6%9B%B8%E6%90%9C%E5%B0%8B/id1279690327">
+            <a href="https://denkeni.medium.com/farewell-ebooktw-ios-dea6fd5e542b">
               <v-img :src="require('./assets/app-store-badge.svg')" alt="app-store"></v-img>
             </a>
           </v-flex>
