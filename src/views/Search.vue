@@ -176,7 +176,7 @@ export default {
   },
   methods: {
     async getBookstores() {
-      const api = new URL('http://127.0.0.1:3000/bookstores');
+      const api = new URL('https://ebook.yuer.tw:8443/v1/bookstores');
 
       await fetch(api)
         .then((response) => response.json())
@@ -216,13 +216,6 @@ export default {
       if (this.selectedBookstores.length === 0) {
         this.selectedBookstores = this.validBookstores.map((bookstore) => bookstore.id);
       }
-      this.$router.push({
-        path: 'search',
-        query: {
-          q: this.searchWord,
-          bookstores: this.selectedBookstores,
-        },
-      });
 
       const api = new URL('http://127.0.0.1:3000/searches');
       const params = new URLSearchParams();
@@ -235,7 +228,14 @@ export default {
         .then((data) => {
           this.searchResult = data;
           this.total = this.searchResult.totalQuantity;
-          this.bookstoresResults = this.searchResult.results;
+          this.bookstoresResults = JSON.parse(JSON.stringify(this.searchResult.results));
+          const searchId = this.searchResult.id;
+          this.sharedLink = `http://localhost:8080/searches/${searchId}`;
+          if (this.$route.path === '/searches') {
+            this.$router.replace(`searches/${searchId}`);
+          } else {
+            this.$router.replace(`${searchId}`);
+          }
           this.isLoading = false;
         }).catch((err) => {
           // eslint-disable-next-line
