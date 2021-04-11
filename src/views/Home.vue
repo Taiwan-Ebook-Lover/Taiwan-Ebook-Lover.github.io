@@ -119,7 +119,7 @@ export default {
     redirectToSearch() {
       if (this.searchWord === '') return;
       this.$router.push({
-        path: 'search',
+        path: 'searches',
         query: {
           q: this.searchWord,
           bookstores: this.selectedBookstores,
