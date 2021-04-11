@@ -145,8 +145,8 @@ export default {
     isLoading: false,
     // search
     searchWord: '',
-    selectedSort: '',
-    sorts: ['價格低至高', '價格高至低'],
+    selectedSort: '綜合排序',
+    sorts: ['綜合排序', '價格低至高', '價格高至低'],
     selectedBookstores: [],
     // data from api
     bookstores: [],
@@ -228,6 +228,8 @@ export default {
         this.bookstoresResults.forEach((bookstoreResult) => {
           bookstoreResult.books.sort((a, b) => b.price - a.price);
         });
+      } else {
+        this.bookstoresResults = JSON.parse(JSON.stringify(this.searchResult.results));
       }
     },
     remove(index) {
