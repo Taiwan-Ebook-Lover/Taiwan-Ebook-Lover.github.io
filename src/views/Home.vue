@@ -127,7 +127,7 @@ export default {
       });
     },
     getBookstores() {
-      const api = new URL('http://127.0.0.1:3000/bookstores');
+      const api = new URL('https://ebook.yuer.tw:8443/v1/bookstores');
 
       fetch(api)
         .then((response) => response.json())

@@ -235,7 +235,7 @@ export default {
         this.selectedBookstores = this.validBookstores.map((bookstore) => bookstore.id);
       }
 
-      const api = new URL('http://127.0.0.1:3000/searches');
+      const api = new URL('https://ebook.yuer.tw:8443/v1/searches');
       const params = new URLSearchParams();
       params.append('q', this.searchWord);
       this.selectedBookstores.map((bookstore) => params.append('bookstores', bookstore));
