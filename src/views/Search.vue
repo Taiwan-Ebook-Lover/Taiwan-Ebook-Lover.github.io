@@ -158,6 +158,10 @@ export default {
   async mounted() {
     await this.getBookstores();
 
+    if (this.$route.params.id) {
+      const searchId = this.$route.params.id;
+      this.getSearchResult(searchId);
+    }
     if (this.$route.query.bookstores && this.$route.query.bookstores.length > 0) {
       const tmpBookstores = this.validBookstores.filter((bookstore) => this.$route.query
         .bookstores.includes(bookstore.id));
@@ -179,6 +183,26 @@ export default {
         .then((bookstores) => {
           this.bookstores = bookstores;
           this.validBookstores = bookstores.filter((bookstore) => bookstore.isOnline);
+        });
+    },
+    getSearchResult(id) {
+      this.isLoading = true;
+      const api = new URL(`https://ebook.yuer.tw:8443/v1/searches/${id}`);
+
+      fetch(api)
+        .then((response) => response.json())
+        .then((data) => {
+          this.searchResult = data;
+          this.total = this.searchResult.totalQuantity;
+          this.bookstoresResults = JSON.parse(JSON.stringify(this.searchResult.results));
+          this.searchWord = this.searchResult.keywords;
+          const searchId = this.searchResult.id;
+          this.sharedLink = `http://localhost:8080/searches/${searchId}`;
+          this.isLoading = false;
+        }).catch((err) => {
+          // eslint-disable-next-line
+          console.error(err);
+          this.isLoading = false;
         });
     },
     submitSearch() {
