@@ -76,8 +76,8 @@
         show-arrows
       >
         <v-tab
-          v-for="result in bookstoresResults"
-          :key="result"
+          v-for="(result, i) in bookstoresResults"
+          :key="i"
         >
         {{result.bookstore.displayName}}
         </v-tab>
@@ -85,8 +85,8 @@
 
       <v-tabs-items v-if="total != 0" v-model="tab">
         <v-tab-item
-          v-for="result in bookstoresResults"
-          :key="result"
+          v-for="(result, i) in bookstoresResults"
+          :key="i"
         >
           <v-flex v-if="result.books.length === 0">
             <span class="result-not-found">查無結果</span>
@@ -94,7 +94,7 @@
 
           <v-container grid-list-md>
             <v-layout row>
-              <v-flex v-for="(book, key) in result.books" :key='key' xs12 pa-2>
+              <v-flex v-for="(book, i) in result.books" :key='i' xs12 pa-2>
                 <v-layout row wrap>
                   <v-flex xs5 sm3 md2 lg2>
                     <v-chip small class="mb-2">
