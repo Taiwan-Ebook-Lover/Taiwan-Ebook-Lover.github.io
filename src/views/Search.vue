@@ -114,7 +114,7 @@
                   <v-flex xs5 sm3 md2 lg2>
                     <v-chip small class="mb-2">
                       <v-avatar>
-                        <img :src="`img/${result.bookstore.id}.png`"
+                        <img :src="`../img/${result.bookstore.id}.png`"
                           :alt="result.bookstore.displayName">
                       </v-avatar>
                       {{ result.bookstore.displayName }}
