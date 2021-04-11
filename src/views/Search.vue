@@ -3,7 +3,7 @@
     <div class="bg-grey">
       <v-container pb-0>
         <v-layout row>
-          <v-flex xs8 sm6 md6 lg6 mr-2>
+          <v-flex xs12 mx-5>
             <v-form ref="form" @submit.prevent="submitSearch">
               <v-text-field
                 v-model="searchWord"
@@ -13,25 +13,14 @@
                 @click:append="submitSearch"
                 solo
                 clearable
-              ></v-text-field>
+              >
+              </v-text-field>
             </v-form>
           </v-flex>
-
-          <v-flex xs4 sm4 md4 lg4>
-            <v-select
-              v-model="selectedSort"
-              :items="sorts"
-              label="選擇排序"
-              solo
-              clearable
-              @change="sortOnChange"
-            ></v-select>
-          </v-flex>
-
         </v-layout>
 
         <v-layout>
-           <v-flex xs12 sm6 md6 lg6>
+           <v-flex xs12>
             <v-select
               v-model="selectedBookstores"
               :items="validBookstores"
@@ -67,8 +56,34 @@
     </v-container>
 
     <v-container pb-0>
-      <v-flex v-if="total != 0">
-        <span class="result-count"> 共有 {{total}} 筆結果</span>
+      <v-flex v-if="total != 0" mx-5 row>
+        <v-flex xs12 sm6 md6 lg6>
+          <v-radio-group
+            v-model="selectedSort"
+            @change="sortOnChange"
+            row
+          >
+            <v-radio
+              v-for="(sort, i) in sorts"
+              :key="i"
+              :label="`${sort}`"
+              :value="sort"
+            ></v-radio>
+          </v-radio-group>
+        </v-flex>
+
+        <v-flex xs12 sm6 md6 lg6>
+          <v-card-text class="text-right">
+            共有 {{total}} 筆結果，搜尋時間：{{searchResult.searchDateTime}}
+            <a :href="sharedLink">
+              <v-icon
+                color="blue"
+              >
+                mdi-share
+              </v-icon>
+            </a>
+          </v-card-text>
+        </v-flex>
       </v-flex>
       <v-tabs
         v-if="total != 0"
@@ -154,6 +169,7 @@ export default {
     total: 0,
     searchResult: {},
     bookstoresResults: [],
+    sharedLink: '',
   }),
   async mounted() {
     await this.getBookstores();
@@ -162,6 +178,7 @@ export default {
       const searchId = this.$route.params.id;
       this.getSearchResult(searchId);
     }
+
     if (this.$route.query.bookstores && this.$route.query.bookstores.length > 0) {
       const tmpBookstores = this.validBookstores.filter((bookstore) => this.$route.query
         .bookstores.includes(bookstore.id));
@@ -169,6 +186,7 @@ export default {
     } else {
       this.selectedBookstores = this.validBookstores.map((bookstore) => bookstore.id);
     }
+
     if (this.$route.query.q) {
       this.searchWord = this.$route.query.q;
       this.submitSearch();
