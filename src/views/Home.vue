@@ -19,7 +19,6 @@
         <v-form ref="form" @submit.prevent="redirectToSearch" >
           <v-text-field
               v-model="searchWord"
-              label="Solo"
               placeholder="搜尋您想比價的電子書名關鍵字或 ISBN"
               append-icon="search"
               @click:append="redirectToSearch"

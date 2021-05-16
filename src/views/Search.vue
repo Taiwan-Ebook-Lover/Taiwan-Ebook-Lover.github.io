@@ -3,11 +3,10 @@
     <div class="bg-grey">
       <v-container pb-0>
         <v-layout row>
-          <v-flex xs12 mx-5>
+          <v-flex xs12 mx-5 mt-4>
             <v-form ref="form" @submit.prevent="submitSearch">
               <v-text-field
                 v-model="searchWord"
-                label="Solo"
                 placeholder="搜尋您想比價的電子書名關鍵字或 ISBN"
                 append-icon="search"
                 @click:append="submitSearch"
@@ -56,7 +55,7 @@
     </v-container>
 
     <v-container pb-0>
-      <v-flex v-if="total !== 0" mx-5 row>
+      <v-flex v-if="total != 0" mx-5 row>
         <v-flex xs12 sm6 md6 lg6>
           <v-radio-group
             v-model="selectedSort"
@@ -86,7 +85,7 @@
         </v-flex>
       </v-flex>
       <v-tabs
-        v-if="total !== 0"
+        v-if="total != 0"
         v-model="tab"
         show-arrows
       >
@@ -98,7 +97,7 @@
         </v-tab>
       </v-tabs>
 
-      <v-tabs-items v-if="total !== 0" v-model="tab">
+      <v-tabs-items v-if="total != 0" v-model="tab">
         <v-tab-item
           v-for="(result, i) in bookstoresResults"
           :key="i"
@@ -179,9 +178,9 @@ export default {
       this.getSearchResult(searchId);
     }
 
-    if (this.$route.query.bookstores?.length) {
-      const tmpBookstores = this.validBookstores.filter((bookstore) => this.$route.query.bookstores
-        .includes(bookstore.id));
+    if (this.$route.query.bookstores && this.$route.query.bookstores.length > 0) {
+      const tmpBookstores = this.validBookstores.filter((bookstore) => this.$route.query
+        .bookstores.includes(bookstore.id));
       this.selectedBookstores = tmpBookstores.map((bookstore) => bookstore.id);
     } else {
       this.selectedBookstores = this.validBookstores.map((bookstore) => bookstore.id);
@@ -215,9 +214,11 @@ export default {
           this.bookstoresResults = JSON.parse(JSON.stringify(this.searchResult.results));
           this.searchWord = this.searchResult.keywords;
           const searchId = this.searchResult.id;
-          this.sharedLink = `${window.location.protocol}//${window.location.host}/searches/${searchId}`;
+          this.sharedLink = `http://localhost:8080/searches/${searchId}`;
           this.isLoading = false;
-        }).catch(() => {
+        }).catch((err) => {
+          // eslint-disable-next-line
+          console.error(err);
           this.isLoading = false;
         });
     },
@@ -246,7 +247,7 @@ export default {
           this.total = this.searchResult.totalQuantity;
           this.bookstoresResults = JSON.parse(JSON.stringify(this.searchResult.results));
           const searchId = this.searchResult.id;
-          this.sharedLink = `${window.location.protocol}//${window.location.host}/searches/${searchId}`;
+          this.sharedLink = `http://localhost:8080/searches/${searchId}`;
           if (this.$route.path === '/searches') {
             this.$router.replace(`searches/${searchId}`);
           } else {
