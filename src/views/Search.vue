@@ -245,11 +245,7 @@ export default {
           this.bookstoresResults = JSON.parse(JSON.stringify(this.searchResult.results));
           const searchId = this.searchResult.id;
           this.sharedLink = `${window.location.protocol}//${window.location.host}/searches/${searchId}`;
-          if (this.$route.path === '/searches') {
-            this.$router.replace(`searches/${searchId}`);
-          } else {
-            this.$router.replace(`${searchId}`);
-          }
+          this.$router.replace({ path: `/searches/${searchId}` });
         }).finally(() => {
           this.isLoading = false;
         });
