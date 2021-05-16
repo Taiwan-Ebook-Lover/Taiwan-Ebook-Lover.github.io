@@ -3,7 +3,7 @@ name: github pages
 on:
   push:
     branches:
-      - dev  # Set a branch name to trigger deployment
+      - feature/newAPI  # Set a branch name to trigger deployment
 
 jobs:
   deploy:
