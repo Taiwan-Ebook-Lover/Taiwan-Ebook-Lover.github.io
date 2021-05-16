@@ -215,7 +215,7 @@ export default {
           this.bookstoresResults = JSON.parse(JSON.stringify(this.searchResult.results));
           this.searchWord = this.searchResult.keywords;
           const searchId = this.searchResult.id;
-          this.sharedLink = `http://localhost:8080/searches/${searchId}`;
+          this.sharedLink = `${window.location.protocol}//${window.location.host}/searches/${searchId}`;
           this.isLoading = false;
         }).catch((err) => {
           // eslint-disable-next-line
@@ -248,7 +248,7 @@ export default {
           this.total = this.searchResult.totalQuantity;
           this.bookstoresResults = JSON.parse(JSON.stringify(this.searchResult.results));
           const searchId = this.searchResult.id;
-          this.sharedLink = `http://localhost:8080/searches/${searchId}`;
+          this.sharedLink = `${window.location.protocol}//${window.location.host}/searches/${searchId}`;
           if (this.$route.path === '/searches') {
             this.$router.replace(`searches/${searchId}`);
           } else {
