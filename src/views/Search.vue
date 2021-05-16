@@ -292,7 +292,7 @@ export default {
       this.show = true;
     },
     hiddenShow() {
-      this.show = this.show ? false : this.show;
+      this.show = false;
     },
   },
 };
