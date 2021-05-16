@@ -72,10 +72,17 @@
               max-width="400"
               v-model="isTooltipShow"
             >
-              <span slot="activator" class="theme-color" @mouseover="handleTooltip"
-              @mouseleave="handleTooltip">
-                  {{bookstores.length}} 間台灣線上電子書店
-              </span>
+              <template v-slot:activator="{ on, attrs }">
+                <span
+                  v-bind="attrs"
+                  v-on="on"
+                  class="theme-color"
+                  @mouseover="handleTooltip"
+                  @mouseleave="handleTooltip"
+                >
+                    {{bookstores.length}} 間台灣線上電子書店
+                </span>
+              </template>
 
               <v-layout row wrap>
                 <v-flex v-for="(bookstore, key) in bookstores" :key='key' xs6 my-2>

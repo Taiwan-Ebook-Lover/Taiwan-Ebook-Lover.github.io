@@ -25,7 +25,7 @@
       </v-toolbar-items>
 
       <v-toolbar-items class="hidden-md-and-up mr-2">
-        <v-btn flat :class="fontColor" @click="isDialogShow = true" >Get App</v-btn>
+        <v-btn :class="fontColor" @click="isDialogShow = true" >Get App</v-btn>
       </v-toolbar-items>
     </v-toolbar>
 
