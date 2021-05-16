@@ -215,8 +215,7 @@ export default {
           this.searchWord = this.searchResult.keywords;
           const searchId = this.searchResult.id;
           this.sharedLink = `${window.location.protocol}//${window.location.host}/searches/${searchId}`;
-          this.isLoading = false;
-        }).catch(() => {
+        }).finally(() => {
           this.isLoading = false;
         });
     },
@@ -251,8 +250,7 @@ export default {
           } else {
             this.$router.replace(`${searchId}`);
           }
-          this.isLoading = false;
-        }).catch(() => {
+        }).finally(() => {
           this.isLoading = false;
         });
     },
