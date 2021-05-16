@@ -69,7 +69,7 @@
             <v-tooltip
               bottom
               color="white"
-              max-width="400"
+              max-width="420"
               v-model="isTooltipShow"
             >
               <template v-slot:activator="{ on, attrs }">
@@ -84,7 +84,7 @@
                 </span>
               </template>
 
-              <v-layout row wrap>
+              <v-layout row wrap class="activated-stores-tooltip">
                 <v-flex v-for="(bookstore, key) in bookstores" :key='key' xs6 my-2>
                   <v-avatar
                     size="32">
@@ -161,6 +161,10 @@ export default {
 
 .theme-color {
   color: #0eb29a;
+}
+
+.activated-stores-tooltip {
+  margin: 0;
 }
 
 a {
