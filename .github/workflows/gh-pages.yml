@@ -16,8 +16,10 @@ jobs:
 
       - name: Install and Build 🔧
         run: |
-          npm install
+          npm ci --prefer-offline --progress=false --no-audit --no-fund
           npm run build
+        env:
+          VUE_APP_API_URL: ${{ secrets.API_URL }}
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3

@@ -189,6 +189,7 @@ export default {
     bookstoresResults: [],
     sharedLink: '',
     show: false,
+    apiUrl: process.env.VUE_APP_API_URL,
   }),
   async mounted() {
     await this.getBookstores();
@@ -213,7 +214,7 @@ export default {
   },
   methods: {
     async getBookstores() {
-      const api = new URL('https://ebook.yuer.tw:8443/v1/bookstores');
+      const api = new URL(`${this.apiUrl}/bookstores`);
 
       await fetch(api)
         .then((response) => response.json())
@@ -224,7 +225,7 @@ export default {
     },
     getSearchResult(id) {
       this.isLoading = true;
-      const api = new URL(`https://ebook.yuer.tw:8443/v1/searches/${id}`);
+      const api = new URL(`${this.apiUrl}/searches/${id}`);
 
       fetch(api)
         .then((response) => response.json())
@@ -251,7 +252,7 @@ export default {
         this.selectedBookstores = this.validBookstores.map((bookstore) => bookstore.id);
       }
 
-      const api = new URL('https://ebook.yuer.tw:8443/v1/searches');
+      const api = new URL(`${this.apiUrl}/searches`);
       const params = new URLSearchParams();
       params.append('q', this.searchWord);
       this.selectedBookstores.map((bookstore) => params.append('bookstores', bookstore));

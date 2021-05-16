@@ -117,6 +117,7 @@ export default {
     bookstores: [],
     validBookstores: [],
     selectedBookstores: [],
+    apiUrl: process.env.VUE_APP_API_URL,
   }),
   mounted() {
     this.getBookstores();
@@ -133,7 +134,7 @@ export default {
       });
     },
     getBookstores() {
-      const api = new URL('https://ebook.yuer.tw:8443/v1/bookstores');
+      const api = new URL(`${this.apiUrl}/bookstores`);
 
       fetch(api)
         .then((response) => response.json())
