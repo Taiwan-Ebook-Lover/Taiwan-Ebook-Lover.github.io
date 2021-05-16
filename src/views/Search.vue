@@ -252,9 +252,7 @@ export default {
             this.$router.replace(`${searchId}`);
           }
           this.isLoading = false;
-        }).catch((err) => {
-          // eslint-disable-next-line
-          console.error(err);
+        }).catch(() => {
           this.isLoading = false;
         });
     },
