@@ -55,7 +55,7 @@
     </v-container>
 
     <v-container pb-0>
-      <v-flex v-if="total !== 0" mx-5 row>
+      <v-flex mx-5 row>
         <v-flex xs12 sm6 md6 lg6>
           <v-radio-group
             v-model="selectedSort"
