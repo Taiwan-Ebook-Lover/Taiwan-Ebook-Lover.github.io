@@ -74,13 +74,32 @@
         <v-flex xs12 sm6 md6 lg6>
           <v-card-text class="text-right">
             共有 {{total}} 筆結果，搜尋時間：{{searchResult.searchDateTime}}
-            <a :href="sharedLink">
-              <v-icon
-                color="blue"
-              >
+            <v-btn
+              color="primary"
+              @click="copySharedLink"
+              @mouseleave="hiddenShow"
+              text
+            >
+              share
+              <v-icon>
                 mdi-share
               </v-icon>
-            </a>
+            </v-btn>
+            <span>
+              <v-tooltip
+                right
+                v-model="show"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <span
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                  </span>
+                </template>
+                <span>Copied!</span>
+              </v-tooltip>
+            </span>
           </v-card-text>
         </v-flex>
       </v-flex>
@@ -169,6 +188,7 @@ export default {
     searchResult: {},
     bookstoresResults: [],
     sharedLink: '',
+    show: false,
   }),
   async mounted() {
     await this.getBookstores();
@@ -267,8 +287,14 @@ export default {
       this.selectedBookstores.splice(index, 1);
       this.selectedBookstores = [...this.selectedBookstores];
     },
+    async copySharedLink() {
+      await navigator.clipboard.writeText(this.sharedLink);
+      this.show = true;
+    },
+    hiddenShow() {
+      this.show = this.show ? false : this.show;
+    },
   },
-
 };
 </script>
 
