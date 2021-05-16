@@ -55,7 +55,7 @@
     </v-container>
 
     <v-container pb-0>
-      <v-flex v-if="total != 0" mx-5 row>
+      <v-flex v-if="total !== 0" mx-5 row>
         <v-flex xs12 sm6 md6 lg6>
           <v-radio-group
             v-model="selectedSort"
@@ -85,7 +85,7 @@
         </v-flex>
       </v-flex>
       <v-tabs
-        v-if="total != 0"
+        v-if="total !== 0"
         v-model="tab"
         show-arrows
       >
@@ -97,7 +97,7 @@
         </v-tab>
       </v-tabs>
 
-      <v-tabs-items v-if="total != 0" v-model="tab">
+      <v-tabs-items v-if="total !== 0" v-model="tab">
         <v-tab-item
           v-for="(result, i) in bookstoresResults"
           :key="i"
@@ -178,9 +178,9 @@ export default {
       this.getSearchResult(searchId);
     }
 
-    if (this.$route.query.bookstores && this.$route.query.bookstores.length > 0) {
-      const tmpBookstores = this.validBookstores.filter((bookstore) => this.$route.query
-        .bookstores.includes(bookstore.id));
+    if (this.$route.query.bookstores?.length) {
+      const tmpBookstores = this.validBookstores.filter((bookstore) => this.$route.query.bookstores
+        .includes(bookstore.id));
       this.selectedBookstores = tmpBookstores.map((bookstore) => bookstore.id);
     } else {
       this.selectedBookstores = this.validBookstores.map((bookstore) => bookstore.id);
@@ -214,11 +214,9 @@ export default {
           this.bookstoresResults = JSON.parse(JSON.stringify(this.searchResult.results));
           this.searchWord = this.searchResult.keywords;
           const searchId = this.searchResult.id;
-          this.sharedLink = `http://localhost:8080/searches/${searchId}`;
+          this.sharedLink = `${window.location.protocol}//${window.location.host}/searches/${searchId}`;
           this.isLoading = false;
-        }).catch((err) => {
-          // eslint-disable-next-line
-          console.error(err);
+        }).catch(() => {
           this.isLoading = false;
         });
     },
@@ -247,7 +245,7 @@ export default {
           this.total = this.searchResult.totalQuantity;
           this.bookstoresResults = JSON.parse(JSON.stringify(this.searchResult.results));
           const searchId = this.searchResult.id;
-          this.sharedLink = `http://localhost:8080/searches/${searchId}`;
+          this.sharedLink = `${window.location.protocol}//${window.location.host}/searches/${searchId}`;
           if (this.$route.path === '/searches') {
             this.$router.replace(`searches/${searchId}`);
           } else {
