@@ -271,17 +271,19 @@ export default {
 
       fetch(api)
         .then((response) => response.json())
-        .then((data) => {
-          this.searchResult = data;
-          this.total = this.searchResult.totalQuantity;
-          this.bookstoresResults = JSON.parse(JSON.stringify(this.searchResult.results));
-          this.selectedBookstores = this.bookstoresResults.map((result) => result.bookstore.id);
-          this.searchWord = this.searchResult.keywords;
-          const searchId = this.searchResult.id;
-          this.sharedLink = `${window.location.protocol}//${window.location.host}/searches/${searchId}`;
-        }).finally(() => {
+        .then((data) => this.handleSearchResult(data))
+        .finally(() => {
           this.isLoading = false;
         });
+    },
+    handleSearchResult(result) {
+      this.searchResult = result;
+      this.total = result.totalQuantity;
+      this.bookstoresResults = JSON.parse(JSON.stringify(result.results));
+      this.selectedBookstores = this.bookstoresResults.map(({ bookstore }) => bookstore.id);
+      this.searchWord = result.keywords;
+      const searchId = result.id;
+      this.sharedLink = `${window.location.protocol}//${window.location.host}/searches/${searchId}`;
     },
     submitSearch() {
       if (this.searchWord === '') return;
@@ -304,14 +306,10 @@ export default {
       fetch(api, { method: 'POST' })
         .then((response) => response.json())
         .then((data) => {
-          this.searchResult = data;
-          this.total = this.searchResult.totalQuantity;
-          this.bookstoresResults = JSON.parse(JSON.stringify(this.searchResult.results));
-          this.selectedBookstores = this.bookstoresResults.map((result) => result.bookstore.id);
-          const searchId = this.searchResult.id;
-          this.sharedLink = `${window.location.protocol}//${window.location.host}/searches/${searchId}`;
-          this.$router.replace({ path: `/searches/${searchId}` });
-        }).finally(() => {
+          this.handleSearchResult(data);
+          this.$router.replace({ path: `/searches/${data.id}` });
+        })
+        .finally(() => {
           this.isLoading = false;
         });
     },
