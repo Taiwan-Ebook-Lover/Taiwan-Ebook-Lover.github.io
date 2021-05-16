@@ -15,12 +15,13 @@ export default new Router({
       component: Home,
     },
     {
-      path: '/search',
+      path: '/searches',
       name: 'search',
-      // route level code-splitting
-      // this generates a separate chunk (search.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      // component: () => import(/* webpackChunkName: "search" */ './views/Search.vue'),
+      component: Search,
+    },
+    {
+      path: '/searches/:id',
+      name: 'searches',
       component: Search,
     },
   ],

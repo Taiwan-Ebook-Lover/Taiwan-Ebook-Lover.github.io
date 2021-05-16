@@ -3,58 +3,45 @@
     <div class="bg-grey">
       <v-container pb-0>
         <v-layout row>
-          <v-flex xs8 sm6 md6 lg6 mr-2>
+          <v-flex xs12 mx-5 mt-4>
             <v-form ref="form" @submit.prevent="submitSearch">
               <v-text-field
-                v-model="searchword"
-                label="Solo"
+                v-model="searchWord"
                 placeholder="搜尋您想比價的電子書名關鍵字或 ISBN"
                 append-icon="search"
                 @click:append="submitSearch"
                 solo
                 clearable
-              ></v-text-field>
+              >
+              </v-text-field>
             </v-form>
           </v-flex>
-
-          <v-flex xs4 sm4 md4 lg4>
-            <v-select
-              v-model="selectedSort"
-              :items="sorts"
-              label="選擇排序"
-              solo
-              clearable
-              @change="sortOnChange"
-            ></v-select>
-          </v-flex>
-
         </v-layout>
+
         <v-layout>
-           <v-flex xs12 sm6 md6 lg6>
+           <v-flex xs12>
             <v-select
-              v-model="selectedCompanies"
-              :items="companies"
-              item-text="name"
-              item-value="value"
+              v-model="selectedBookstores"
+              :items="validBookstores"
+              item-text="displayName"
+              item-value="id"
               chips
-              label="過濾書店"
+              label="選擇書店"
               prepend-icon="filter_list"
               multiple
               clearable
-              @change="filterCompanies"
             >
 
               <template
                 slot="selection"
                 slot-scope="{ item, index }"
               >
-                <v-chip v-if="index === 0">
-                  <span>{{ item.name }}</span>
+                <v-chip
+                  close
+                  @click:close="remove(index)"
+                >
+                  <span>{{ item.displayName }}</span>
                 </v-chip>
-                <span
-                  v-if="index === 1"
-                  class="grey--text caption"
-                >(+{{ selectedCompanies.length - 1 }} others)</span>
               </template>
 
             </v-select>
@@ -63,40 +50,156 @@
       </v-container>
     </div>
 
-    <v-container pb-0>
-      <span class="result-count">{{ books.length === 0 ? '' : `共有 ${books.length} 筆結果`}}</span>
+    <v-container v-if="isLoading" grid-list-md class="loading">
+      <book-loading/>
     </v-container>
-    <v-container grid-list-md>
-      <v-layout row>
-        <v-container grid-list-md my-10 v-if="isLoading">
-          <book-loading class="my-10"/>
-        </v-container>
-        <v-flex v-for="(book, key) in books" :key='key' xs12 pa-2>
-          <v-layout row wrap>
-            <v-flex xs5 sm3 md2 lg2>
-              <v-chip small @click="toggleCompany(book.company)" class="mouse-pointer mb-2">
-                <v-avatar>
-                  <img :src="`img/${book.company}.png`" :alt="book.title">
-                </v-avatar>
-                {{ booksCompanyTable[book.company] }}
-              </v-chip>
-              <a :href="book.link">
-                <v-img :src="book.thumbnail" :alt="book.title"/>
-              </a>
-            </v-flex>
-            <v-flex xs7 sm9 md10 lg10>
-              <v-card-title class="pa-2">
-                <h2 class="title"><a :href="book.link">{{ book.title }}</a></h2>
-              </v-card-title>
-              <v-card-text class="subheading pa-2">
-                {{ book.about ? `${book.about.substr(0, 150)}...` : '' }}
-              </v-card-text>
-              <span class="subheading price px-2">{{ book.price }} {{ book.priceCurrency }}</span>
-            </v-flex>
-          </v-layout>
+
+    <v-container v-if="!isLoading" pb-0>
+      <v-flex mx-5 row>
+        <v-flex xs12 sm6 md6 lg6>
+          <v-radio-group
+            v-model="selectedSort"
+            @change="sortOnChange"
+            row
+          >
+            <v-radio
+              v-for="(sort, i) in sorts"
+              :key="i"
+              :label="`${sort}`"
+              :value="sort"
+            ></v-radio>
+          </v-radio-group>
         </v-flex>
-      </v-layout>
+
+        <v-flex xs12 sm6 md6 lg6>
+          <v-card-text class="text-right">
+            共有 {{total}} 筆結果，搜尋時間：{{searchResult.searchDateTime}}
+            <v-btn
+              color="primary"
+              @click="copySharedLink"
+              @mouseleave="hiddenShow"
+              text
+            >
+              share
+              <v-icon>
+                mdi-share
+              </v-icon>
+            </v-btn>
+            <span>
+              <v-tooltip
+                right
+                v-model="show"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <span
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                  </span>
+                </template>
+                <span>Copied!</span>
+              </v-tooltip>
+            </span>
+          </v-card-text>
+        </v-flex>
+      </v-flex>
+      <v-tabs
+        v-if="total !== 0"
+        v-model="tab"
+        show-arrows
+      >
+        <v-tab
+          v-for="(result, i) in bookstoresResults"
+          :key="i"
+        >
+        {{result.bookstore.displayName}}
+        </v-tab>
+      </v-tabs>
+
+      <v-tabs-items v-if="total !== 0" v-model="tab">
+        <v-tab-item
+          v-for="(result, i) in bookstoresResults"
+          :key="i"
+        >
+          <v-flex v-if="!result.books.length">
+            <span class="result-not-found">查無結果</span>
+          </v-flex>
+
+          <v-container grid-list-md>
+            <v-layout row>
+              <v-flex v-for="(book, i) in result.books" :key='i' xs12 pa-2>
+                <v-layout row wrap>
+                  <v-flex xs5 sm3 md2 lg2>
+                    <v-chip small class="mb-2">
+                      <v-avatar>
+                        <img :src="`../img/${result.bookstore.id}.png`"
+                          :alt="result.bookstore.displayName">
+                      </v-avatar>
+                      {{ result.bookstore.displayName }}
+                    </v-chip>
+                    <a :href="book.link">
+                      <v-img :src="book.thumbnail" :alt="book.title"/>
+                    </a>
+                  </v-flex>
+                  <v-flex xs7 sm9 md10 lg10>
+                    <v-card-title class="pa-2">
+                      <h2 class="title"><a :href="book.link">{{ book.title }}</a></h2>
+                    </v-card-title>
+                    <v-card-text class="subheading pa-2">
+                      <ul
+                        v-if="
+                          book.authors ||
+                          book.translators ||
+                          book.painters ||
+                          book.painters ||
+                          book.publisher ||
+                          book.publishDate
+                        "
+                        class="contributor"
+                      >
+                        <li v-if="book.authors" class="subheading">
+                          作者：{{ book.authors.join('、') }}
+                        </li>
+
+                        <li v-if="book.translators" class="subheading">
+                          譯者：{{ book.translators.join('、') }}
+                        </li>
+
+                        <li v-if="book.painters" class="subheading">
+                          繪者：{{ book.painters.join('、') }}
+                        </li>
+
+                        <li v-if="book.publisher" class="subheading">
+                          出版：{{ book.publisher }}
+                        </li>
+
+                        <li v-if="book.publishDate" class="subheading">
+                          出版日期：{{ book.publishDate }}
+                        </li>
+                      </ul>
+
+                      <p v-if="book.about">{{ `${book.about.substr(0, 150)}...` }}</p>
+
+                      <ul v-if="book.price || book.nonDrmPrice" class="subheading price-list">
+                        <li v-if="book.price" class="">
+                          價格：{{ book.price }} {{ book.priceCurrency || ''}}
+                        </li>
+
+                        <li v-if="book.nonDrmPrice">
+                          DRM-free 價格：{{ book.nonDrmPrice }} {{ book.priceCurrency || ''}}
+                        </li>
+                      </ul>
+
+                    </v-card-text>
+                  </v-flex>
+                </v-layout>
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-tab-item>
+      </v-tabs-items>
     </v-container>
+
   </div>
 
 </template>
@@ -111,116 +214,130 @@ export default {
     'book-loading': BookLoading,
   },
   data: () => ({
-    sorts: ['綜合排名', '價格低至高', '價格高至低'],
-    companies: [
-      { name: 'Readmoo 讀墨', value: 'readmoo' },
-      { name: '博客來', value: 'booksCompany' },
-      { name: '樂天 kobo', value: 'kobo' },
-      { name: 'Google Play 圖書', value: 'playStore' },
-      { name: 'Pubu 電子書城', value: 'pubu' },
-      { name: 'BOOKWALKER', value: 'bookWalker' },
-      { name: 'Taaze 讀冊生活', value: 'taaze' },
-      { name: 'HyRead 電子書', value: 'hyread' },
-    ],
-    booksCompanyTable: {
-      booksCompany: '博客來',
-      readmoo: 'Readmoo 讀墨',
-      kobo: '樂天 kobo',
-      taaze: 'TAAZE 讀冊生活',
-      bookWalker: 'BOOKWALKER',
-      playStore: 'Google Play 圖書',
-      pubu: 'Pubu 電子書城',
-      hyread: 'HyRead 電子書',
-    },
-    searchword: '',
-    selectedSort: '',
-    selectedCompanies: [],
-    // searchResult, booksResult 暫存做 filter
-    searchResult: {},
-    booksResult: [],
-    // 畫面上顯示的 books
-    books: [],
+    tab: null,
     isLoading: false,
+    // search
+    searchWord: '',
+    selectedSort: '綜合排序',
+    sorts: ['綜合排序', '價格低至高', '價格高至低'],
+    selectedBookstores: [],
+    // data from api
+    bookstores: [],
+    validBookstores: [],
+    total: 0,
+    searchResult: {},
+    bookstoresResults: [],
+    sharedLink: '',
+    show: false,
+    apiUrl: process.env.VUE_APP_API_URL,
   }),
-  mounted() {
+  async mounted() {
+    await this.getBookstores();
+
+    if (this.$route.params.id) {
+      const searchId = this.$route.params.id;
+      this.getSearchResult(searchId);
+
+      return;
+    }
+
+    if (this.$route.query.bookstores?.length) {
+      const tmpBookstores = this.validBookstores.filter((bookstore) => this.$route.query.bookstores
+        .includes(bookstore.id));
+      this.selectedBookstores = tmpBookstores.map((bookstore) => bookstore.id);
+    } else {
+      this.selectedBookstores = this.validBookstores.map((bookstore) => bookstore.id);
+    }
+
     if (this.$route.query.q) {
-      this.searchword = this.$route.query.q;
+      this.searchWord = this.$route.query.q;
       this.submitSearch();
     }
   },
   methods: {
-    submitSearch() {
-      if (this.searchword === '') return;
-      // Reset data
-      this.searchResult = {};
-      this.booksResult = [];
-      this.books = [];
-      // start loading and fetch data
-      this.isLoading = true;
-      this.$router.push({ path: 'search', query: { q: this.searchword } });
+    async getBookstores() {
+      const api = new URL(`${this.apiUrl}/bookstores`);
 
-      const api = new URL('https://ebook.yuer.tw/search');
-      const params = { q: this.searchword };
-      api.search = new URLSearchParams(params);
+      await fetch(api)
+        .then((response) => response.json())
+        .then((bookstores) => {
+          this.bookstores = bookstores;
+          this.validBookstores = bookstores.filter((bookstore) => bookstore.isOnline);
+        });
+    },
+    getSearchResult(id) {
+      this.isLoading = true;
+      const api = new URL(`${this.apiUrl}/searches/${id}`);
 
       fetch(api)
         .then((response) => response.json())
-        .then((data) => {
-          this.searchResult = data;
-          // eslint-disable-next-line
-          for (const company in data) {
-            if (data[company].length !== 0) {
-              const tmp = data[company][0];
-              data[company].splice(0, 1);
-              const bookData = { ...tmp, company };
-              this.books.push(bookData);
-            }
-          }
-          // eslint-disable-next-line
-          for (const company in data) {
-            data[company].forEach((book) => {
-              const bookData = { ...book, company };
-              this.books.push(bookData);
-            });
-          }
-          this.booksResult = [...this.books];
-          this.isLoading = false;
-        }).catch((err) => {
-          // eslint-disable-next-line
-          console.error(err);
+        .then((data) => this.handleSearchResult(data))
+        .finally(() => {
           this.isLoading = false;
         });
     },
-    filterCompanies() {
-      if (this.selectedCompanies.length === 0) {
-        this.books = [...this.booksResult];
-        return;
+    handleSearchResult(result) {
+      this.searchResult = result;
+      this.total = result.totalQuantity;
+      this.bookstoresResults = JSON.parse(JSON.stringify(result.results));
+      this.selectedBookstores = this.bookstoresResults.map(({ bookstore }) => bookstore.id);
+      this.searchWord = result.keywords;
+      const searchId = result.id;
+      this.sharedLink = `${window.location.protocol}//${window.location.host}/searches/${searchId}`;
+    },
+    submitSearch() {
+      if (this.searchWord === '') return;
+      // Reset data
+      this.total = 0;
+      this.searchResult = {};
+      this.bookstoresResults = [];
+      // start loading and fetch data
+      this.isLoading = true;
+      if (this.selectedBookstores.length === 0) {
+        this.selectedBookstores = this.validBookstores.map((bookstore) => bookstore.id);
       }
-      this.books = [];
-      this.selectedCompanies.forEach((company) => {
-        const data = this.booksResult.filter((book) => book.company === company);
-        this.books.push(...data);
-      });
+
+      const api = new URL(`${this.apiUrl}/searches`);
+      const params = new URLSearchParams();
+      params.append('q', this.searchWord);
+      this.selectedBookstores.map((bookstore) => params.append('bookstores', bookstore));
+      api.search = params;
+
+      fetch(api, { method: 'POST' })
+        .then((response) => response.json())
+        .then((data) => {
+          this.handleSearchResult(data);
+          this.$router.replace({ path: `/searches/${data.id}` });
+        })
+        .finally(() => {
+          this.isLoading = false;
+        });
     },
     sortOnChange() {
       if (this.selectedSort === '價格低至高') {
-        this.books = this.books.sort((a, b) => a.price - b.price);
+        this.bookstoresResults.forEach((bookstoreResult) => {
+          bookstoreResult.books.sort((a, b) => a.price - b.price);
+        });
       } else if (this.selectedSort === '價格高至低') {
-        this.books = this.books.sort((a, b) => b.price - a.price);
+        this.bookstoresResults.forEach((bookstoreResult) => {
+          bookstoreResult.books.sort((a, b) => b.price - a.price);
+        });
       } else {
-        this.books = [...this.booksResult];
+        this.bookstoresResults = JSON.parse(JSON.stringify(this.searchResult.results));
       }
     },
-    toggleCompany(company) {
-      const index = this.selectedCompanies.indexOf(company);
-      if (index === -1) {
-        this.selectedCompanies.push(company);
-      } else {
-        this.selectedCompanies.splice(index, 1);
-      }
+    remove(index) {
+      this.selectedBookstores.splice(index, 1);
+      this.selectedBookstores = [...this.selectedBookstores];
+    },
+    async copySharedLink() {
+      await navigator.clipboard.writeText(this.sharedLink);
+      this.show = true;
+    },
+    hiddenShow() {
+      this.show = false;
     },
   },
-
 };
 </script>
 
@@ -234,13 +351,26 @@ a {
   background-color: #f2f2f2;
 }
 
-.result-count {
+.loading {
+  height: 300px;
+}
+
+.result-count .result-not-found {
   color: rgba(0, 0, 0, 0.54);
 }
 
-.price {
+.contributor {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 16px;
+}
+
+.price-list {
+  list-style: none;
+  padding-left: 0;
   color: #fa4181;
 }
+
 .mouse-pointer {
   &:hover {
     cursor: pointer;

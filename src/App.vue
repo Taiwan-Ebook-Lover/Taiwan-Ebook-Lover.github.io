@@ -3,7 +3,7 @@
 
     <v-toolbar short class="elevation-0" :color="toolBarColor">
 
-      <v-toolbar-title :class="toolBarTitleClass">
+      <v-toolbar-title :class="toolBarTitleClass" class="home" @click="redirectHome">
         <v-avatar tile class="ma-2" size="40">
           <img src="./assets/ebook-logo.svg" alt="ebook-logo">
         </v-avatar>
@@ -25,7 +25,7 @@
       </v-toolbar-items>
 
       <v-toolbar-items class="hidden-md-and-up mr-2">
-        <v-btn flat :class="fontColor" @click="isDialogShow = true" >Get App</v-btn>
+        <v-btn :class="fontColor" @click="isDialogShow = true" >Get App</v-btn>
       </v-toolbar-items>
     </v-toolbar>
 
@@ -63,7 +63,7 @@ export default {
       return this.$route.path === '/' ? '#f5f5f5' : '#0eb29a';
     },
     fontColor() {
-      return this.$route.path === '/' ? 'grey--text text--darken-1' : 'white--text';
+      return this.$route.path === '/' ? 'grey--text text--darken-1' : 'grey--text';
     },
     routeViewBackgoundColor() {
       return this.$route.path === '/' ? 'bg-grey height-100' : 'height-100';
@@ -75,10 +75,19 @@ export default {
   data: () => ({
     isDialogShow: false,
   }),
+  methods: {
+    redirectHome() {
+      this.$router.push({ path: '/' });
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
+
+.home {
+  cursor: pointer;
+}
 
 .img-flex {
   display: flex;
