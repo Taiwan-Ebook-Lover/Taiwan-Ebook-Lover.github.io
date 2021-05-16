@@ -121,7 +121,7 @@
           v-for="(result, i) in bookstoresResults"
           :key="i"
         >
-          <v-flex v-if="result.books.length === 0">
+          <v-flex v-if="!result.books.length">
             <span class="result-not-found">查無結果</span>
           </v-flex>
 
@@ -146,11 +146,51 @@
                       <h2 class="title"><a :href="book.link">{{ book.title }}</a></h2>
                     </v-card-title>
                     <v-card-text class="subheading pa-2">
-                      {{ book.about ? `${book.about.substr(0, 150)}...` : '' }}
+                      <ul
+                        v-if="
+                          book.authors ||
+                          book.translators ||
+                          book.painters ||
+                          book.painters ||
+                          book.publisher ||
+                          book.publishDate
+                        "
+                        class="contributor"
+                      >
+                        <li v-if="book.authors" class="subheading">
+                          作者：{{ book.authors.join('、') }}
+                        </li>
+
+                        <li v-if="book.translators" class="subheading">
+                          譯者：{{ book.translators.join('、') }}
+                        </li>
+
+                        <li v-if="book.painters" class="subheading">
+                          繪者：{{ book.painters.join('、') }}
+                        </li>
+
+                        <li v-if="book.publisher" class="subheading">
+                          出版：{{ book.publisher }}
+                        </li>
+
+                        <li v-if="book.publishDate" class="subheading">
+                          出版日期：{{ book.publishDate }}
+                        </li>
+                      </ul>
+
+                      <p v-if="book.about">{{ `${book.about.substr(0, 150)}...` }}</p>
+
+                      <ul v-if="book.price || book.nonDrmPrice" class="subheading price-list">
+                        <li v-if="book.price" class="">
+                          價格：{{ book.price }} {{ book.priceCurrency || ''}}
+                        </li>
+
+                        <li v-if="book.nonDrmPrice">
+                          DRM-free 價格：{{ book.nonDrmPrice }} {{ book.priceCurrency || ''}}
+                        </li>
+                      </ul>
+
                     </v-card-text>
-                    <span class="subheading price px-2">
-                      {{ book.price }} {{ book.priceCurrency }}
-                    </span>
                   </v-flex>
                 </v-layout>
               </v-flex>
@@ -317,9 +357,18 @@ a {
   color: rgba(0, 0, 0, 0.54);
 }
 
-.price {
+.contributor {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 16px;
+}
+
+.price-list {
+  list-style: none;
+  padding-left: 0;
   color: #fa4181;
 }
+
 .mouse-pointer {
   &:hover {
     cursor: pointer;
