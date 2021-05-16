@@ -50,11 +50,11 @@
       </v-container>
     </div>
 
-    <v-container grid-list-md my-12 v-if="isLoading">
-      <book-loading class="my-12"/>
+    <v-container v-if="isLoading" grid-list-md class="loading">
+      <book-loading/>
     </v-container>
 
-    <v-container pb-0>
+    <v-container v-if="!isLoading" pb-0>
       <v-flex mx-5 row>
         <v-flex xs12 sm6 md6 lg6>
           <v-radio-group
@@ -349,6 +349,10 @@ a {
 
 .bg-grey {
   background-color: #f2f2f2;
+}
+
+.loading {
+  height: 300px;
 }
 
 .result-count .result-not-found {
