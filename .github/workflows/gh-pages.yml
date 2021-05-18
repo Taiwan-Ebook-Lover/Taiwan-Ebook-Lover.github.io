@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - dev  # Set a branch name to trigger deployment
+    paths-ignore:
+      - '.github/**'
 
 jobs:
   deploy:
