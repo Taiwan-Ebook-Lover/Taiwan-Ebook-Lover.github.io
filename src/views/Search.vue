@@ -19,7 +19,7 @@
         </v-layout>
 
         <v-layout>
-           <v-flex xs12>
+          <v-flex xs12>
             <v-select
               v-model="selectedBookstores"
               :items="validBookstores"
@@ -31,19 +31,11 @@
               multiple
               clearable
             >
-
-              <template
-                slot="selection"
-                slot-scope="{ item, index }"
-              >
-                <v-chip
-                  close
-                  @click:close="remove(index)"
-                >
+              <template slot="selection" slot-scope="{ item, index }">
+                <v-chip close @click:close="remove(index)">
                   <span>{{ item.displayName }}</span>
                 </v-chip>
               </template>
-
             </v-select>
           </v-flex>
         </v-layout>
@@ -51,51 +43,28 @@
     </div>
 
     <v-container v-if="isLoading" grid-list-md class="loading">
-      <book-loading/>
+      <book-loading />
     </v-container>
 
     <v-container v-if="!isLoading" pb-0>
       <v-flex mx-5 row>
         <v-flex xs12 sm6 md6 lg6>
-          <v-radio-group
-            v-model="selectedSort"
-            @change="sortOnChange"
-            row
-          >
-            <v-radio
-              v-for="(sort, i) in sorts"
-              :key="i"
-              :label="`${sort}`"
-              :value="sort"
-            ></v-radio>
+          <v-radio-group v-model="selectedSort" @change="sortOnChange" row>
+            <v-radio v-for="(sort, i) in sorts" :key="i" :label="`${sort}`" :value="sort"></v-radio>
           </v-radio-group>
         </v-flex>
 
         <v-flex xs12 sm6 md6 lg6>
           <v-card-text class="text-right">
-            共有 {{total}} 筆結果，搜尋時間：{{searchResult.searchDateTime}}
-            <v-btn
-              color="primary"
-              @click="copySharedLink"
-              @mouseleave="hiddenShow"
-              text
-            >
+            共有 {{ total }} 筆結果，搜尋時間：{{ searchResult.searchDateTime }}
+            <v-btn color="primary" @click="copySharedLink" @mouseleave="hiddenShow" text>
               share
-              <v-icon>
-                mdi-share
-              </v-icon>
+              <v-icon> mdi-share </v-icon>
             </v-btn>
             <span>
-              <v-tooltip
-                right
-                v-model="show"
-              >
+              <v-tooltip right v-model="show">
                 <template v-slot:activator="{ on, attrs }">
-                  <span
-                    v-bind="attrs"
-                    v-on="on"
-                  >
-                  </span>
+                  <span v-bind="attrs" v-on="on"> </span>
                 </template>
                 <span>Copied!</span>
               </v-tooltip>
@@ -103,47 +72,41 @@
           </v-card-text>
         </v-flex>
       </v-flex>
-      <v-tabs
-        v-if="total !== 0"
-        v-model="tab"
-        show-arrows
-      >
-        <v-tab
-          v-for="(result, i) in bookstoresResults"
-          :key="i"
-        >
-        {{result.bookstore.displayName}}
+      <v-tabs v-if="total !== 0" v-model="tab" show-arrows>
+        <v-tab v-for="(result, i) in bookstoresResults" :key="i">
+          {{ result.bookstore.displayName }}
         </v-tab>
       </v-tabs>
 
       <v-tabs-items v-if="total !== 0" v-model="tab">
-        <v-tab-item
-          v-for="(result, i) in bookstoresResults"
-          :key="i"
-        >
+        <v-tab-item v-for="(result, i) in bookstoresResults" :key="i">
           <v-flex v-if="!result.books.length">
             <span class="result-not-found">查無結果</span>
           </v-flex>
 
           <v-container grid-list-md>
             <v-layout row>
-              <v-flex v-for="(book, i) in result.books" :key='i' xs12 pa-2>
+              <v-flex v-for="(book, i) in result.books" :key="i" xs12 pa-2>
                 <v-layout row wrap>
                   <v-flex xs5 sm3 md2 lg2>
                     <v-chip small class="mb-2">
                       <v-avatar>
-                        <img :src="`../img/${result.bookstore.id}.png`"
-                          :alt="result.bookstore.displayName">
+                        <img
+                          :src="`../img/${result.bookstore.id}.png`"
+                          :alt="result.bookstore.displayName"
+                        />
                       </v-avatar>
                       {{ result.bookstore.displayName }}
                     </v-chip>
                     <a :href="book.link">
-                      <v-img :src="book.thumbnail" :alt="book.title"/>
+                      <v-img :src="book.thumbnail" :alt="book.title" />
                     </a>
                   </v-flex>
                   <v-flex xs7 sm9 md10 lg10>
                     <v-card-title class="pa-2">
-                      <h2 class="title"><a :href="book.link">{{ book.title }}</a></h2>
+                      <h2 class="title">
+                        <a :href="book.link">{{ book.title }}</a>
+                      </h2>
                     </v-card-title>
                     <v-card-text class="subheading pa-2">
                       <ul
@@ -169,9 +132,7 @@
                           繪者：{{ book.painters.join('、') }}
                         </li>
 
-                        <li v-if="book.publisher" class="subheading">
-                          出版：{{ book.publisher }}
-                        </li>
+                        <li v-if="book.publisher" class="subheading">出版：{{ book.publisher }}</li>
 
                         <li v-if="book.publishDate" class="subheading">
                           出版日期：{{ book.publishDate }}
@@ -182,14 +143,13 @@
 
                       <ul v-if="book.price || book.nonDrmPrice" class="subheading price-list">
                         <li v-if="book.price" class="">
-                          價格：{{ book.price }} {{ book.priceCurrency || ''}}
+                          價格：{{ book.price }} {{ book.priceCurrency || '' }}
                         </li>
 
                         <li v-if="book.nonDrmPrice">
-                          DRM-free 價格：{{ book.nonDrmPrice }} {{ book.priceCurrency || ''}}
+                          DRM-free 價格：{{ book.nonDrmPrice }} {{ book.priceCurrency || '' }}
                         </li>
                       </ul>
-
                     </v-card-text>
                   </v-flex>
                 </v-layout>
@@ -199,9 +159,7 @@
         </v-tab-item>
       </v-tabs-items>
     </v-container>
-
   </div>
-
 </template>
 
 <script>
@@ -242,8 +200,9 @@ export default {
     }
 
     if (this.$route.query.bookstores?.length) {
-      const tmpBookstores = this.validBookstores.filter((bookstore) => this.$route.query.bookstores
-        .includes(bookstore.id));
+      const tmpBookstores = this.validBookstores.filter((bookstore) =>
+        this.$route.query.bookstores.includes(bookstore.id),
+      );
       this.selectedBookstores = tmpBookstores.map((bookstore) => bookstore.id);
     } else {
       this.selectedBookstores = this.validBookstores.map((bookstore) => bookstore.id);

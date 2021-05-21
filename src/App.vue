@@ -1,40 +1,38 @@
 <template>
   <v-app>
-
     <v-toolbar short class="elevation-0" :color="toolBarColor">
-
       <v-toolbar-title :class="toolBarTitleClass" class="home" @click="redirectHome">
         <v-avatar tile class="ma-2" size="40">
-          <img src="./assets/ebook-logo.svg" alt="ebook-logo">
+          <img src="./assets/ebook-logo.svg" alt="ebook-logo" />
         </v-avatar>
         <span class="hidden-xs-only">台灣電子書搜尋</span>
       </v-toolbar-title>
 
-      <v-spacer/>
+      <v-spacer />
 
       <v-toolbar-items class="hidden-sm-and-down mr-2">
         <a class="img-flex" href="https://denkeni.medium.com/farewell-ebooktw-ios-dea6fd5e542b">
-          <img src="./assets/app-store-badge.svg" alt="app-store">
+          <img src="./assets/app-store-badge.svg" alt="app-store" />
         </a>
       </v-toolbar-items>
 
       <v-toolbar-items class="hidden-sm-and-down mr-2">
-        <a class="img-flex" href="https://play.google.com/store/apps/details?id=liou.rayyuan.ebooksearchtaiwan">
-          <img src="./assets/play-store-badge.svg" alt="play-store">
+        <a
+          class="img-flex"
+          href="https://play.google.com/store/apps/details?id=liou.rayyuan.ebooksearchtaiwan"
+        >
+          <img src="./assets/play-store-badge.svg" alt="play-store" />
         </a>
       </v-toolbar-items>
 
       <v-toolbar-items class="hidden-md-and-up mr-2">
-        <v-btn :class="fontColor" @click="isDialogShow = true" >Get App</v-btn>
+        <v-btn :class="fontColor" @click="isDialogShow = true">Get App</v-btn>
       </v-toolbar-items>
     </v-toolbar>
 
-    <router-view :class="routeViewBackgoundColor"/>
+    <router-view :class="routeViewBackgoundColor" />
 
-    <v-dialog
-      v-model="isDialogShow"
-      max-width="350"
-    >
+    <v-dialog v-model="isDialogShow" max-width="350">
       <v-card>
         <v-layout row wrap>
           <v-flex mx-4 my-4 xs12>
@@ -52,7 +50,6 @@
       </v-card>
     </v-dialog>
   </v-app>
-
 </template>
 
 <script>
@@ -84,7 +81,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .home {
   cursor: pointer;
 }
@@ -108,7 +104,7 @@ export default {
 
 <style>
 body {
-  font-family: "Microsoft JhengHei", -apple-system, BlinkMacSystemFont, 'Segoe UI',
-              Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Microsoft JhengHei', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 </style>
