@@ -5,6 +5,7 @@
   "scripts": {
     "postinstall": "husky install && rm -rf .git/hooks && ln -s ../.husky .git/hooks",
     "format": "prettier --write \"src/**/*.{vue,js,ts,css,scss,sass,md,json,yml,yaml}\"",
+    "format-check": "prettier --check \"src/**/*.{vue,js,ts,css,scss,sass,md,json,yml,yaml}\"",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"

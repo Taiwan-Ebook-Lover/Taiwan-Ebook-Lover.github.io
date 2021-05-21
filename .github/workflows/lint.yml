@@ -1,0 +1,33 @@
+name: Lint
+
+on:
+  pull_request:
+    paths-ignore:
+      - '.github/**'
+
+jobs:
+  format-check:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install Dependencies
+        run: |
+          npm ci --prefer-offline --progress=false --no-audit --no-fund
+
+      - name: Format Check
+        run: npm run format-check
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Compile Test
+        run: npm run build
