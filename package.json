@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "postinstall": "husky install && rm -rf .git/hooks && ln -s ../.husky .git/hooks",
+    "format": "prettier --write \"src/**/*.{vue,js,ts,css,scss,sass,md,json,yml,yaml}\"",
+    "format-check": "prettier --check \"src/**/*.{vue,js,ts,css,scss,sass,md,json,yml,yaml}\"",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
@@ -18,11 +21,16 @@
     "@vue/cli-plugin-eslint": "^4.5.13",
     "@vue/cli-service": "^4.5.13",
     "@vue/eslint-config-airbnb": "^5.3.0",
+    "@vue/eslint-config-prettier": "^6.0.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.26.0",
     "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-vue": "^7.9.0",
+    "husky": "^6.0.0",
+    "lint-staged": "^11.0.0",
     "node-sass": "^6.0.0",
+    "prettier": "2.3.0",
     "sass": "^1.32.12",
     "sass-loader": "^10",
     "stylus": "^0.54.8",
@@ -38,11 +46,16 @@
     },
     "extends": [
       "plugin:vue/essential",
-      "@vue/airbnb"
+      "@vue/airbnb",
+      "plugin:prettier/recommended",
+      "prettier/standard",
+      "prettier/vue"
     ],
     "rules": {},
+    "parser": "vue-eslint-parser",
     "parserOptions": {
-      "parser": "babel-eslint"
+      "parser": "babel-eslint",
+      "sourceType": "module"
     }
   },
   "postcss": {
@@ -54,5 +67,9 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "lint-staged": {
+    "*.js": "eslint --cache --fix",
+    "*.{vue,js,ts,css,scss,sass,md,json,yml,yaml}": "prettier --write"
+  }
 }
