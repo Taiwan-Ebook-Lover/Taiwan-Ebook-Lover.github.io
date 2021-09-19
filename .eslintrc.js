@@ -25,11 +25,17 @@ module.exports = {
     semi: ['warn', 'always'],
     'comma-dangle': ['warn', 'always-multiline'],
     'react/react-in-jsx-scope': 'off',
+    'react/jsx-uses-react': 'off',
     '@typescript-eslint/no-empty-interface': [
       'error',
       {
         allowSingleExtends: true,
       },
     ],
+  },
+  settings: {
+    react: {
+      version: 'detect',
+    },
   },
 };
