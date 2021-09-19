@@ -1,9 +1,10 @@
-name: Lint
+name: PR testing
 
 on:
   pull_request:
     paths-ignore:
       - '.github/**'
+      - '.husky/**'
 
 jobs:
   format-check:
@@ -20,14 +21,7 @@ jobs:
           node-version: '14'
 
       - name: Install Dependencies
-        run: |
-          npm ci --prefer-offline --progress=false --no-audit --no-fund
+        run: yarn install --frozen-lockfile
 
-      - name: Format Check
-        run: npm run format-check
-
-      - name: Lint
-        run: npm run lint
-
-      - name: Compile Test
-        run: npm run build
+      - name: Check ESLint
+        run: yarn check-lint
