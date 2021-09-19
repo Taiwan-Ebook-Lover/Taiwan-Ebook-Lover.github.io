@@ -1,0 +1,9 @@
+# don't ever lint node_modules
+node_modules
+# don't lint build output
+deploy
+build
+# don't lint nyc coverage output
+coverage
+# ignore config file
+config-overrides.js
