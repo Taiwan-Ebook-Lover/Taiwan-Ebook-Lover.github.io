@@ -1,6 +1,7 @@
+import '@/App.css';
+
+import logo from '@/logo.svg';
 import { FunctionComponent } from 'react';
-import logo from './logo.svg';
-import './App.css';
 
 const App: FunctionComponent = () => {
   return (
