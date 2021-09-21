@@ -1,21 +1,20 @@
-import '@/index.css';
-
 import App from '@/App';
 import reportWebVitals from '@/reportWebVitals';
+import { ThemeEnum } from '@customTypes/styleTypes';
 import React from 'react';
 import { ThemeSwitcherProvider } from 'react-css-theme-switcher';
 import ReactDOM from 'react-dom';
 
-const themes = {
-  dark: `${process.env.PUBLIC_URL}/dark-theme.css`,
-  light: `${process.env.PUBLIC_URL}/light-theme.css`,
+const themes: { [key in ThemeEnum]: string } = {
+  [ThemeEnum.DARK]: `${process.env.PUBLIC_URL}/dark-theme.css`,
+  [ThemeEnum.LIGHT]: `${process.env.PUBLIC_URL}/light-theme.css`,
 };
 
 ReactDOM.render(
   <React.StrictMode>
     <ThemeSwitcherProvider
       themeMap={themes}
-      defaultTheme="dark"
+      defaultTheme={ThemeEnum.LIGHT}
       insertionPoint="styles-insertion-point"
     >
       <App />
