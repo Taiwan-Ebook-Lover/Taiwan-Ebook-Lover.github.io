@@ -10,7 +10,7 @@ const NpmImportPlugin = require('less-plugin-npm-import');
 
 const compilePipe = (isCommonTheme) => {
   return gulp
-    .src('src/themes/*-theme.less')
+    .src('src/assets/themes/*-theme.less')
     .pipe(gulpif(!isCommonTheme, cache('less-to-css')))
     .pipe(debug({ title: 'Less files:' }))
     .pipe(
@@ -35,8 +35,8 @@ gulp.task('common-theme-compile', (done) => {
 });
 
 gulp.task('watch-themes-change', () => {
-  gulp.watch('src/themes/*-theme.less', gulp.series('themes-compile'));
-  gulp.watch('src/themes/common.less', gulp.series('common-theme-compile'));
+  gulp.watch('src/assets/themes/*-theme.less', gulp.series('themes-compile'));
+  gulp.watch('src/assets/themes/common.less', gulp.series('common-theme-compile'));
 });
 
 gulp.task('auto-update-theme', gulp.series('themes-compile', 'watch-themes-change'));
