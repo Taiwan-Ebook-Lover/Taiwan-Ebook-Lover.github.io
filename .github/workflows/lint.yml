@@ -20,7 +20,7 @@ jobs:
           node-version: '14'
 
       - name: Install Dependencies
-        run: npm ci --prefer-offline --ignore-scripts--progress=false --no-audit --no-fund
+        run: npm ci --prefer-offline --ignore-scripts --progress=false --no-audit --no-fund
 
       - name: Format Check
         run: npm run format-check
