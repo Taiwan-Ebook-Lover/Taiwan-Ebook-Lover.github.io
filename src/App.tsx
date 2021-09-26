@@ -1,25 +1,35 @@
+import { ThemeEnum } from '@customTypes/styleTypes';
+import { Switch, Typography } from 'antd';
 import { FunctionComponent } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useThemeSwitcher } from 'react-css-theme-switcher';
+import styled from 'styled-components';
+
+const { Title } = Typography;
+
+const AppWrapper = styled.div`
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
 const App: FunctionComponent = () => {
+  const { switcher, currentTheme, status } = useThemeSwitcher();
+
+  const onChange = (checked: boolean) => {
+    switcher({ theme: checked ? ThemeEnum.DARK : ThemeEnum.LIGHT });
+  };
+
+  if (status !== 'loaded') {
+    return null;
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppWrapper>
+      <Title level={3}>Current theme: {currentTheme}</Title>
+      <Switch checked={currentTheme === ThemeEnum.DARK} onChange={onChange} />
+    </AppWrapper>
   );
 };
 
