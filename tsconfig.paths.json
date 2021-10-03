@@ -4,6 +4,10 @@
     "paths": {
       "@/*": ["./src/*"],
       "@assets/*": ["./src/assets/*"],
+      "@components/*": ["./src/components/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@routes/*": ["./src/routes/*"],
+      "@routes": ["./src/routes"],
       "@customTypes/*": ["./src/assets/types/*"]
     }
   }

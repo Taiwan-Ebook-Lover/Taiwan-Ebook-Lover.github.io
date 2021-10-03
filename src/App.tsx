@@ -1,35 +1,37 @@
-import { ThemeEnum } from '@customTypes/styleTypes';
-import { Switch, Typography } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
+import { Box } from '@components/Box';
+import Routes from '@routes';
+import { Suspense } from 'react';
 import { FunctionComponent } from 'react';
 import { useThemeSwitcher } from 'react-css-theme-switcher';
-import styled from 'styled-components';
+import { BrowserRouter } from 'react-router-dom';
 
-const { Title } = Typography;
-
-const AppWrapper = styled.div`
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
+const SuspenseLoading: FunctionComponent = () => {
+  return (
+    <Box
+      height="100vh"
+      display="flex"
+      flexDirection="column"
+      justifyContent="center"
+      alignItems="center"
+    >
+      <LoadingOutlined style={{ fontSize: 48 }} />
+      <Box mt="1rem">Loading...</Box>
+    </Box>
+  );
+};
 
 const App: FunctionComponent = () => {
-  const { switcher, currentTheme, status } = useThemeSwitcher();
+  const { status } = useThemeSwitcher();
 
-  const onChange = (checked: boolean) => {
-    switcher({ theme: checked ? ThemeEnum.DARK : ThemeEnum.LIGHT });
-  };
-
-  if (status !== 'loaded') {
-    return null;
-  }
+  if (status !== 'loaded') return null;
 
   return (
-    <AppWrapper>
-      <Title level={3}>Current theme: {currentTheme}</Title>
-      <Switch checked={currentTheme === ThemeEnum.DARK} onChange={onChange} />
-    </AppWrapper>
+    <BrowserRouter>
+      <Suspense fallback={<SuspenseLoading />}>
+        <Routes />
+      </Suspense>
+    </BrowserRouter>
   );
 };
 
