@@ -5,10 +5,11 @@
       "@/*": ["./src/*"],
       "@assets/*": ["./src/assets/*"],
       "@components/*": ["./src/components/*"],
+      "@customTypes/*": ["./src/assets/types/*"],
+      "@layouts/*": ["./src/layouts/*"],
       "@pages/*": ["./src/pages/*"],
-      "@routes/*": ["./src/routes/*"],
       "@routes": ["./src/routes"],
-      "@customTypes/*": ["./src/assets/types/*"]
+      "@routes/*": ["./src/routes/*"]
     }
   }
 }
