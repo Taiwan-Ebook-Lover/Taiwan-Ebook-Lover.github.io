@@ -1,9 +1,11 @@
 import App from '@/App';
 import reportWebVitals from '@/reportWebVitals';
+import globalTheme from '@assets/themes/global';
 import { ThemeEnum } from '@customTypes/styleTypes';
 import React from 'react';
 import { ThemeSwitcherProvider } from 'react-css-theme-switcher';
 import ReactDOM from 'react-dom';
+import { ThemeProvider } from 'styled-components';
 
 const themes: { [key in ThemeEnum]: string } = {
   [ThemeEnum.DARK]: `${process.env.PUBLIC_URL}/dark-theme.css`,
@@ -17,7 +19,9 @@ ReactDOM.render(
       defaultTheme={ThemeEnum.LIGHT}
       insertionPoint="styles-insertion-point"
     >
-      <App />
+      <ThemeProvider theme={globalTheme}>
+        <App />
+      </ThemeProvider>
     </ThemeSwitcherProvider>
   </React.StrictMode>,
   document.getElementById('root'),
