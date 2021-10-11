@@ -8,21 +8,19 @@ const Search = lazy(() => import('@pages/Search'));
 const routeConfig: Array<RouteObject> = [
   {
     path: '/',
+    element: <Landing />,
+  },
+  {
+    path: 'searches',
     element: <BasicLayout />,
     children: [
       {
         path: '',
-        element: <Landing />,
+        element: <Search />,
       },
       {
-        path: 'searches',
+        path: ':searchId',
         element: <Search />,
-        children: [
-          {
-            path: ':searchId',
-            element: <Search />,
-          },
-        ],
       },
     ],
   },
