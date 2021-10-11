@@ -1,7 +1,7 @@
 import { lazy } from 'react';
 import { RouteObject } from 'react-router';
 
-const BasicLayout = lazy(() => import('@layouts/BasicLayout'));
+const SearchLayout = lazy(() => import('@layouts/SearchLayout'));
 const Landing = lazy(() => import('@pages/Landing'));
 const Search = lazy(() => import('@pages/Search'));
 
@@ -12,7 +12,7 @@ const routeConfig: Array<RouteObject> = [
   },
   {
     path: 'searches',
-    element: <BasicLayout />,
+    element: <SearchLayout />,
     children: [
       {
         path: '',
