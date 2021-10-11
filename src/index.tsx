@@ -1,6 +1,7 @@
 import App from '@/App';
 import reportWebVitals from '@/reportWebVitals';
-import globalTheme from '@assets/themes/global';
+import GlobalStyle from '@assets/themes/globalStyle';
+import globalTheme from '@assets/themes/globalTheme';
 import { ThemeEnum } from '@customTypes/styleTypes';
 import React from 'react';
 import { ThemeSwitcherProvider } from 'react-css-theme-switcher';
@@ -14,15 +15,16 @@ const themes: { [key in ThemeEnum]: string } = {
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeSwitcherProvider
-      themeMap={themes}
-      defaultTheme={ThemeEnum.LIGHT}
-      insertionPoint="styles-insertion-point"
-    >
-      <ThemeProvider theme={globalTheme}>
+    <GlobalStyle />
+    <ThemeProvider theme={globalTheme}>
+      <ThemeSwitcherProvider
+        themeMap={themes}
+        defaultTheme={ThemeEnum.LIGHT}
+        insertionPoint="styles-insertion-point"
+      >
         <App />
-      </ThemeProvider>
-    </ThemeSwitcherProvider>
+      </ThemeSwitcherProvider>
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root'),
 );

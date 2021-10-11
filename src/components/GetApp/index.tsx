@@ -1,6 +1,6 @@
 import appStoreBadge from '@assets/images/app-store-badge.svg';
 import googlePlayBadge from '@assets/images/play-store-badge.svg';
-import { breakpoints } from '@assets/themes/global';
+import { breakpoints } from '@assets/themes/globalTheme';
 import { Box } from '@components/Box';
 import { Button, Modal } from 'antd';
 import { FunctionComponent, useState } from 'react';
@@ -28,7 +28,7 @@ const StyledBadge = styled.img`
 `;
 
 const StyledGetAppButton = styled(Button)<GetAppProps>`
-  color: ${({ textColor }) => (textColor === 'grey' ? '#8c8c8c' : '#fff')};
+  color: ${({ textColor }) => (textColor === 'grey' ? 'var(--gray-8)' : 'var(--gray-1)')};
 `;
 
 const links: Record<PlatformType, string> = {
