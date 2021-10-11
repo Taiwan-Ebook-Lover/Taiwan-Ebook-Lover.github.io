@@ -27,12 +27,13 @@
   },
   "scripts": {
     "start": "craco start & yarn auto-update-theme",
-    "build": "craco build",
+    "build": "yarn compile-themes & craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
     "prepare": "husky install",
     "check-lint": "yarn eslint --max-warnings=0 --ext .ts,.tsx src -c .eslintrc.js",
-    "auto-update-theme": "npx gulp auto-update-theme"
+    "auto-update-theme": "npx gulp auto-update-theme",
+    "compile-themes": "npx gulp build"
   },
   "eslintConfig": {
     "extends": [

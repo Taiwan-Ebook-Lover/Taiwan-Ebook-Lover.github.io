@@ -40,3 +40,5 @@ gulp.task('watch-themes-change', () => {
 });
 
 gulp.task('auto-update-theme', gulp.series('themes-compile', 'watch-themes-change'));
+
+gulp.task('build', gulp.series('themes-compile'));
