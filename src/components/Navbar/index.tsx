@@ -1,4 +1,4 @@
-import ebookLogo from '@assets/images/ebook-logo.svg';
+import ebookLogo from '@assets/images/logo/ebook-logo.svg';
 import { breakpoints } from '@assets/themes/globalTheme';
 import { Box } from '@components/Box';
 import { GetApp } from '@components/GetApp';
