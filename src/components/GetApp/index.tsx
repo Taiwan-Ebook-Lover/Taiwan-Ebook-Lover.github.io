@@ -1,5 +1,5 @@
-import appStoreBadge from '@assets/images/app-store-badge.svg';
-import googlePlayBadge from '@assets/images/play-store-badge.svg';
+import appStoreBadge from '@assets/images/storeBadge/app-store-badge.svg';
+import googlePlayBadge from '@assets/images/storeBadge/play-store-badge.svg';
 import { breakpoints } from '@assets/themes/globalTheme';
 import { Box } from '@components/Box';
 import { Button, Modal } from 'antd';
