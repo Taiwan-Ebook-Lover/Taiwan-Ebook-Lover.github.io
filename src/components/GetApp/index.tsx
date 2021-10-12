@@ -7,7 +7,7 @@ import { FunctionComponent, useState } from 'react';
 import styled from 'styled-components';
 
 interface GetAppProps {
-  textColor?: 'grey' | 'white';
+  textcolor?: 'grey' | 'white';
 }
 
 enum PlatformType {
@@ -28,7 +28,7 @@ const StyledBadge = styled.img`
 `;
 
 const StyledGetAppButton = styled(Button)<GetAppProps>`
-  color: ${({ textColor }) => (textColor === 'grey' ? 'var(--gray-7)' : 'var(--gray-1)')};
+  color: ${({ textcolor }) => (textcolor === 'grey' ? 'var(--gray-7)' : 'var(--gray-1)')};
 `;
 
 const links: Record<PlatformType, string> = {
@@ -52,7 +52,7 @@ const Badges = () => (
   </>
 );
 
-export const GetApp: FunctionComponent<GetAppProps> = ({ textColor = 'grey' }) => {
+export const GetApp: FunctionComponent<GetAppProps> = ({ textcolor = 'grey' }) => {
   const [modalOpen, setModalOpen] = useState(false);
 
   return (
@@ -61,7 +61,7 @@ export const GetApp: FunctionComponent<GetAppProps> = ({ textColor = 'grey' }) =
         <Badges />
       </Box>
       <Box display={['block', null, null, null, 'none']} height="2.5rem">
-        <StyledGetAppButton type="text" textColor={textColor} onClick={() => setModalOpen(true)}>
+        <StyledGetAppButton type="text" textcolor={textcolor} onClick={() => setModalOpen(true)}>
           Get App
         </StyledGetAppButton>
       </Box>

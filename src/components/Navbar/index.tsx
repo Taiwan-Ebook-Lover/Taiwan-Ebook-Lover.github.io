@@ -44,7 +44,7 @@ export const Navbar: FunctionComponent = () => {
         <StyledTitle>台灣電子書搜尋</StyledTitle>
       </Box>
       <Box flex="1" display="flex" justifyContent="flex-end">
-        <GetApp textColor="white" />
+        <GetApp textcolor="white" />
       </Box>
     </StyledNavbar>
   );
