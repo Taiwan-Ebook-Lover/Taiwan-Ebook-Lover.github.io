@@ -1,6 +1,6 @@
 import { CheckCircleTwoTone, CloseCircleTwoTone } from '@ant-design/icons';
 import useBookstores from '@api/useBookstores';
-import { message, Tooltip } from 'antd';
+import { message, Popover } from 'antd';
 import { FunctionComponent, useEffect } from 'react';
 import styled from 'styled-components';
 
@@ -26,7 +26,7 @@ const StyledBookstores = styled.div`
   grid-template-columns: repeat(2, 1fr);
   grid-column-gap: 2rem;
   grid-row-gap: 2rem;
-  padding: 1rem 0.6rem;
+  padding: 0.3rem 0;
 `;
 
 const StyledOnlineDesc = styled.div`
@@ -55,11 +55,10 @@ const BookstoreSupport: FunctionComponent = () => {
   return (
     <StyledBookstoreSupport>
       看看支援
-      <Tooltip
+      <Popover
         placement="bottom"
-        color="var(--gray-1)"
-        trigger={['click', 'hover']}
-        title={
+        trigger="click"
+        content={
           <StyledBookstores>
             {bookstores?.map((item) => (
               <BookstoreItem key={item.id} {...item} />
@@ -74,7 +73,7 @@ const BookstoreSupport: FunctionComponent = () => {
         }
       >
         <StyledWhichBookstore>哪 {bookstores?.length} 間台灣線上電子書店</StyledWhichBookstore>
-      </Tooltip>
+      </Popover>
     </StyledBookstoreSupport>
   );
 };
