@@ -5,6 +5,7 @@ import { Suspense } from 'react';
 import { FunctionComponent } from 'react';
 import { useThemeSwitcher } from 'react-css-theme-switcher';
 import { BrowserRouter } from 'react-router-dom';
+import { SWRConfig } from 'swr';
 
 const SuspenseLoading: FunctionComponent = () => {
   return (
@@ -27,11 +28,20 @@ const App: FunctionComponent = () => {
   if (status !== 'loaded') return null;
 
   return (
-    <BrowserRouter>
-      <Suspense fallback={<SuspenseLoading />}>
-        <Routes />
-      </Suspense>
-    </BrowserRouter>
+    <SWRConfig
+      value={{
+        onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
+          if (retryCount >= 5) return;
+          setTimeout(() => revalidate({ retryCount }), 10000);
+        },
+      }}
+    >
+      <BrowserRouter>
+        <Suspense fallback={<SuspenseLoading />}>
+          <Routes />
+        </Suspense>
+      </BrowserRouter>
+    </SWRConfig>
   );
 };
 
