@@ -5,6 +5,8 @@ import {
   compose,
   flexbox,
   FlexboxProps,
+  grid,
+  GridProps,
   layout,
   LayoutProps,
   position,
@@ -15,11 +17,12 @@ import {
 
 export interface BoxProps
   extends BorderProps,
+    FlexboxProps,
+    GridProps,
     LayoutProps,
     PositionProps,
-    SpaceProps,
-    FlexboxProps {}
+    SpaceProps {}
 
 export const Box = styled.div<BoxProps>`
-  ${compose(border, flexbox, layout, position, space)}
+  ${compose(border, flexbox, grid, layout, position, space)}
 `;
