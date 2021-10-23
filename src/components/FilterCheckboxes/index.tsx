@@ -16,7 +16,7 @@ const StyledCheckboxsLayout = styled(CheckboxGroup)`
   grid-gap: 1.5rem 1rem;
 `;
 
-const FilterCheckboxs: FunctionComponent = () => {
+const FilterCheckboxes: FunctionComponent = () => {
   const { cache } = useSWRConfig();
   const bookstores: Array<BookstoreData> = cache.get(bookstoresUrl);
 
@@ -53,4 +53,4 @@ const FilterCheckboxs: FunctionComponent = () => {
   );
 };
 
-export default FilterCheckboxs;
+export default FilterCheckboxes;

@@ -2,7 +2,7 @@ import { FilterOutlined } from '@ant-design/icons';
 import useBookstores from '@api/useBookstores';
 import logo from '@assets/images/logo/ebook-logo-bg.svg';
 import { Box } from '@components/Box';
-import FilterCheckboxs from '@components/FilterCheckboxs';
+import FilterCheckboxes from '@components/FilterCheckboxes';
 import { GetApp } from '@components/GetApp';
 import { KeywordInput } from '@components/KeywordInput';
 import OrderBySelect from '@components/OrderBySelect';
@@ -48,7 +48,7 @@ const Landing: FunctionComponent = () => {
         </Title>
         <KeywordInput onSubmit={() => navigate('/searches?q=111')} />
         <Box display="grid" mt="1.5rem" gridTemplateColumns="auto auto" gridColumnGap="1rem">
-          <Popover placement="bottom" trigger="click" content={<FilterCheckboxs />}>
+          <Popover placement="bottom" trigger="click" content={<FilterCheckboxes />}>
             <Button icon={<FilterOutlined />} size="large">
               篩選選項
             </Button>
