@@ -1,6 +1,8 @@
 import { OrderByEnum } from '@customTypes/searchOptions';
+import orderByAtom from '@recoil/booksOrderBy';
 import { Select } from 'antd';
 import { FunctionComponent } from 'react';
+import { useRecoilState } from 'recoil';
 
 const { Option } = Select;
 
@@ -10,18 +12,25 @@ const options: Array<{ value: OrderByEnum; label: string }> = [
   { label: '價格由高至低', value: OrderByEnum.PRICE_DESC },
 ];
 
-const OrderBySelect: FunctionComponent = () => (
-  <Select
-    size="large"
-    placeholder="Please select"
-    defaultValue={OrderByEnum.DEFAULT}
-    style={{ width: '100%', minWidth: '10rem' }}
-  >
-    {options.map((option) => (
-      <Option key={option.value} value={option.value}>
-        {option.label}
-      </Option>
-    ))}
-  </Select>
-);
+const OrderBySelect: FunctionComponent = () => {
+  const [orderBy, setOrderBy] = useRecoilState(orderByAtom);
+
+  return (
+    <Select
+      size="large"
+      placeholder="Please select"
+      defaultValue={OrderByEnum.DEFAULT}
+      style={{ width: '100%', minWidth: '10rem' }}
+      value={orderBy}
+      onChange={setOrderBy}
+    >
+      {options.map((option) => (
+        <Option key={option.value} value={option.value}>
+          {option.label}
+        </Option>
+      ))}
+    </Select>
+  );
+};
+
 export default OrderBySelect;
