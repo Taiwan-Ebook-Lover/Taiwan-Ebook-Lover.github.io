@@ -6,9 +6,12 @@ import FilterCheckboxes from '@components/FilterCheckboxes';
 import GetApp from '@components/GetApp';
 import KeywordInput from '@components/KeywordInput';
 import OrderBySelect from '@components/OrderBySelect';
+import bookstoreKeyword from '@recoil/bookstoreKeyword';
+import bookstoresFilter from '@recoil/bookstoresFilter';
 import { Button, message, Popover, Typography } from 'antd';
 import { FunctionComponent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { maxWidth, MaxWidthProps } from 'styled-system';
 
@@ -24,10 +27,19 @@ const StyledLogo = styled.img<MaxWidthProps>`
 const Landing: FunctionComponent = () => {
   const navigate = useNavigate();
   const { error } = useBookstores();
+  const keyword = useRecoilValue(bookstoreKeyword);
+  const filter = useRecoilValue(bookstoresFilter);
 
-  useEffect(() => {
-    if (error) message.warning('暫時無法取得書店列表。');
-  }, [error]);
+  useEffect(() => error && message.warning('暫時無法取得書店列表。'), [error]);
+
+  const onSubmit = () => {
+    if (!keyword) return;
+    if (filter.length === 0) {
+      message.warning('請選擇至少一家書店。');
+      return;
+    }
+    navigate('/searches');
+  };
 
   return (
     <>
@@ -46,7 +58,7 @@ const Landing: FunctionComponent = () => {
         <Title level={2} style={{ marginTop: '1rem', marginBottom: '3rem', fontWeight: 400 }}>
           台灣電子書搜尋
         </Title>
-        <KeywordInput onSubmit={() => navigate('/searches?q=111')} />
+        <KeywordInput onSubmit={onSubmit} />
         <Box display="grid" mt="1.5rem" gridTemplateColumns="auto auto" gridColumnGap="1rem">
           <Popover placement="bottom" trigger="click" content={<FilterCheckboxes />}>
             <Button icon={<FilterOutlined />} size="large">
