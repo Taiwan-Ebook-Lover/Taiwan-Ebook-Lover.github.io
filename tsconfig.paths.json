@@ -4,7 +4,12 @@
     "paths": {
       "@/*": ["./src/*"],
       "@assets/*": ["./src/assets/*"],
-      "@customTypes/*": ["./src/assets/types/*"]
+      "@components/*": ["./src/components/*"],
+      "@customTypes/*": ["./src/assets/types/*"],
+      "@layouts/*": ["./src/layouts/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@routes": ["./src/routes"],
+      "@routes/*": ["./src/routes/*"]
     }
   }
 }
