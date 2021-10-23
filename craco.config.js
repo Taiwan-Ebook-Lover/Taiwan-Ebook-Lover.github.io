@@ -10,6 +10,7 @@ module.exports = {
       '@customTypes': path.resolve(__dirname, 'src/assets/types'),
       '@layouts': path.resolve(__dirname, 'src/layouts'),
       '@pages': path.resolve(__dirname, 'src/pages'),
+      '@recoil': path.resolve(__dirname, 'src/recoil'),
       '@routes': path.resolve(__dirname, 'src/routes'),
     },
   },

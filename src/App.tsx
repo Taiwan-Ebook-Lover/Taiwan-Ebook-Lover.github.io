@@ -6,6 +6,7 @@ import { FunctionComponent } from 'react';
 import { useThemeSwitcher } from 'react-css-theme-switcher';
 import { BrowserRouter } from 'react-router-dom';
 import { SWRConfig } from 'swr';
+import { RecoilRoot } from 'recoil';
 
 const SuspenseLoading: FunctionComponent = () => {
   return (
@@ -36,11 +37,13 @@ const App: FunctionComponent = () => {
         },
       }}
     >
-      <BrowserRouter>
-        <Suspense fallback={<SuspenseLoading />}>
-          <Routes />
-        </Suspense>
-      </BrowserRouter>
+      <RecoilRoot>
+        <BrowserRouter>
+          <Suspense fallback={<SuspenseLoading />}>
+            <Routes />
+          </Suspense>
+        </BrowserRouter>
+      </RecoilRoot>
     </SWRConfig>
   );
 };
