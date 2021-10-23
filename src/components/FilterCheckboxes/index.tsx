@@ -20,9 +20,11 @@ const FilterCheckboxes: FunctionComponent = () => {
   const { cache } = useSWRConfig();
   const bookstores: Array<BookstoreData> = cache.get(bookstoresUrl);
 
-  const options: Array<{ value: BookstoreEnum; label: string }> = bookstores?.map((bookstore) => {
-    return { label: bookstore.displayName, value: bookstore.id };
-  });
+  const options: Array<{ value: BookstoreEnum; label: string }> = bookstores
+    ?.filter((bookstore) => bookstore.isOnline)
+    .map((bookstore) => {
+      return { label: bookstore.displayName, value: bookstore.id };
+    });
 
   const [checkedList, setCheckedList] = useRecoilState(filterAtom);
   const [indeterminate, setIndeterminate] = useState(false);
