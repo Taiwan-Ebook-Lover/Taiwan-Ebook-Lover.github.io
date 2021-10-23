@@ -17,11 +17,16 @@ enum PlatformType {
 
 const StyledBadge = styled.img`
   cursor: pointer;
+  max-height: 5rem;
 
   & + & {
-    margin: 1rem 0 0 0;
+    margin: 1.5rem 0 0 0;
+  }
 
-    @media (min-width: ${breakpoints.lg}) {
+  @media (min-width: ${breakpoints.lg}) {
+    max-height: 2.5rem;
+
+    & + & {
       margin: 0 0 0 0.5rem;
     }
   }
