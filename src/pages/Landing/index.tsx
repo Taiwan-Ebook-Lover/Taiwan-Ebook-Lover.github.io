@@ -1,10 +1,10 @@
 import { FilterOutlined } from '@ant-design/icons';
 import useBookstores from '@api/useBookstores';
 import logo from '@assets/images/logo/ebook-logo-bg.svg';
-import { Box } from '@components/Box';
+import Box from '@components/Box';
 import FilterCheckboxes from '@components/FilterCheckboxes';
-import { GetApp } from '@components/GetApp';
-import { KeywordInput } from '@components/KeywordInput';
+import GetApp from '@components/GetApp';
+import KeywordInput from '@components/KeywordInput';
 import OrderBySelect from '@components/OrderBySelect';
 import { Button, message, Popover, Typography } from 'antd';
 import { FunctionComponent, useEffect } from 'react';

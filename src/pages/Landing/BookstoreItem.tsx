@@ -9,7 +9,7 @@ import playStore from '@assets/images/bookstore/playStore.png';
 import pubu from '@assets/images/bookstore/pubu.png';
 import readmoo from '@assets/images/bookstore/readmoo.png';
 import taaze from '@assets/images/bookstore/taaze.png';
-import { Box } from '@components/Box';
+import Box from '@components/Box';
 import { BookstoreEnum } from '@customTypes/bookstore';
 import { FunctionComponent } from 'react';
 import styled from 'styled-components';

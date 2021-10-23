@@ -1,16 +1,16 @@
 import appStoreBadge from '@assets/images/storeBadge/app-store-badge.svg';
 import googlePlayBadge from '@assets/images/storeBadge/play-store-badge.svg';
 import { breakpoints } from '@assets/themes/globalTheme';
-import { Box } from '@components/Box';
+import Box from '@components/Box';
 import { Button, Modal } from 'antd';
 import { FunctionComponent, useState } from 'react';
 import styled from 'styled-components';
 
-interface GetAppProps {
+export interface GetAppProps {
   textcolor?: 'grey' | 'white';
 }
 
-enum PlatformType {
+export enum PlatformType {
   ANDROID,
   IOS,
 }
@@ -57,7 +57,7 @@ const Badges = () => (
   </>
 );
 
-export const GetApp: FunctionComponent<GetAppProps> = ({ textcolor = 'grey' }) => {
+const GetApp: FunctionComponent<GetAppProps> = ({ textcolor = 'grey' }) => {
   const [modalOpen, setModalOpen] = useState(false);
 
   return (
@@ -92,3 +92,5 @@ export const GetApp: FunctionComponent<GetAppProps> = ({ textcolor = 'grey' }) =
     </>
   );
 };
+
+export default GetApp;

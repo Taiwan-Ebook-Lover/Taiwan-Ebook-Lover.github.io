@@ -23,6 +23,8 @@ export interface BoxProps
     PositionProps,
     SpaceProps {}
 
-export const Box = styled.div<BoxProps>`
+const Box = styled.div<BoxProps>`
   ${compose(border, flexbox, grid, layout, position, space)}
 `;
+
+export default Box;

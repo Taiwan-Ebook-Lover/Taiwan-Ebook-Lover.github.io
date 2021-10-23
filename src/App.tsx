@@ -1,5 +1,5 @@
 import { LoadingOutlined } from '@ant-design/icons';
-import { Box } from '@components/Box';
+import Box from '@components/Box';
 import Routes from '@routes';
 import { Suspense } from 'react';
 import { FunctionComponent } from 'react';

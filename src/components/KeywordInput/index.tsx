@@ -8,7 +8,7 @@ export interface KeywordInputProps {
   onSubmit?: () => void;
 }
 
-export const KeywordInput: FunctionComponent<KeywordInputProps> = ({ onSubmit }) => {
+const KeywordInput: FunctionComponent<KeywordInputProps> = ({ onSubmit }) => {
   const [keyword, setKeyword] = useRecoilState(keywordAtom);
 
   return (
@@ -31,3 +31,5 @@ export const KeywordInput: FunctionComponent<KeywordInputProps> = ({ onSubmit })
     />
   );
 };
+
+export default KeywordInput;

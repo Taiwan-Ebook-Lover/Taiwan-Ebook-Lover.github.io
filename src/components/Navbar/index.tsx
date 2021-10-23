@@ -1,7 +1,7 @@
 import ebookLogo from '@assets/images/logo/ebook-logo.svg';
 import { breakpoints } from '@assets/themes/globalTheme';
-import { Box } from '@components/Box';
-import { GetApp } from '@components/GetApp';
+import Box from '@components/Box';
+import GetApp from '@components/GetApp';
 import { FunctionComponent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -34,7 +34,7 @@ const StyledTitle = styled.span`
   }
 `;
 
-export const Navbar: FunctionComponent = () => {
+const Navbar: FunctionComponent = () => {
   const navigate = useNavigate();
 
   return (
@@ -49,3 +49,5 @@ export const Navbar: FunctionComponent = () => {
     </StyledNavbar>
   );
 };
+
+export default Navbar;
