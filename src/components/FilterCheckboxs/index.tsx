@@ -1,12 +1,20 @@
 import { BookstoreData, bookstoresUrl } from '@api/useBookstores';
 import { BookstoreEnum } from '@customTypes/bookstore';
 import filterAtom from '@recoil/bookstoresFilter';
-import { Checkbox } from 'antd';
+import { Checkbox, Divider } from 'antd';
 import { ChangeEvent, FunctionComponent, useState } from 'react';
 import { useRecoilState } from 'recoil';
+import styled from 'styled-components';
 import { useSWRConfig } from 'swr';
 
 const CheckboxGroup = Checkbox.Group;
+const StyledCheckboxsLayout = styled(CheckboxGroup)`
+  width: 25rem;
+  max-width: 25rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 1.5rem 1rem;
+`;
 
 const FilterCheckboxs: FunctionComponent = () => {
   const { cache } = useSWRConfig();
@@ -17,8 +25,8 @@ const FilterCheckboxs: FunctionComponent = () => {
   });
 
   const [checkedList, setCheckedList] = useRecoilState(filterAtom);
-  const [indeterminate, setIndeterminate] = useState(true);
-  const [checkAll, setCheckAll] = useState(false);
+  const [indeterminate, setIndeterminate] = useState(false);
+  const [checkAll, setCheckAll] = useState(true);
 
   const onChange = (event: unknown) => {
     const list = event as Array<BookstoreEnum>;
@@ -37,9 +45,10 @@ const FilterCheckboxs: FunctionComponent = () => {
   return (
     <>
       <Checkbox indeterminate={indeterminate} onChange={onCheckAllChange} checked={checkAll}>
-        Check all
+        全選
       </Checkbox>
-      <CheckboxGroup options={options} value={checkedList} onChange={onChange} />
+      <Divider dashed style={{ margin: '1rem 0' }} />
+      <StyledCheckboxsLayout options={options} value={checkedList} onChange={onChange} />
     </>
   );
 };
