@@ -1,9 +1,13 @@
-import { SearchOutlined } from '@ant-design/icons';
+import { FilterOutlined } from '@ant-design/icons';
+import useBookstores from '@api/useBookstores';
 import logo from '@assets/images/logo/ebook-logo-bg.svg';
 import { Box } from '@components/Box';
+import FilterCheckboxs from '@components/FilterCheckboxs';
 import { GetApp } from '@components/GetApp';
-import { Input, Typography } from 'antd';
-import { FunctionComponent } from 'react';
+import { KeywordInput } from '@components/KeywordInput';
+import OrderBySelect from '@components/OrderBySelect';
+import { Button, message, Typography } from 'antd';
+import { FunctionComponent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { maxWidth, MaxWidthProps } from 'styled-system';
@@ -19,6 +23,11 @@ const StyledLogo = styled.img<MaxWidthProps>`
 
 const Landing: FunctionComponent = () => {
   const navigate = useNavigate();
+  const { error } = useBookstores();
+
+  useEffect(() => {
+    if (error) message.warning('暫時無法取得書店列表。');
+  }, [error]);
 
   return (
     <>
@@ -37,17 +46,14 @@ const Landing: FunctionComponent = () => {
         <Title level={2} style={{ marginTop: '1rem', marginBottom: '3rem', fontWeight: 400 }}>
           台灣電子書搜尋
         </Title>
-        <Input
-          size="large"
-          placeholder="搜尋您想比價的電子書名關鍵字或 ISBN"
-          prefix={<SearchOutlined />}
-          style={{
-            boxShadow: '0px 0.1rem 0.1rem rgba(0, 0, 0, 0.3)',
-            maxWidth: '50rem',
-            padding: '0.8rem 1.2rem',
-          }}
-          onPressEnter={() => navigate('/searches')}
-        />
+        <KeywordInput onSubmit={() => navigate('/searches?q=111')} />
+        <Box display="flex" mt="1.5rem" justifyContent="center" alignItems="center">
+          <Button icon={<FilterOutlined />} size="large">
+            篩選選項
+          </Button>
+          <OrderBySelect />
+          <FilterCheckboxs />
+        </Box>
         <Box display="flex" alignItems="center" mt="3rem">
           <Box
             pr="1rem"

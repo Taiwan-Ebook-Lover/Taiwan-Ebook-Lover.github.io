@@ -1,18 +1,18 @@
-import { BookstoreType } from '@customTypes/bookstore';
+import { BookstoreEnum } from '@customTypes/bookstore';
 import { atom } from 'recoil';
 
-const bookstoresFilter = atom<Array<BookstoreType>>({
+const bookstoresFilter = atom<Array<BookstoreEnum>>({
   key: 'bookstoresFilter',
   default: [
-    'bookWalker',
-    'booksCompany',
-    'hyread',
-    'kindle',
-    'kobo',
-    'playStore',
-    'pubu',
-    'readmoo',
-    'taaze',
+    BookstoreEnum.BOOKS_COMPANY,
+    BookstoreEnum.BOOK_WALKER,
+    BookstoreEnum.HYREAD,
+    BookstoreEnum.KINDLE,
+    BookstoreEnum.KOBO,
+    BookstoreEnum.PLAY_STORE,
+    BookstoreEnum.PUBU,
+    BookstoreEnum.READMOO,
+    BookstoreEnum.TAAZE,
   ],
 });
 

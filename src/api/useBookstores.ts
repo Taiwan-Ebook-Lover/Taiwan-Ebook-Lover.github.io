@@ -1,10 +1,12 @@
-import { BookstoreType } from '@customTypes/bookstore';
+import { BookstoreEnum } from '@customTypes/bookstore';
 import useSWR from 'swr';
 
 import fetcher from './fetcher';
 
+export const bookstoresUrl = `${process.env.REACT_APP_API_BASE_URL}/v1/bookstores`;
+
 export interface BookstoreData {
-  id: BookstoreType;
+  id: BookstoreEnum;
   displayName: string;
   website: string;
   isOnline: boolean;
@@ -19,7 +21,7 @@ export type useBookstoresResult = {
 
 const useBookstores = (): useBookstoresResult => {
   const { data, error } = useSWR<Array<BookstoreData>, Record<string, unknown>>(
-    `${process.env.REACT_APP_API_BASE_URL}/v1/bookstores`,
+    bookstoresUrl,
     fetcher,
   );
 

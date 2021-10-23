@@ -1,8 +1,9 @@
 import { CheckCircleTwoTone, CloseCircleTwoTone } from '@ant-design/icons';
-import useBookstores from '@api/useBookstores';
-import { message, Popover } from 'antd';
-import { FunctionComponent, useEffect } from 'react';
+import { Popover } from 'antd';
+import { FunctionComponent } from 'react';
 import styled from 'styled-components';
+import { useSWRConfig } from 'swr';
+import { bookstoresUrl, BookstoreData } from '@api/useBookstores';
 
 import BookstoreItem from './BookstoreItem';
 
@@ -44,13 +45,8 @@ const StyledOnlineDesc = styled.div`
 `;
 
 const BookstoreSupport: FunctionComponent = () => {
-  const { bookstores, isLoading, error } = useBookstores();
-
-  useEffect(() => {
-    if (error) message.warning('暫時無法取得書店列表。');
-  }, [error]);
-
-  if (isLoading) return null;
+  const { cache } = useSWRConfig();
+  const bookstores: Array<BookstoreData> = cache.get(bookstoresUrl);
 
   return (
     <StyledBookstoreSupport>
