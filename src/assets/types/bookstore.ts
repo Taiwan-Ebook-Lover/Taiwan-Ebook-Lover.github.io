@@ -1,4 +1,4 @@
-type BookstoreType =
+export type BookstoreType =
   | 'booksCompany'
   | 'bookWalker'
   | 'hyread'

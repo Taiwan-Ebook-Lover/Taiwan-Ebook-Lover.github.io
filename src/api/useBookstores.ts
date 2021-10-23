@@ -1,4 +1,6 @@
+import { BookstoreType } from '@customTypes/bookstore';
 import useSWR from 'swr';
+
 import fetcher from './fetcher';
 
 export interface BookstoreData {

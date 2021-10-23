@@ -10,6 +10,7 @@ import pubu from '@assets/images/bookstore/pubu.png';
 import readmoo from '@assets/images/bookstore/readmoo.png';
 import taaze from '@assets/images/bookstore/taaze.png';
 import { Box } from '@components/Box';
+import { BookstoreType } from '@customTypes/bookstore';
 import { FunctionComponent } from 'react';
 import styled from 'styled-components';
 
