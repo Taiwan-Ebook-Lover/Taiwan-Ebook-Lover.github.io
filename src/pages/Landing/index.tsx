@@ -6,7 +6,7 @@ import FilterCheckboxs from '@components/FilterCheckboxs';
 import { GetApp } from '@components/GetApp';
 import { KeywordInput } from '@components/KeywordInput';
 import OrderBySelect from '@components/OrderBySelect';
-import { Button, message, Typography } from 'antd';
+import { Button, message, Popover, Typography } from 'antd';
 import { FunctionComponent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -47,12 +47,13 @@ const Landing: FunctionComponent = () => {
           台灣電子書搜尋
         </Title>
         <KeywordInput onSubmit={() => navigate('/searches?q=111')} />
-        <Box display="flex" mt="1.5rem" justifyContent="center" alignItems="center">
-          <Button icon={<FilterOutlined />} size="large">
-            篩選選項
-          </Button>
+        <Box display="grid" mt="1.5rem" gridTemplateColumns="auto auto" gridColumnGap="1rem">
+          <Popover placement="bottom" trigger="click" content={<FilterCheckboxs />}>
+            <Button icon={<FilterOutlined />} size="large">
+              篩選選項
+            </Button>
+          </Popover>
           <OrderBySelect />
-          <FilterCheckboxs />
         </Box>
         <Box display="flex" alignItems="center" mt="3rem">
           <Box
