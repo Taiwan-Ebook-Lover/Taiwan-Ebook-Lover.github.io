@@ -9,6 +9,7 @@ import OrderBySelect from '@components/OrderBySelect';
 import bookstoreKeyword from '@recoil/bookstoreKeyword';
 import bookstoresFilter from '@recoil/bookstoresFilter';
 import { Button, message, Popover, Typography } from 'antd';
+import _ from 'lodash';
 import { FunctionComponent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
@@ -33,8 +34,8 @@ const Landing: FunctionComponent = () => {
   useEffect(() => error && message.warning('暫時無法取得書店列表。'), [error]);
 
   const onSubmit = () => {
-    if (!keyword) return;
-    if (filter.length === 0) {
+    if (_.isEmpty(keyword)) return;
+    if (_.isEmpty(filter)) {
       message.warning('請選擇至少一家書店。');
       return;
     }

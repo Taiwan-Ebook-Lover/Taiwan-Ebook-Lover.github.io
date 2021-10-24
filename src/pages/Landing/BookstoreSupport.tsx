@@ -1,9 +1,10 @@
 import { CheckCircleTwoTone, CloseCircleTwoTone } from '@ant-design/icons';
+import { BookstoreData, bookstoresUrl } from '@api/useBookstores';
 import { Popover } from 'antd';
+import _ from 'lodash';
 import { FunctionComponent } from 'react';
 import styled from 'styled-components';
 import { useSWRConfig } from 'swr';
-import { bookstoresUrl, BookstoreData } from '@api/useBookstores';
 
 import BookstoreItem from './BookstoreItem';
 
@@ -56,7 +57,7 @@ const BookstoreSupport: FunctionComponent = () => {
         trigger="click"
         content={
           <StyledBookstores>
-            {bookstores?.map((item) => (
+            {_.map(bookstores, (item) => (
               <BookstoreItem key={item.id} {...item} />
             ))}
             <StyledOnlineDesc>
