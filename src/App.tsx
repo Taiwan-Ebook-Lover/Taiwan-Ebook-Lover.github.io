@@ -1,10 +1,12 @@
 import { LoadingOutlined } from '@ant-design/icons';
-import { Box } from '@components/Box';
+import Box from '@components/Box';
 import Routes from '@routes';
 import { Suspense } from 'react';
 import { FunctionComponent } from 'react';
 import { useThemeSwitcher } from 'react-css-theme-switcher';
 import { BrowserRouter } from 'react-router-dom';
+import { SWRConfig } from 'swr';
+import { RecoilRoot } from 'recoil';
 
 const SuspenseLoading: FunctionComponent = () => {
   return (
@@ -27,11 +29,22 @@ const App: FunctionComponent = () => {
   if (status !== 'loaded') return null;
 
   return (
-    <BrowserRouter>
-      <Suspense fallback={<SuspenseLoading />}>
-        <Routes />
-      </Suspense>
-    </BrowserRouter>
+    <SWRConfig
+      value={{
+        onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
+          if (retryCount >= 5) return;
+          setTimeout(() => revalidate({ retryCount }), 10000);
+        },
+      }}
+    >
+      <RecoilRoot>
+        <BrowserRouter>
+          <Suspense fallback={<SuspenseLoading />}>
+            <Routes />
+          </Suspense>
+        </BrowserRouter>
+      </RecoilRoot>
+    </SWRConfig>
   );
 };
 

@@ -3,11 +3,13 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
+      "@api/*": ["./src/api/*"],
       "@assets/*": ["./src/assets/*"],
       "@components/*": ["./src/components/*"],
       "@customTypes/*": ["./src/assets/types/*"],
       "@layouts/*": ["./src/layouts/*"],
       "@pages/*": ["./src/pages/*"],
+      "@recoil/*": ["./src/recoil/*"],
       "@routes": ["./src/routes"],
       "@routes/*": ["./src/routes/*"]
     }

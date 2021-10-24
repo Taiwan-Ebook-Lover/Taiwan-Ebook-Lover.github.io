@@ -1,5 +1,5 @@
+import Navbar from '@components/Navbar';
 import { FunctionComponent } from 'react';
-import { Navbar } from '@components/Navbar';
 import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 
