@@ -1,3 +1,5 @@
+import { breakpoints } from '@assets/themes/globalTheme';
+import Box from '@components/Box';
 import Navbar from '@components/Navbar';
 import useQueryString from '@hooks/useQueryString';
 import _ from 'lodash';
@@ -7,6 +9,11 @@ import styled from 'styled-components';
 
 const StyledLayoutWrapper = styled.div`
   min-height: 100vh;
+`;
+
+const StyledOutletWrapper = styled.div`
+  max-width: ${breakpoints.xl};
+  width: 100%;
 `;
 
 const BasicLayout: FunctionComponent = () => {
@@ -19,7 +26,11 @@ const BasicLayout: FunctionComponent = () => {
   return (
     <StyledLayoutWrapper>
       <Navbar />
-      <Outlet />
+      <Box display="flex" justifyContent="center">
+        <StyledOutletWrapper>
+          <Outlet />
+        </StyledOutletWrapper>
+      </Box>
     </StyledLayoutWrapper>
   );
 };
