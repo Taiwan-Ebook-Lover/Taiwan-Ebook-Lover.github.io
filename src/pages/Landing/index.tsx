@@ -6,10 +6,12 @@ import FilterCheckboxes from '@components/FilterCheckboxes';
 import GetApp from '@components/GetApp';
 import KeywordInput from '@components/KeywordInput';
 import OrderBySelect from '@components/OrderBySelect';
+import booksOrderBy from '@recoil/booksOrderBy';
 import bookstoreKeyword from '@recoil/bookstoreKeyword';
 import bookstoresFilter from '@recoil/bookstoresFilter';
 import { Button, message, Popover, Typography } from 'antd';
 import _ from 'lodash';
+import qs from 'query-string';
 import { FunctionComponent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
@@ -30,6 +32,7 @@ const Landing: FunctionComponent = () => {
   const { error } = useBookstores();
   const keyword = useRecoilValue(bookstoreKeyword);
   const filter = useRecoilValue(bookstoresFilter);
+  const order = useRecoilValue(booksOrderBy);
 
   useEffect(() => error && message.warning('暫時無法取得書店列表。'), [error]);
 
@@ -39,7 +42,11 @@ const Landing: FunctionComponent = () => {
       message.warning('請選擇至少一家書店。');
       return;
     }
-    navigate('/searches');
+    const queryString = qs.stringify(
+      { q: keyword, bookstores: filter, order },
+      { arrayFormat: 'bracket-separator', arrayFormatSeparator: ',' },
+    );
+    navigate(`/searches?${queryString}`);
   };
 
   return (
