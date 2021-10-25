@@ -1,15 +1,13 @@
-import { FilterOutlined } from '@ant-design/icons';
 import useBookstores from '@api/useBookstores';
 import logo from '@assets/images/logo/ebook-logo-bg.svg';
 import Box from '@components/Box';
-import FilterCheckboxes from '@components/FilterCheckboxes';
 import GetApp from '@components/GetApp';
 import KeywordInput from '@components/KeywordInput';
-import OrderBySelect from '@components/OrderBySelect';
+import SearchOptions from '@components/SearchOptions';
 import booksOrderBy from '@recoil/booksOrderBy';
 import bookstoreKeyword from '@recoil/bookstoreKeyword';
 import bookstoresFilter from '@recoil/bookstoresFilter';
-import { Button, message, Popover, Typography } from 'antd';
+import { message, Typography } from 'antd';
 import _ from 'lodash';
 import qs from 'query-string';
 import { FunctionComponent, useEffect } from 'react';
@@ -67,14 +65,7 @@ const Landing: FunctionComponent = () => {
           台灣電子書搜尋
         </Title>
         <KeywordInput onSubmit={onSubmit} />
-        <Box display="grid" mt="1.5rem" gridTemplateColumns="auto auto" gridColumnGap="1rem">
-          <Popover placement="bottom" trigger="click" content={<FilterCheckboxes />}>
-            <Button icon={<FilterOutlined />} size="large">
-              篩選選項
-            </Button>
-          </Popover>
-          <OrderBySelect />
-        </Box>
+        <SearchOptions mt="1.5rem" />
         <Box display="flex" alignItems="center" mt="3rem">
           <Box
             pr="1rem"
