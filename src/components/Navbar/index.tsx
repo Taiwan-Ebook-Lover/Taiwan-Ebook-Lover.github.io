@@ -1,8 +1,11 @@
+import { SearchOutlined } from '@ant-design/icons';
 import ebookLogo from '@assets/images/logo/ebook-logo.svg';
 import { breakpoints } from '@assets/themes/globalTheme';
 import Box from '@components/Box';
+import FilterDrawer from '@components/FilterDrawer';
 import GetApp from '@components/GetApp';
-import { FunctionComponent } from 'react';
+import { Button } from 'antd';
+import { FunctionComponent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -34,19 +37,49 @@ const StyledTitle = styled.span`
   }
 `;
 
+const StyledSearchButton = styled(Button)`
+  color: white;
+`;
+
 const Navbar: FunctionComponent = () => {
   const navigate = useNavigate();
+  const [drawerVisible, setDrawerVisible] = useState(false);
 
   return (
-    <StyledNavbar>
-      <Box flex="1" display="flex" alignItems="center">
-        <StyledLogo src={ebookLogo} onClick={() => navigate('/')} />
-        <StyledTitle>台灣電子書搜尋</StyledTitle>
-      </Box>
-      <Box flex="1" display="flex" justifyContent="flex-end">
-        <GetApp textcolor="white" />
-      </Box>
-    </StyledNavbar>
+    <>
+      <StyledNavbar>
+        <Box
+          flex="2"
+          display="flex"
+          alignItems="center"
+          flexDirection={['row-reverse', null, null, 'row']}
+        >
+          <Box
+            flex="1"
+            display="flex"
+            alignItems="center"
+            justifyContent={['center', null, null, 'flex-start']}
+          >
+            <StyledLogo src={ebookLogo} onClick={() => navigate('/')} />
+            <StyledTitle>台灣電子書搜尋</StyledTitle>
+          </Box>
+          <Box
+            flex="1"
+            display={['flex', null, null, 'none']}
+            alignItems="center"
+            justifyContent="flex-start"
+          >
+            <StyledSearchButton type="text" onClick={() => setDrawerVisible(true)}>
+              <SearchOutlined style={{ fontSize: '1.7rem' }} />
+            </StyledSearchButton>
+          </Box>
+        </Box>
+        <Box flex="1" display="flex" justifyContent="flex-end">
+          <GetApp textcolor="white" />
+        </Box>
+      </StyledNavbar>
+      <FilterDrawer visible={drawerVisible} onClose={() => setDrawerVisible(false)} />
+    </>
   );
 };
 

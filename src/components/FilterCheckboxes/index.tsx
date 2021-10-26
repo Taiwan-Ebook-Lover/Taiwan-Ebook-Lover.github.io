@@ -10,8 +10,8 @@ import { useSWRConfig } from 'swr';
 
 const CheckboxGroup = Checkbox.Group;
 const StyledCheckboxsLayout = styled(CheckboxGroup)`
-  width: 25rem;
-  max-width: 25rem;
+  width: 22.5rem;
+  max-width: 22.5rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 1.5rem 1rem;
