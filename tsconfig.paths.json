@@ -12,7 +12,8 @@
       "@pages/*": ["./src/pages/*"],
       "@recoil/*": ["./src/recoil/*"],
       "@routes": ["./src/routes"],
-      "@routes/*": ["./src/routes/*"]
+      "@routes/*": ["./src/routes/*"],
+      "@utils/*": ["./src/utils/*"]
     }
   }
 }
