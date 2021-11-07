@@ -1,7 +1,7 @@
 import useBookstores from '@api/useBookstores';
 import { BookstoreEnum } from '@customTypes/bookstore';
 import filterAtom from '@recoil/bookstoresFilter';
-import { Checkbox, Divider } from 'antd';
+import { Button, Checkbox, Divider } from 'antd';
 import _ from 'lodash';
 import { ChangeEvent, FunctionComponent, useState } from 'react';
 import { useRecoilState } from 'recoil';
@@ -16,7 +16,15 @@ const StyledCheckboxsLayout = styled(CheckboxGroup)`
   grid-gap: 1.5rem 1rem;
 `;
 
-const FilterCheckboxes: FunctionComponent = () => {
+export interface FilterCheckboxesProps {
+  showConfirm?: boolean;
+  onConfirm?: () => void;
+}
+
+const FilterCheckboxes: FunctionComponent<FilterCheckboxesProps> = ({
+  showConfirm = false,
+  onConfirm,
+}) => {
   const { bookstores } = useBookstores();
 
   const options: Array<{ value: BookstoreEnum; label: string }> = _.map(
@@ -51,6 +59,14 @@ const FilterCheckboxes: FunctionComponent = () => {
       </Checkbox>
       <Divider dashed style={{ margin: '1rem 0' }} />
       <StyledCheckboxsLayout options={options} value={checkedList} onChange={onChange} />
+      {showConfirm && (
+        <>
+          <Divider dashed style={{ margin: '1rem 0' }} />
+          <Button type="primary" onClick={onConfirm}>
+            確認
+          </Button>
+        </>
+      )}
     </>
   );
 };

@@ -67,7 +67,7 @@ const Landing: FunctionComponent = () => {
           台灣電子書搜尋
         </Title>
         <KeywordInput onSubmit={onSubmit} />
-        <SearchOptions mt="1.5rem" />
+        <SearchOptions mt="1.5rem" filterProps={{ showConfirm: true }} />
         <Box display="flex" alignItems="center" mt="3rem">
           <Box
             pr="1rem"
