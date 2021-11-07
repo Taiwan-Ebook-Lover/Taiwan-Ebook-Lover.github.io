@@ -32,7 +32,9 @@ const Landing: FunctionComponent = () => {
   const filter = useRecoilValue(bookstoresFilter);
   const order = useRecoilValue(booksOrderBy);
 
-  useEffect(() => error && message.warning('暫時無法取得書店列表。'), [error]);
+  useEffect(() => {
+    if (error) message.warning(error.message);
+  }, [error]);
 
   const onSubmit = () => {
     if (_.isEmpty(keyword)) return;

@@ -1,4 +1,4 @@
-import { BookstoreData, bookstoresUrl } from '@api/useBookstores';
+import useBookstores from '@api/useBookstores';
 import { BookstoreEnum } from '@customTypes/bookstore';
 import filterAtom from '@recoil/bookstoresFilter';
 import { Checkbox, Divider } from 'antd';
@@ -6,7 +6,6 @@ import _ from 'lodash';
 import { ChangeEvent, FunctionComponent, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { useSWRConfig } from 'swr';
 
 const CheckboxGroup = Checkbox.Group;
 const StyledCheckboxsLayout = styled(CheckboxGroup)`
@@ -18,8 +17,7 @@ const StyledCheckboxsLayout = styled(CheckboxGroup)`
 `;
 
 const FilterCheckboxes: FunctionComponent = () => {
-  const { cache } = useSWRConfig();
-  const bookstores: Array<BookstoreData> = cache.get(bookstoresUrl);
+  const { bookstores } = useBookstores();
 
   const options: Array<{ value: BookstoreEnum; label: string }> = _.map(
     _.filter(bookstores, 'isOnline'),

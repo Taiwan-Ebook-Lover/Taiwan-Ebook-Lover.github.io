@@ -1,10 +1,9 @@
 import { CheckCircleTwoTone, CloseCircleTwoTone } from '@ant-design/icons';
-import { BookstoreData, bookstoresUrl } from '@api/useBookstores';
+import useBookstores from '@api/useBookstores';
 import { Popover } from 'antd';
 import _ from 'lodash';
 import { FunctionComponent } from 'react';
 import styled from 'styled-components';
-import { useSWRConfig } from 'swr';
 
 import BookstoreItem from './BookstoreItem';
 
@@ -46,8 +45,7 @@ const StyledOnlineDesc = styled.div`
 `;
 
 const BookstoreSupport: FunctionComponent = () => {
-  const { cache } = useSWRConfig();
-  const bookstores: Array<BookstoreData> = cache.get(bookstoresUrl);
+  const { bookstores } = useBookstores();
 
   return (
     <StyledBookstoreSupport>
@@ -69,7 +67,9 @@ const BookstoreSupport: FunctionComponent = () => {
           </StyledBookstores>
         }
       >
-        <StyledWhichBookstore>哪 {bookstores?.length} 間台灣線上電子書店</StyledWhichBookstore>
+        <StyledWhichBookstore>
+          哪{bookstores ? ` ${bookstores.length} ` : '幾'}間台灣線上電子書店
+        </StyledWhichBookstore>
       </Popover>
     </StyledBookstoreSupport>
   );
