@@ -26,15 +26,20 @@ const BasicLayout: FunctionComponent = () => {
   if (!queryString) return null;
   if (_.isEmpty(queryString) && !searchId) return <Navigate to="/" />;
 
+  const onSearch = () => {
+    alert('search!');
+  };
+
   return (
     <StyledLayoutWrapper>
-      <Navbar />
+      <Navbar onConfirm={onSearch} />
       <Box
         display={['none', null, null, 'flex']}
         justifyContent="center"
-        py="1.5rem"
-        bg="var(--gray-4)"
-        borderBottom="1px solid var(--gray-5)"
+        pt="1.5rem"
+        pb="3.7857rem"
+        mb="-3.7857rem"
+        borderBottom="1px solid var(--gray-4)"
       >
         <Box
           display="flex"
@@ -42,9 +47,10 @@ const BasicLayout: FunctionComponent = () => {
           maxWidth={breakpoints.xl}
           width="100%"
           px={['1rem', null, null, null, null, '0']}
+          mb="1rem"
         >
-          <KeywordInput />
-          <SearchOptions ml="1.5rem" />
+          <KeywordInput onSubmit={onSearch} />
+          <SearchOptions ml="1.5rem" filterProps={{ showConfirm: true, onConfirm: onSearch }} />
         </Box>
       </Box>
       <Box display="flex" justifyContent="center" mt="0.5rem">

@@ -41,9 +41,18 @@ const StyledSearchButton = styled(Button)`
   color: white;
 `;
 
-const Navbar: FunctionComponent = () => {
+export interface NavbarProps {
+  onConfirm?: () => void;
+}
+
+const Navbar: FunctionComponent<NavbarProps> = ({ onConfirm }) => {
   const navigate = useNavigate();
   const [drawerVisible, setDrawerVisible] = useState(false);
+
+  const onFormConfirm = () => {
+    setDrawerVisible(false);
+    if (onConfirm) onConfirm();
+  };
 
   return (
     <>
@@ -78,7 +87,7 @@ const Navbar: FunctionComponent = () => {
           <GetApp textcolor="white" />
         </Box>
       </StyledNavbar>
-      <FilterDrawer visible={drawerVisible} onClose={() => setDrawerVisible(false)} />
+      <FilterDrawer visible={drawerVisible} onConfirm={onFormConfirm} onClose={onFormConfirm} />
     </>
   );
 };

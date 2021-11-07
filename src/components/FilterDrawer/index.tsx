@@ -5,12 +5,11 @@ import OrderBySelect from '@components/OrderBySelect';
 import { Button, Divider, Drawer, DrawerProps } from 'antd';
 import { FunctionComponent } from 'react';
 
-export interface FilterDrawerProps extends Omit<DrawerProps, 'onClose'> {
-  onClose: () => void;
+export interface FilterDrawerProps extends DrawerProps {
+  onConfirm?: () => void;
 }
 
-const FilterDrawer: FunctionComponent<FilterDrawerProps> = (props) => {
-  const { onClose } = props;
+const FilterDrawer: FunctionComponent<FilterDrawerProps> = ({ onConfirm, ...props }) => {
   return (
     <Drawer
       placement="left"
@@ -18,7 +17,7 @@ const FilterDrawer: FunctionComponent<FilterDrawerProps> = (props) => {
       title={
         <Box display="flex" justifyContent="space-between" alignItems="center">
           搜尋
-          <Button type="primary" onClick={onClose}>
+          <Button type="primary" onClick={onConfirm}>
             確認
           </Button>
         </Box>
