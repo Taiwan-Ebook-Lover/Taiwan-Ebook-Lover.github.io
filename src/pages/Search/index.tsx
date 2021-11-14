@@ -1,52 +1,52 @@
-import useBookstores, { BookstoreData } from '@api/useBookstores';
-import booksOrderBy from '@recoil/booksOrderBy';
-import bookstoreKeyword from '@recoil/bookstoreKeyword';
-import bookstoresFilter from '@recoil/bookstoresFilter';
-import { message, Tabs } from 'antd';
+import searchResultsAtom, { findSearchResult } from '@/recoil/searchResults';
+import FullWidth from '@components/FullWidth';
+import { BookstoreEnum } from '@customTypes/bookstore';
+import { Tabs } from 'antd';
 import _ from 'lodash';
-import { FunctionComponent, useEffect, useRef } from 'react';
+import { FunctionComponent, useEffect, useMemo, useState } from 'react';
 import { useRecoilValue } from 'recoil';
+import styled from 'styled-components';
+
+import ResultList from './ResultList';
+
+const StyledBorder = styled.div`
+  border-bottom: 1px solid var(--gray-4);
+  transform: translateY(3.2857rem);
+`;
 
 const { TabPane } = Tabs;
 
 const Search: FunctionComponent = () => {
-  const keyword = useRecoilValue(bookstoreKeyword);
-  const filter = useRecoilValue(bookstoresFilter);
-  const order = useRecoilValue(booksOrderBy);
-  const bookstores = useRef<Array<BookstoreData>>();
-  const { bookstores: originBookstores, isLoading, error } = useBookstores();
+  const [currentTab, setCurrentTab] = useState<BookstoreEnum>();
+  const searchResults = useRecoilValue(searchResultsAtom);
+  const bookstores = useMemo(
+    () =>
+      searchResults.map((result) => ({
+        id: result.bookstore.id,
+        name: result.bookstore.displayName,
+      })),
+    [searchResults],
+  );
+  useEffect(() => setCurrentTab(_.get(bookstores, '0.id')), [bookstores]);
 
-  useEffect(() => error && message.warning('暫時無法取得書店列表。'), [error]);
-  if (isLoading) return null;
-
-  /* eslint-disable indent */
-  bookstores.current = originBookstores
-    ? _.filter(originBookstores, (o) => {
-        return _.includes(filter, o.id);
-      })
-    : _.map(filter, (f) => ({
-        id: f,
-        displayName: f as string,
-        website: '',
-        isOnline: false,
-        status: '',
-      }));
-  /* eslint-enable indent */
+  const currentTabResult = useRecoilValue(findSearchResult(currentTab));
 
   return (
-    <div>
-      <Tabs defaultActiveKey={filter[0]} tabBarGutter={28}>
-        {_.map(bookstores.current, (bookstore) => (
-          <TabPane tab={bookstore.displayName} key={bookstore.id}>
-            {bookstore.displayName}
-          </TabPane>
+    <>
+      <FullWidth>
+        <StyledBorder />
+      </FullWidth>
+      <Tabs
+        defaultActiveKey={_.get(bookstores, '0.id')}
+        tabBarGutter={28}
+        onChange={(key) => setCurrentTab(key as BookstoreEnum)}
+      >
+        {_.map(bookstores, (bookstore) => (
+          <TabPane tab={bookstore.name} key={bookstore.id} />
         ))}
       </Tabs>
-      <p>Search Page</p>
-      <p>{keyword || '-'}</p>
-      <p>{filter.join(' | ')}</p>
-      <p>{order}</p>
-    </div>
+      {currentTabResult && <ResultList searchResult={currentTabResult} />}
+    </>
   );
 };
 
