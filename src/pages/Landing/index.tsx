@@ -7,9 +7,9 @@ import SearchOptions from '@components/SearchOptions';
 import booksOrderBy from '@recoil/booksOrderBy';
 import bookstoreKeyword from '@recoil/bookstoreKeyword';
 import bookstoresFilter from '@recoil/bookstoresFilter';
+import { qsStringify } from '@utils/url/queryString';
 import { message, Typography } from 'antd';
 import _ from 'lodash';
-import qs from 'query-string';
 import { FunctionComponent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
@@ -42,10 +42,7 @@ const Landing: FunctionComponent = () => {
       message.warning('請選擇至少一家書店。');
       return;
     }
-    const queryString = qs.stringify(
-      { q: keyword, bookstores: filter, order },
-      { arrayFormat: 'bracket-separator', arrayFormatSeparator: ',' },
-    );
+    const queryString = qsStringify({ q: keyword, bookstores: filter, order });
     navigate(`/searches?${queryString}`);
   };
 
