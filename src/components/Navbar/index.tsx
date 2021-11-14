@@ -10,8 +10,6 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledNavbar = styled.header`
-  position: sticky;
-  top: 0;
   padding: 1rem;
   display: flex;
   background-color: var(--primary-color);
