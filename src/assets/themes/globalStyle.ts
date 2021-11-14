@@ -5,7 +5,7 @@ const GlobalStyle = createGlobalStyle`
     width: 100%;
     height: 100%;
     font-size: 14px;
-    background-color: var(--gray-3);
+    background-color: white;
   }
 
   #root {

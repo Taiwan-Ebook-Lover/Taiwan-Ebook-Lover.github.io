@@ -13,7 +13,7 @@ import _ from 'lodash';
 import { FunctionComponent, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import { maxWidth, MaxWidthProps } from 'styled-system';
 
 import BookstoreSupport from './BookstoreSupport';
@@ -23,6 +23,12 @@ const { Title } = Typography;
 
 const StyledLogo = styled.img<MaxWidthProps>`
   ${maxWidth}
+`;
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    background-color: var(--gray-3);
+  }
 `;
 
 const Landing: FunctionComponent = () => {
@@ -48,6 +54,7 @@ const Landing: FunctionComponent = () => {
 
   return (
     <>
+      <GlobalStyle />
       <Box display="flex" padding="1rem" justifyContent="flex-end">
         <GetApp />
       </Box>
