@@ -1,3 +1,4 @@
+import searchResultsAtom from '@/recoil/searchResults';
 import useBooksSearch from '@api/useBooksSearch';
 import { breakpoints } from '@assets/themes/globalTheme';
 import Box from '@components/Box';
@@ -9,6 +10,7 @@ import { qsExcludeOrder, qsParse, qsStringify } from '@utils/url/queryString';
 import { message } from 'antd';
 import { FunctionComponent, useEffect, useMemo } from 'react';
 import { Navigate, Outlet, useNavigate, useParams } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import BooksLoading from './BooksLoading';
@@ -25,15 +27,18 @@ export interface BasicLayoutProps {
 
 const BasicLayout: FunctionComponent<BasicLayoutProps> = ({ urlParams }) => {
   const navigate = useNavigate();
-
   const { searchResult, isLoading, error } = useBooksSearch(urlParams);
   const { keyword, filter } = useSearchFields(searchResult);
+  const [, setSearchResults] = useRecoilState(searchResultsAtom);
 
   useEffect(() => {
     if (error) message.warning(error.message);
   }, [error]);
   useEffect(() => {
-    if (searchResult) navigate(`/searches/${searchResult.id}`);
+    if (searchResult) {
+      navigate(`/searches/${searchResult.id}`);
+      setSearchResults(searchResult.results);
+    }
   }, [searchResult]);
 
   const onSearch = () => {
