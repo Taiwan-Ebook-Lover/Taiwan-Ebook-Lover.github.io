@@ -26,7 +26,7 @@ const FilterDrawer: FunctionComponent<FilterDrawerProps> = ({ onConfirm, ...prop
       {...props}
     >
       <Divider orientation="center" plain>
-        書名
+        「書名關鍵字」或「ISBN」
       </Divider>
       <KeywordInput />
       <Divider orientation="center" plain>

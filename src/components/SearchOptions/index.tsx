@@ -33,7 +33,7 @@ const SearchOptions: FunctionComponent<SearchOptionsProps> = ({ filterProps, ...
           size="large"
           style={{ padding: '0 1.2rem', height: 'auto' }}
         >
-          篩選選項
+          篩選書店
         </Button>
       </Popover>
       <OrderBySelect />
