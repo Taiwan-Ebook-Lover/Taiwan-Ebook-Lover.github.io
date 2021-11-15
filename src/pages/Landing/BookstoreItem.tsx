@@ -1,30 +1,9 @@
 import { CheckCircleTwoTone, CloseCircleTwoTone } from '@ant-design/icons';
 import { BookstoreData } from '@api/useBookstores';
-import booksCompany from '@assets/images/bookstore/booksCompany.png';
-import bookWalker from '@assets/images/bookstore/bookWalker.png';
-import hyread from '@assets/images/bookstore/hyread.png';
-import kindle from '@assets/images/bookstore/kindle.png';
-import kobo from '@assets/images/bookstore/kobo.png';
-import playStore from '@assets/images/bookstore/playStore.png';
-import pubu from '@assets/images/bookstore/pubu.png';
-import readmoo from '@assets/images/bookstore/readmoo.png';
-import taaze from '@assets/images/bookstore/taaze.png';
 import Box from '@components/Box';
-import { BookstoreEnum } from '@customTypes/bookstore';
+import getBookstoreLogo from '@utils/assets/getBookstoreLogo';
 import { FunctionComponent } from 'react';
 import styled from 'styled-components';
-
-const logos: Record<BookstoreEnum, string> = {
-  booksCompany,
-  bookWalker,
-  hyread,
-  kindle,
-  kobo,
-  playStore,
-  pubu,
-  readmoo,
-  taaze,
-};
 
 const StyledLogo = styled.img`
   width: 2.5rem;
@@ -48,7 +27,7 @@ const BookstoreItem: FunctionComponent<BookstoreData> = ({
 }) => {
   return (
     <Box display="flex" alignItems="center">
-      <StyledLogo src={logos[id]} />
+      <StyledLogo src={getBookstoreLogo(id)} />
       <StyledBoostoreLink href={website} target="_blank" rel="noreferrer">
         {displayName}
       </StyledBoostoreLink>
