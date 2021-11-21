@@ -1,7 +1,6 @@
 import { CheckCircleTwoTone, CloseCircleTwoTone } from '@ant-design/icons';
 import useBookstores from '@api/useBookstores';
 import { Popover } from 'antd';
-import _ from 'lodash';
 import { FunctionComponent } from 'react';
 import styled from 'styled-components';
 
@@ -55,9 +54,7 @@ const BookstoreSupport: FunctionComponent = () => {
         trigger="click"
         content={
           <StyledBookstores>
-            {_.map(bookstores, (item) => (
-              <BookstoreItem key={item.id} {...item} />
-            ))}
+            {bookstores && bookstores.map((item) => <BookstoreItem key={item.id} {...item} />)}
             <StyledOnlineDesc>
               <CheckCircleTwoTone twoToneColor="#52c41a" />
               <span>：服務中</span>

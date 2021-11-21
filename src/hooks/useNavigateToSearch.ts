@@ -3,7 +3,7 @@ import bookstoreKeyword from '@recoil/bookstoreKeyword';
 import bookstoresFilter from '@recoil/bookstoresFilter';
 import { qsStringify } from '@utils/url/queryString';
 import { message } from 'antd';
-import _ from 'lodash';
+import { isEmpty } from 'lodash-es';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilCallback } from 'recoil';
 
@@ -21,8 +21,8 @@ const useNavigateToSearch: useNavigateToSearch = () => {
         const filter = snapshot.getLoadable(bookstoresFilter).contents;
         const order = snapshot.getLoadable(booksOrderBy).contents;
 
-        if (_.isEmpty(keyword)) return;
-        if (_.isEmpty(filter)) {
+        if (isEmpty(keyword)) return;
+        if (isEmpty(filter)) {
           message.warning('請選擇至少一家書店。');
           return;
         }

@@ -1,7 +1,6 @@
 import { OrderByEnum } from '@customTypes/searchOptions';
 import orderByAtom from '@recoil/booksOrderBy';
 import { Select } from 'antd';
-import _ from 'lodash';
 import { FunctionComponent } from 'react';
 import { useRecoilState } from 'recoil';
 
@@ -25,7 +24,7 @@ const OrderBySelect: FunctionComponent = () => {
       value={orderBy}
       onChange={setOrderBy}
     >
-      {_.map(options, (option) => (
+      {options.map((option) => (
         <Option key={option.value} value={option.value}>
           {option.label}
         </Option>
