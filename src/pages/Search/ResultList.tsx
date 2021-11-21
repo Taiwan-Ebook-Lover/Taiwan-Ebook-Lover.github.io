@@ -1,19 +1,23 @@
-import { SearchResult } from '@api/useBooksSearch';
+import Box from '@components/Box';
+import { BookWithBookstore } from '@recoil/searchResults';
 import { FunctionComponent } from 'react';
 
 import BookItem from './BookItem';
 
 export interface ResultListProps {
-  searchResult: SearchResult;
+  books: Array<BookWithBookstore>;
 }
 
-const ResultList: FunctionComponent<ResultListProps> = ({ searchResult }) => {
+const ResultList: FunctionComponent<ResultListProps> = ({ books }) => {
   return (
-    <div>
-      {searchResult.books.map((book) => (
-        <BookItem book={book} key={book.id} />
+    <>
+      <Box px={['1rem', null, null, null, null, '0']} textColor="var(--gray-7)" mb="0.5rem">
+        共有 {books.length} 筆結果
+      </Box>
+      {books.map((book) => (
+        <BookItem book={book} key={book.link} />
       ))}
-    </div>
+    </>
   );
 };
 

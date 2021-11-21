@@ -1,6 +1,8 @@
 import { Book } from '@api/useBooksSearch';
 import { FunctionComponent } from 'react';
 
+// import getBookstoreLogo from '@utils/assets/getBookstoreLogo';
+
 export interface BookItemProps {
   book: Book;
 }

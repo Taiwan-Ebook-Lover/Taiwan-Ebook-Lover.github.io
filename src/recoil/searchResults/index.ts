@@ -1,6 +1,5 @@
 import atom from './atom';
-import findSearchResult from './findSearchResult';
 
-export { findSearchResult };
-
+export * from './booksOfBookstore';
+export * from './bookstoresOfResults';
 export default atom;

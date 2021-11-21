@@ -1,12 +1,13 @@
-import searchResultsAtom, { findSearchResult } from '@/recoil/searchResults';
+import { booksOfBookstore, bookstoresOfResults } from '@/recoil/searchResults';
 import FullWidth from '@components/FullWidth';
 import { BookstoreEnum } from '@customTypes/bookstore';
 import { Tabs } from 'antd';
-import _ from 'lodash';
-import { FunctionComponent, useEffect, useMemo, useState } from 'react';
+import { isEmpty } from 'lodash-es';
+import { FunctionComponent, useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 
+import ResultEmpty from './ResultEmpty';
 import ResultList from './ResultList';
 
 const StyledBorder = styled.div`
@@ -18,18 +19,10 @@ const { TabPane } = Tabs;
 
 const Search: FunctionComponent = () => {
   const [currentTab, setCurrentTab] = useState<BookstoreEnum>();
-  const searchResults = useRecoilValue(searchResultsAtom);
-  const bookstores = useMemo(
-    () =>
-      searchResults.map((result) => ({
-        id: result.bookstore.id,
-        name: result.bookstore.displayName,
-      })),
-    [searchResults],
-  );
-  useEffect(() => setCurrentTab(_.get(bookstores, '0.id')), [bookstores]);
+  const bookstores = useRecoilValue(bookstoresOfResults);
+  const booksOfCurrentTab = useRecoilValue(booksOfBookstore(currentTab));
 
-  const currentTabResult = useRecoilValue(findSearchResult(currentTab));
+  useEffect(() => setCurrentTab(bookstores[0]?.id), [bookstores]);
 
   return (
     <>
@@ -37,15 +30,15 @@ const Search: FunctionComponent = () => {
         <StyledBorder />
       </FullWidth>
       <Tabs
-        defaultActiveKey={_.get(bookstores, '0.id')}
+        defaultActiveKey={bookstores[0]?.id}
         tabBarGutter={28}
         onChange={(key) => setCurrentTab(key as BookstoreEnum)}
       >
-        {_.map(bookstores, (bookstore) => (
-          <TabPane tab={bookstore.name} key={bookstore.id} />
+        {bookstores.map((bookstore) => (
+          <TabPane tab={bookstore.displayName} key={bookstore.id} />
         ))}
       </Tabs>
-      {currentTabResult && <ResultList searchResult={currentTabResult} />}
+      {isEmpty(booksOfCurrentTab) ? <ResultEmpty /> : <ResultList books={booksOfCurrentTab} />}
     </>
   );
 };
