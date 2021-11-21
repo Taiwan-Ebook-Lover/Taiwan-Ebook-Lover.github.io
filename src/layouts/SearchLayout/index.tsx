@@ -5,12 +5,12 @@ import Box from '@components/Box';
 import KeywordInput from '@components/KeywordInput';
 import Navbar from '@components/Navbar';
 import SearchOptions from '@components/SearchOptions';
-import useSearchFields from '@hooks/useSearchFields';
+import useNavigateToSearch from '@hooks/useNavigateToSearch';
 import { qsExcludeOrder, qsParse, qsStringify } from '@utils/url/queryString';
 import { message } from 'antd';
 import { FunctionComponent, useEffect, useMemo } from 'react';
 import { Navigate, Outlet, useNavigate, useParams } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 
 import BooksLoading from './BooksLoading';
@@ -28,8 +28,8 @@ export interface BasicLayoutProps {
 const BasicLayout: FunctionComponent<BasicLayoutProps> = ({ urlParams }) => {
   const navigate = useNavigate();
   const { searchResult, isLoading, error } = useBooksSearch(urlParams);
-  const { keyword, filter } = useSearchFields(searchResult);
-  const [, setSearchResults] = useRecoilState(searchResultsAtom);
+  const setSearchResults = useSetRecoilState(searchResultsAtom);
+  const onSearch = useNavigateToSearch();
 
   useEffect(() => {
     if (error) message.warning(error.message);
@@ -40,11 +40,6 @@ const BasicLayout: FunctionComponent<BasicLayoutProps> = ({ urlParams }) => {
       setSearchResults(searchResult.results);
     }
   }, [searchResult]);
-
-  const onSearch = () => {
-    const queryString = qsStringify({ q: keyword, bookstores: filter });
-    navigate(`/searches?${queryString}`);
-  };
 
   return (
     <StyledLayoutWrapper>
