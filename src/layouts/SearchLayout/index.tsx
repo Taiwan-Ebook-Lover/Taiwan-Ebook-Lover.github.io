@@ -6,8 +6,11 @@ import KeywordInput from '@components/KeywordInput';
 import Navbar from '@components/Navbar';
 import SearchOptions from '@components/SearchOptions';
 import useNavigateToSearch from '@hooks/useNavigateToSearch';
+import bookstoreKeyword from '@recoil/bookstoreKeyword';
+import bookstoresFilter from '@recoil/bookstoresFilter';
 import { qsExcludeOrder, qsParse, qsStringify } from '@utils/url/queryString';
 import { message } from 'antd';
+import { isEmpty } from 'lodash-es';
 import { FunctionComponent, useEffect, useMemo } from 'react';
 import { Navigate, Outlet, useNavigate, useParams } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
@@ -29,13 +32,18 @@ const BasicLayout: FunctionComponent<BasicLayoutProps> = ({ urlParams }) => {
   const navigate = useNavigate();
   const { searchResult, isLoading, error } = useBooksSearch(urlParams);
   const setSearchResults = useSetRecoilState(searchResultsAtom);
+  const setKeyword = useSetRecoilState(bookstoreKeyword);
+  const setFilter = useSetRecoilState(bookstoresFilter);
   const onSearch = useNavigateToSearch();
 
   useEffect(() => {
     if (error) message.warning(error.message);
   }, [error]);
   useEffect(() => {
-    if (searchResult) {
+    if (searchResult && !isEmpty(searchResult)) {
+      const bookstores = searchResult.results.map((result) => result.bookstore.id);
+      setFilter(bookstores);
+      setKeyword(searchResult.keywords);
       navigate(`/searches/${searchResult.id}`);
       setSearchResults(searchResult.results);
     }
