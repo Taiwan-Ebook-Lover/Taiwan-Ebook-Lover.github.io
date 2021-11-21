@@ -4,15 +4,9 @@ import Box from '@components/Box';
 import GetApp from '@components/GetApp';
 import KeywordInput from '@components/KeywordInput';
 import SearchOptions from '@components/SearchOptions';
-import booksOrderBy from '@recoil/booksOrderBy';
-import bookstoreKeyword from '@recoil/bookstoreKeyword';
-import bookstoresFilter from '@recoil/bookstoresFilter';
-import { qsStringify } from '@utils/url/queryString';
+import useNavigateToSearch from '@hooks/useNavigateToSearch';
 import { message, Typography } from 'antd';
-import _ from 'lodash';
 import { FunctionComponent, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
 import styled, { createGlobalStyle } from 'styled-components';
 import { maxWidth, MaxWidthProps } from 'styled-system';
 
@@ -32,25 +26,12 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const Landing: FunctionComponent = () => {
-  const navigate = useNavigate();
+  const onSubmit = useNavigateToSearch();
   const { error } = useBookstores();
-  const keyword = useRecoilValue(bookstoreKeyword);
-  const filter = useRecoilValue(bookstoresFilter);
-  const order = useRecoilValue(booksOrderBy);
 
   useEffect(() => {
     if (error) message.warning(error.message);
   }, [error]);
-
-  const onSubmit = () => {
-    if (_.isEmpty(keyword)) return;
-    if (_.isEmpty(filter)) {
-      message.warning('請選擇至少一家書店。');
-      return;
-    }
-    const queryString = qsStringify({ q: keyword, bookstores: filter, order });
-    navigate(`/searches?${queryString}`);
-  };
 
   return (
     <>
