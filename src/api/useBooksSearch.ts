@@ -1,8 +1,9 @@
 import { BookstoreData } from '@api/useBookstores';
 import { ErrorType } from '@customTypes/common';
+import { qsStringify } from '@utils/url/queryString';
+import { isEmpty } from 'lodash-es';
 import { useEffect } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
-import { qsStringify } from '@utils/url/queryString';
 
 export interface Book {
   id: string;
@@ -60,10 +61,14 @@ const useBooksSearch = (params: string): useBooksResult => {
       const response = await fetch(`${booksSearchUrl}${params}`, {
         method: isID ? 'GET' : 'POST',
       });
-      if (!response.ok) {
+      const data = await response.json();
+      if (isID && isEmpty(data)) {
+        throw { message: '找不到該紀錄，請重新搜尋。' };
+      }
+      if (!isID && !response.ok) {
         throw { message: 'oops！搜尋出了點問題，請稍後再試。' };
       }
-      return response.json();
+      return data;
     },
   );
 
