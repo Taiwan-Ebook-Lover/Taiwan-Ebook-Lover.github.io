@@ -1,6 +1,11 @@
-import { booksOfBookstore, bookstoresOfResults } from '@/recoil/searchResults';
+import {
+  booksOfBookstore,
+  BooksOfBookstoreParamType,
+  bookstoresOfResults,
+} from '@/recoil/searchResults';
 import FullWidth from '@components/FullWidth';
-import { BookstoreEnum } from '@customTypes/bookstore';
+import booksOrderBy from '@recoil/booksOrderBy';
+import { scrollToTop, shakeView } from '@utils/window/scroll';
 import { Tabs } from 'antd';
 import { isEmpty } from 'lodash-es';
 import { FunctionComponent, useEffect, useState } from 'react';
@@ -18,11 +23,18 @@ const StyledBorder = styled.div`
 const { TabPane } = Tabs;
 
 const Search: FunctionComponent = () => {
-  const [currentTab, setCurrentTab] = useState<BookstoreEnum>();
+  const [currentTab, setCurrentTab] = useState<BooksOfBookstoreParamType>('all');
+  const orderBy = useRecoilValue(booksOrderBy);
   const bookstores = useRecoilValue(bookstoresOfResults);
   const booksOfCurrentTab = useRecoilValue(booksOfBookstore(currentTab));
 
-  useEffect(() => setCurrentTab(bookstores[0]?.id), [bookstores]);
+  useEffect(() => {
+    shakeView();
+    scrollToTop();
+  }, [currentTab]);
+  useEffect(() => {
+    shakeView(); // To show books which lazyload.
+  }, [orderBy]);
 
   return (
     <>
@@ -30,15 +42,19 @@ const Search: FunctionComponent = () => {
         <StyledBorder />
       </FullWidth>
       <Tabs
-        defaultActiveKey={bookstores[0]?.id}
+        activeKey={currentTab}
         tabBarGutter={28}
-        onChange={(key) => setCurrentTab(key as BookstoreEnum)}
+        onChange={(key) => setCurrentTab(key as BooksOfBookstoreParamType)}
       >
-        {bookstores.map((bookstore) => (
+        {[{ id: 'all', displayName: '全部' }, ...bookstores].map((bookstore) => (
           <TabPane tab={bookstore.displayName} key={bookstore.id} />
         ))}
       </Tabs>
-      {isEmpty(booksOfCurrentTab) ? <ResultEmpty /> : <ResultList books={booksOfCurrentTab} />}
+      {isEmpty(booksOfCurrentTab) ? (
+        <ResultEmpty />
+      ) : (
+        <ResultList books={booksOfCurrentTab} setCurrentTab={setCurrentTab} />
+      )}
     </>
   );
 };

@@ -1,15 +1,16 @@
 import Box from '@components/Box';
-import { BookWithBookstore } from '@recoil/searchResults';
-import { FunctionComponent } from 'react';
+import { BooksOfBookstoreParamType, BookWithBookstore } from '@recoil/searchResults';
+import { Dispatch, FunctionComponent } from 'react';
 import LazyLoad from 'react-lazyload';
 
 import BookItem from './BookItem';
 
 export interface ResultListProps {
   books: Array<BookWithBookstore>;
+  setCurrentTab: Dispatch<BooksOfBookstoreParamType>;
 }
 
-const ResultList: FunctionComponent<ResultListProps> = ({ books }) => {
+const ResultList: FunctionComponent<ResultListProps> = ({ books, setCurrentTab }) => {
   return (
     <>
       <Box px={['1rem', null, null, null, null, '0']}>
@@ -18,7 +19,7 @@ const ResultList: FunctionComponent<ResultListProps> = ({ books }) => {
         </Box>
         {books.map((book) => (
           <LazyLoad key={book.link} height="20rem" once>
-            <BookItem book={book} />
+            <BookItem book={book} setCurrentTab={setCurrentTab} />
           </LazyLoad>
         ))}
       </Box>

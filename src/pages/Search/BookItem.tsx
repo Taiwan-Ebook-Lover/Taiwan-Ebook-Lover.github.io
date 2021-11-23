@@ -1,11 +1,12 @@
 import Box from '@components/Box';
-import { BookWithBookstore } from '@recoil/searchResults';
+import { BooksOfBookstoreParamType, BookWithBookstore } from '@recoil/searchResults';
 import getBookstoreLogo from '@utils/assets/getBookstoreLogo';
-import { FunctionComponent } from 'react';
+import { Dispatch, FunctionComponent } from 'react';
 import styled from 'styled-components';
 
 export interface BookItemProps {
   book: BookWithBookstore;
+  setCurrentTab: Dispatch<BooksOfBookstoreParamType>;
 }
 
 const StyledBookGrid = styled.div`
@@ -103,12 +104,12 @@ const StyledGoTo = styled.a`
   }
 `;
 
-const BookItem: FunctionComponent<BookItemProps> = ({ book }) => {
+const BookItem: FunctionComponent<BookItemProps> = ({ book, setCurrentTab }) => {
   return (
     <StyledBookGrid>
       <StyledImage src={book.thumbnail} />
       <Box gridArea="bookstore">
-        <StyledStoreBadge>
+        <StyledStoreBadge onClick={() => setCurrentTab(book.bookstoreId)}>
           <StyledLogo src={getBookstoreLogo(book.bookstoreId)} /> {book.bookstoreName}
         </StyledStoreBadge>
       </Box>
