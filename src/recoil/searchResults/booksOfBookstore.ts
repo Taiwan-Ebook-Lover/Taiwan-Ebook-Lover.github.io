@@ -1,5 +1,7 @@
 import { Book, SearchResult } from '@api/useBooksSearch';
 import { BookstoreEnum } from '@customTypes/bookstore';
+import { OrderByEnum } from '@customTypes/searchOptions';
+import booksOrderBy from '@recoil/booksOrderBy';
 import { selectorFamily } from 'recoil';
 
 import searchResults from './atom';
@@ -9,6 +11,8 @@ export interface BookWithBookstore extends Book {
   bookstoreName: string;
 }
 
+export type BooksOfBookstoreParamType = BookstoreEnum | 'all' | undefined;
+
 const mergeStoreIntoBook = (result: SearchResult): Array<BookWithBookstore> => {
   return result.books.map((book) => ({
     ...book,
@@ -17,27 +21,45 @@ const mergeStoreIntoBook = (result: SearchResult): Array<BookWithBookstore> => {
   }));
 };
 
-/* eslint-disable indent */
-export const booksOfBookstore = selectorFamily<
-  Array<BookWithBookstore>,
-  BookstoreEnum | 'all' | undefined
->({
-  key: 'BooksOfBookstore',
-  get:
-    (bookstore) =>
-    ({ get }) => {
-      const results = get(searchResults);
+const sortBooks = (
+  books: Array<BookWithBookstore>,
+  orderBy: OrderByEnum,
+): Array<BookWithBookstore> => {
+  if (orderBy === OrderByEnum.PRICE_ASC) {
+    return books.sort((a, b) => {
+      return a.price - b.price;
+    });
+  } else if (orderBy === OrderByEnum.PRICE_DESC) {
+    return books.sort((a, b) => {
+      return b.price - a.price;
+    });
+  }
+  return books;
+};
 
-      if (!results || !bookstore) {
-        return [];
-      } else if (bookstore === 'all') {
-        return results.reduce((all, current) => {
-          return all.concat(mergeStoreIntoBook(current));
-        }, [] as Array<BookWithBookstore>);
-      } else {
+/* eslint-disable indent */
+export const booksOfBookstore = selectorFamily<Array<BookWithBookstore>, BooksOfBookstoreParamType>(
+  {
+    key: 'BooksOfBookstore',
+    get:
+      (bookstore) =>
+      ({ get }) => {
+        const results = get(searchResults);
+        const orderBy = get(booksOrderBy);
+
+        if (!results || !bookstore) {
+          return [];
+        } else if (bookstore === 'all') {
+          return sortBooks(
+            results.reduce((all, current) => {
+              return all.concat(mergeStoreIntoBook(current));
+            }, [] as Array<BookWithBookstore>),
+            orderBy,
+          );
+        }
         const result = results.find((result) => result.bookstore.id === bookstore);
-        return result ? mergeStoreIntoBook(result) : [];
-      }
-    },
-});
+        return result ? sortBooks(mergeStoreIntoBook(result), orderBy) : [];
+      },
+  },
+);
 /* eslint-enable indent */
