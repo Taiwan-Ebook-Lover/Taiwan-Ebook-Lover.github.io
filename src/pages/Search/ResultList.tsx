@@ -18,7 +18,7 @@ const ResultList: FunctionComponent<ResultListProps> = ({ books, setCurrentTab }
           共有 {books.length} 筆結果
         </Box>
         {books.map((book) => (
-          <LazyLoad key={book.link} height="20rem" once>
+          <LazyLoad key={book.link} height="17rem" once>
             <BookItem book={book} setCurrentTab={setCurrentTab} />
           </LazyLoad>
         ))}

@@ -3,17 +3,29 @@ import { BooksOfBookstoreParamType, BookWithBookstore } from '@recoil/searchResu
 import getBookstoreLogo from '@utils/assets/getBookstoreLogo';
 import { Dispatch, FunctionComponent } from 'react';
 import styled from 'styled-components';
+import {
+  compose,
+  fontSize,
+  FontSizeProps,
+  gridTemplateColumns,
+  GridTemplateColumnsProps,
+  margin,
+  MarginProps,
+  maxHeight,
+  MaxHeightProps,
+  maxWidth,
+  MaxWidthProps,
+} from 'styled-system';
 
 export interface BookItemProps {
   book: BookWithBookstore;
   setCurrentTab: Dispatch<BooksOfBookstoreParamType>;
 }
 
-const StyledBookGrid = styled.div`
-  height: 18rem;
-  max-height: 20rem;
+const StyledBookGrid = styled.div<GridTemplateColumnsProps>`
+  height: 15rem;
+  max-height: 15rem;
   display: grid;
-  grid-template-columns: 15rem auto;
   grid-template-rows: 1.5rem 3.05rem 1fr 3rem;
   grid-template-areas:
     'thumbnail bookstore'
@@ -23,19 +35,19 @@ const StyledBookGrid = styled.div`
   grid-gap: 0.5rem 2rem;
   line-height: 1.5;
   margin-bottom: 2rem;
+  ${gridTemplateColumns}
 `;
 
 const StyledImage = styled.img`
-  grid-area: thumbnail;
-  height: 18rem;
-  width: 15rem;
   object-fit: contain;
+  max-height: 100%;
+  max-width: 100%;
   border: 1px solid var(--gray-4);
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   overflow: hidden;
 `;
 
-const StyledStoreBadge = styled.span`
+const StyledStoreBadge = styled.span<FontSizeProps>`
   display: inline-flex;
   align-items: center;
   background-color: var(--gray-4);
@@ -43,51 +55,50 @@ const StyledStoreBadge = styled.span`
   border-radius: 0.75rem;
   cursor: pointer;
   transition: opacity 0.3s;
+  ${fontSize}
 
   &:hover {
     opacity: 0.8;
   }
 `;
 
-const StyledLogo = styled.img`
-  width: 1.5rem;
-  height: 1.5rem;
+const StyledLogo = styled.img<MarginProps & MaxHeightProps & MaxWidthProps>`
   border: 1px solid var(--gray-4);
   border-radius: 50%;
   overflow: hidden;
-  margin-right: 0.75rem;
+  /* margin-right: 0.75rem; */
+  ${compose(margin, maxHeight, maxWidth)}
 `;
 
-const StyledTitle = styled.h3`
+const StyledTitle = styled.h3<FontSizeProps>`
   grid-area: title;
-  font-size: 1.7rem;
-  margin: 0.25rem 0;
+  margin: auto 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  ${fontSize}
 `;
 
-const StyledAbout = styled.p`
+const StyledAbout = styled.p<FontSizeProps & MaxHeightProps>`
   grid-area: about;
-  max-height: 9rem;
-  font-size: 1.2rem;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 5;
-  line-clamp: 5;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   margin: 0;
+  ${compose(fontSize, maxHeight)}
 `;
 
-const StyledPrice = styled.p`
+const StyledPrice = styled.p<FontSizeProps>`
   grid-area: price;
-  font-size: 1.2rem;
   color: var(--primary-6);
   margin: 0;
+  ${fontSize}
 `;
 
-const StyledGoTo = styled.a`
+const StyledGoTo = styled.a<FontSizeProps>`
   appearance: none;
   display: inline-flex;
   align-items: center;
@@ -97,6 +108,7 @@ const StyledGoTo = styled.a`
   border-radius: 0.95rem;
   cursor: pointer;
   transition: opacity 0.3s;
+  ${fontSize}
 
   &:hover {
     color: white;
@@ -106,17 +118,39 @@ const StyledGoTo = styled.a`
 
 const BookItem: FunctionComponent<BookItemProps> = ({ book, setCurrentTab }) => {
   return (
-    <StyledBookGrid>
-      <StyledImage src={book.thumbnail} />
-      <Box gridArea="bookstore">
-        <StyledStoreBadge onClick={() => setCurrentTab(book.bookstoreId)}>
-          <StyledLogo src={getBookstoreLogo(book.bookstoreId)} /> {book.bookstoreName}
+    <StyledBookGrid gridTemplateColumns={['8rem auto', '10rem', '11rem', '12rem auto']}>
+      <Box
+        gridArea="thumbnail"
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        width={['8rem', '10rem', '11rem', '12rem']}
+      >
+        <StyledImage src={book.thumbnail} />
+      </Box>
+      <Box gridArea="bookstore" display="flex" alignItems="center">
+        <StyledStoreBadge
+          fontSize={['0.8rem', null, null, '1rem']}
+          onClick={() => setCurrentTab(book.bookstoreId)}
+        >
+          <StyledLogo
+            src={getBookstoreLogo(book.bookstoreId)}
+            mr={['0.6rem', null, null, '0.75rem']}
+            maxHeight={['1.2rem', null, null, '1.5rem']}
+            maxWidth={['1.2rem', null, null, '1.5rem']}
+          />
+          {book.bookstoreName}
         </StyledStoreBadge>
       </Box>
-      <StyledTitle>{book.title}</StyledTitle>
-      <StyledAbout>{book.about}</StyledAbout>
+      <StyledTitle fontSize={['1.4rem', null, null, '1.7rem']}>{book.title}</StyledTitle>
+      <StyledAbout
+        fontSize={['1rem', null, null, '1.2rem']}
+        maxHeight={['4.5rem', null, null, '5.4rem']}
+      >
+        {book.about}
+      </StyledAbout>
       <Box gridArea="price" display="flex" justifyContent="space-between" alignItems="center">
-        <StyledPrice>
+        <StyledPrice fontSize={['1rem', null, null, '1.2rem']}>
           {new Intl.NumberFormat('en-us', {
             style: 'currency',
             currency: book.priceCurrency || 'TWD',
@@ -124,7 +158,7 @@ const BookItem: FunctionComponent<BookItemProps> = ({ book, setCurrentTab }) => 
             maximumFractionDigits: 0,
           }).format(book.price)}
         </StyledPrice>
-        <StyledGoTo href={book.link} target="_blank">
+        <StyledGoTo href={book.link} target="_blank" fontSize={['0.8rem', null, null, '1rem']}>
           OPEN {'＞'}
         </StyledGoTo>
       </Box>
