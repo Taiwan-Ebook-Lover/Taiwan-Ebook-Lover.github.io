@@ -1,6 +1,9 @@
 import Box from '@components/Box';
+import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { BooksOfBookstoreParamType, BookWithBookstore } from '@recoil/searchResults';
 import getBookstoreLogo from '@utils/assets/getBookstoreLogo';
+import { Button } from 'antd';
 import { Dispatch, FunctionComponent } from 'react';
 import styled from 'styled-components';
 import {
@@ -98,24 +101,6 @@ const StyledPrice = styled.p<FontSizeProps>`
   ${fontSize}
 `;
 
-const StyledGoTo = styled.a<FontSizeProps>`
-  appearance: none;
-  display: inline-flex;
-  align-items: center;
-  background-color: var(--primary-5);
-  color: white;
-  padding: 0.2rem 1rem;
-  border-radius: 0.95rem;
-  cursor: pointer;
-  transition: opacity 0.3s;
-  ${fontSize}
-
-  &:hover {
-    color: white;
-    opacity: 0.8;
-  }
-`;
-
 const BookItem: FunctionComponent<BookItemProps> = ({ book, setCurrentTab }) => {
   return (
     <StyledBookGrid gridTemplateColumns={['8rem auto', '10rem', '11rem', '12rem auto']}>
@@ -158,9 +143,13 @@ const BookItem: FunctionComponent<BookItemProps> = ({ book, setCurrentTab }) => 
             maximumFractionDigits: 0,
           }).format(book.price)}
         </StyledPrice>
-        <StyledGoTo href={book.link} target="_blank" fontSize={['0.8rem', null, null, '1rem']}>
-          OPEN {'＞'}
-        </StyledGoTo>
+        <Button
+          type="primary"
+          shape="round"
+          icon={<FontAwesomeIcon icon={faExternalLinkAlt} />}
+          href={book.link}
+          target="_blank"
+        />
       </Box>
     </StyledBookGrid>
   );
