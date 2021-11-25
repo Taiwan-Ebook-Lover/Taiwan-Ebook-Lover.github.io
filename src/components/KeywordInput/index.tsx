@@ -1,4 +1,5 @@
-import { SearchOutlined } from '@ant-design/icons';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import keywordAtom from '@recoil/bookstoreKeyword';
 import { Button, Input } from 'antd';
 import { FunctionComponent } from 'react';
@@ -25,7 +26,12 @@ const KeywordInput: FunctionComponent<KeywordInputProps> = ({ onSubmit }) => {
       onChange={(e) => setKeyword(e.target.value)}
       suffix={
         onSubmit ? (
-          <Button type="link" icon={<SearchOutlined />} size="small" onClick={onSubmit} />
+          <Button
+            type="link"
+            icon={<FontAwesomeIcon icon={faSearch} />}
+            size="small"
+            onClick={onSubmit}
+          />
         ) : null
       }
       onPressEnter={onSubmit}

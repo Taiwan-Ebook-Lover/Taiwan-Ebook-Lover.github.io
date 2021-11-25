@@ -1,5 +1,6 @@
-import { LoadingOutlined } from '@ant-design/icons';
 import Box from '@components/Box';
+import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Routes from '@routes';
 import { Suspense } from 'react';
 import { FunctionComponent } from 'react';
@@ -28,7 +29,7 @@ const SuspenseLoading: FunctionComponent = () => {
       justifyContent="center"
       alignItems="center"
     >
-      <LoadingOutlined style={{ fontSize: 48 }} />
+      <FontAwesomeIcon icon={faCircleNotch} className="fa-spin" style={{ fontSize: 24 }} />
       <Box mt="1rem">Loading...</Box>
     </Box>
   );

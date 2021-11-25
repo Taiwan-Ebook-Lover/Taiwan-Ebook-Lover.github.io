@@ -1,4 +1,5 @@
-import { TwitterOutlined } from '@ant-design/icons';
+import { faTwitter } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FunctionComponent } from 'react';
 import styled from 'styled-components';
 
@@ -19,7 +20,7 @@ const StyledTwitterPromotion = styled.h3`
 
 const TwitterPromotion: FunctionComponent = () => (
   <StyledTwitterPromotion onClick={() => window.open('https://twitter.com/TaiwanEBook', '_blank')}>
-    <TwitterOutlined style={{ fontSize: '2em', marginRight: '0.75rem' }} />
+    <FontAwesomeIcon icon={faTwitter} style={{ fontSize: '2em', marginRight: '0.75rem' }} />
     在推特上追蹤我們
   </StyledTwitterPromotion>
 );

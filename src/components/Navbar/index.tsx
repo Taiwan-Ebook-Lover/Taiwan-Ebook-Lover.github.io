@@ -1,9 +1,10 @@
-import { SearchOutlined } from '@ant-design/icons';
 import ebookLogo from '@assets/images/logo/ebook-logo.svg';
 import { breakpoints } from '@assets/themes/globalTheme';
 import Box from '@components/Box';
 import FilterDrawer from '@components/FilterDrawer';
 import GetApp from '@components/GetApp';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from 'antd';
 import { FunctionComponent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -77,7 +78,7 @@ const Navbar: FunctionComponent<NavbarProps> = ({ onConfirm }) => {
             justifyContent="flex-start"
           >
             <StyledSearchButton type="text" onClick={() => setDrawerVisible(true)}>
-              <SearchOutlined style={{ fontSize: '1.7rem' }} />
+              <FontAwesomeIcon icon={faSearch} style={{ fontSize: '1.5rem' }} />
             </StyledSearchButton>
           </Box>
         </Box>

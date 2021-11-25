@@ -1,6 +1,7 @@
-import { CheckCircleTwoTone, CloseCircleTwoTone } from '@ant-design/icons';
 import { BookstoreData } from '@api/useBookstores';
 import Box from '@components/Box';
+import { faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import getBookstoreLogo from '@utils/assets/getBookstoreLogo';
 import { FunctionComponent } from 'react';
 import styled from 'styled-components';
@@ -32,9 +33,9 @@ const BookstoreItem: FunctionComponent<BookstoreData> = ({
         {displayName}
       </StyledBoostoreLink>
       {isOnline ? (
-        <CheckCircleTwoTone twoToneColor="#52c41a" />
+        <FontAwesomeIcon icon={faCheckCircle} style={{ color: '#52c41a' }} />
       ) : (
-        <CloseCircleTwoTone twoToneColor="#f5222d" />
+        <FontAwesomeIcon icon={faTimesCircle} style={{ color: '#f5222d' }} />
       )}
     </Box>
   );

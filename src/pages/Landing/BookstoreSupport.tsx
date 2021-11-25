@@ -1,5 +1,6 @@
-import { CheckCircleTwoTone, CloseCircleTwoTone } from '@ant-design/icons';
 import useBookstores from '@api/useBookstores';
+import { faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Popover } from 'antd';
 import { FunctionComponent } from 'react';
 import styled from 'styled-components';
@@ -56,9 +57,9 @@ const BookstoreSupport: FunctionComponent = () => {
           <StyledBookstores>
             {bookstores && bookstores.map((item) => <BookstoreItem key={item.id} {...item} />)}
             <StyledOnlineDesc>
-              <CheckCircleTwoTone twoToneColor="#52c41a" />
+              <FontAwesomeIcon icon={faCheckCircle} style={{ color: '#52c41a' }} />
               <span>：服務中</span>
-              <CloseCircleTwoTone twoToneColor="#f5222d" />
+              <FontAwesomeIcon icon={faTimesCircle} style={{ color: '#f5222d' }} />
               <span>：暫停服務</span>
             </StyledOnlineDesc>
           </StyledBookstores>

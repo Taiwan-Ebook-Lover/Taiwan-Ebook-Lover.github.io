@@ -1,7 +1,8 @@
-import { FilterOutlined } from '@ant-design/icons';
 import Box from '@components/Box';
 import FilterCheckboxes, { FilterCheckboxesProps } from '@components/FilterCheckboxes';
 import OrderBySelect from '@components/OrderBySelect';
+import { faFilter } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Popover } from 'antd';
 import { FunctionComponent, useState } from 'react';
 import { MarginProps } from 'styled-system';
@@ -29,7 +30,7 @@ const SearchOptions: FunctionComponent<SearchOptionsProps> = ({ filterProps, ...
         }
       >
         <Button
-          icon={<FilterOutlined />}
+          icon={<FontAwesomeIcon icon={faFilter} style={{ marginRight: '0.5rem' }} />}
           size="large"
           style={{ padding: '0 1.2rem', height: 'auto' }}
         >
