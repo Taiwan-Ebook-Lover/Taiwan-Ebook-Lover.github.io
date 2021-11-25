@@ -144,7 +144,6 @@ const BookItem: FunctionComponent<BookItemProps> = ({ book, setCurrentTab }) => 
           }).format(book.price)}
         </StyledPrice>
         <Button
-          type="primary"
           shape="round"
           icon={<FontAwesomeIcon icon={faExternalLinkAlt} />}
           href={book.link}
