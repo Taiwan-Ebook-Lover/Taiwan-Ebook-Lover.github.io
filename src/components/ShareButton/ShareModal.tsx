@@ -79,7 +79,7 @@ const ShareModal: FunctionComponent<ShareModalProps> = ({ open, onCancel, url, c
   const copy = useCopy(url);
 
   return (
-    <Modal title="Share" visible={open} centered footer={null} onCancel={onCancel}>
+    <Modal title="分享" visible={open} centered footer={null} onCancel={onCancel}>
       <StyledShareButtonWrapper>
         <FacebookShareButton url={url}>
           <FontAwesomeIcon icon={faFacebook} style={{ color: '#2e89ff' }} />
