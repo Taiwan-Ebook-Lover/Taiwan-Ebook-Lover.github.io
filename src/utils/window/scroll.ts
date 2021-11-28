@@ -1,5 +1,9 @@
+import smoothscroll from 'smoothscroll-polyfill';
+
+smoothscroll.polyfill();
+
 export const scrollToTop = (): void => {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  window.scroll({ top: 0, behavior: 'smooth' });
 };
 
 export const shakeView = (): void => {
