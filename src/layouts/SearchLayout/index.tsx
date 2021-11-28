@@ -1,3 +1,5 @@
+import { faChevronCircleUp } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import searchResultsAtom from '@/recoil/searchResults';
 import useBooksSearch from '@api/useBooksSearch';
 import { breakpoints } from '@assets/themes/globalTheme';
@@ -9,7 +11,7 @@ import useNavigateToSearch from '@hooks/useNavigateToSearch';
 import bookstoreKeyword from '@recoil/bookstoreKeyword';
 import bookstoresFilter from '@recoil/bookstoresFilter';
 import { qsExcludeOrder, qsParse, qsStringify } from '@utils/url/queryString';
-import { message } from 'antd';
+import { message, BackTop } from 'antd';
 import { isEmpty } from 'lodash-es';
 import { FunctionComponent, useEffect, useMemo } from 'react';
 import { Navigate, Outlet, useNavigate, useParams } from 'react-router-dom';
@@ -76,6 +78,17 @@ const BasicLayout: FunctionComponent<BasicLayoutProps> = ({ urlParams }) => {
           </Box>
         </Box>
       </Box>
+      <BackTop>
+        <FontAwesomeIcon
+          icon={faChevronCircleUp}
+          style={{
+            fontSize: '2.5rem',
+            color: 'var(--primary-color)',
+            backgroundColor: 'var(--gray-1)',
+            borderRadius: '50%',
+          }}
+        />
+      </BackTop>
     </StyledLayoutWrapper>
   );
 };
