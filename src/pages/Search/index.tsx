@@ -35,6 +35,7 @@ const Search: FunctionComponent = () => {
   const bookstores = useRecoilValue(bookstoresOfResults);
   const booksOfCurrentTab = useRecoilValue(booksOfBookstore(currentTab));
 
+  useEffect(() => setCurrentTab('all'), [bookstores]);
   useEffect(() => {
     shakeView();
     scrollToTop();
