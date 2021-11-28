@@ -1,34 +1,39 @@
 import appStoreBadge from '@assets/images/storeBadge/app-store-badge.svg';
 import googlePlayBadge from '@assets/images/storeBadge/play-store-badge.svg';
 import { breakpoints } from '@assets/themes/globalTheme';
-import { Box } from '@components/Box';
+import Box from '@components/Box';
 import { Button, Modal } from 'antd';
 import { FunctionComponent, useState } from 'react';
 import styled from 'styled-components';
 
-interface GetAppProps {
-  textColor?: 'grey' | 'white';
+export interface GetAppProps {
+  textcolor?: 'grey' | 'white';
 }
 
-enum PlatformType {
+export enum PlatformType {
   ANDROID,
   IOS,
 }
 
 const StyledBadge = styled.img`
   cursor: pointer;
+  max-height: 5rem;
 
   & + & {
-    margin: 1rem 0 0 0;
+    margin: 1.5rem 0 0 0;
+  }
 
-    @media (min-width: ${breakpoints.lg}) {
+  @media (min-width: ${breakpoints.lg}) {
+    max-height: 2.5rem;
+
+    & + & {
       margin: 0 0 0 0.5rem;
     }
   }
 `;
 
 const StyledGetAppButton = styled(Button)<GetAppProps>`
-  color: ${({ textColor }) => (textColor === 'grey' ? 'var(--gray-7)' : 'var(--gray-1)')};
+  color: ${({ textcolor }) => (textcolor === 'grey' ? 'var(--gray-7)' : 'var(--gray-1)')};
 `;
 
 const links: Record<PlatformType, string> = {
@@ -52,7 +57,7 @@ const Badges = () => (
   </>
 );
 
-export const GetApp: FunctionComponent<GetAppProps> = ({ textColor = 'grey' }) => {
+const GetApp: FunctionComponent<GetAppProps> = ({ textcolor = 'grey' }) => {
   const [modalOpen, setModalOpen] = useState(false);
 
   return (
@@ -61,7 +66,7 @@ export const GetApp: FunctionComponent<GetAppProps> = ({ textColor = 'grey' }) =
         <Badges />
       </Box>
       <Box display={['block', null, null, null, 'none']} height="2.5rem">
-        <StyledGetAppButton type="text" textColor={textColor} onClick={() => setModalOpen(true)}>
+        <StyledGetAppButton type="text" textcolor={textcolor} onClick={() => setModalOpen(true)}>
           Get App
         </StyledGetAppButton>
       </Box>
@@ -87,3 +92,5 @@ export const GetApp: FunctionComponent<GetAppProps> = ({ textColor = 'grey' }) =
     </>
   );
 };
+
+export default GetApp;
