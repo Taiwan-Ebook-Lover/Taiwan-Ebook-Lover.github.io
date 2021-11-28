@@ -21,7 +21,7 @@ const StyledLogo = styled.img<MaxWidthProps>`
 
 const GlobalStyle = createGlobalStyle`
   body {
-    background-color: var(--gray-3);
+    background-color: var(--gray-3) !important;
   }
 `;
 

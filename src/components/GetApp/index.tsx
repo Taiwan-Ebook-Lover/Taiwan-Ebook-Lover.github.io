@@ -33,7 +33,8 @@ const StyledBadge = styled.img`
 `;
 
 const StyledGetAppButton = styled(Button)<GetAppProps>`
-  color: ${({ textcolor }) => (textcolor === 'grey' ? 'var(--gray-7)' : 'var(--gray-1)')};
+  color: ${({ textcolor }) =>
+    textcolor === 'grey' ? 'var(--gray-7)' : 'var(--gray-1)'} !important;
 `;
 
 const links: Record<PlatformType, string> = {

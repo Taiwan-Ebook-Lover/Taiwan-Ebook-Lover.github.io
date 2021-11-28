@@ -37,7 +37,7 @@ const StyledTitle = styled.span`
 `;
 
 const StyledSearchButton = styled(Button)`
-  color: white;
+  color: var(--gray-1) !important;
 `;
 
 export interface NavbarProps {
