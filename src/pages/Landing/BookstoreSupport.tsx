@@ -57,9 +57,9 @@ const BookstoreSupport: FunctionComponent = () => {
           <StyledBookstores>
             {bookstores && bookstores.map((item) => <BookstoreItem key={item.id} {...item} />)}
             <StyledOnlineDesc>
-              <FontAwesomeIcon icon={faCheckCircle} style={{ color: '#52c41a' }} />
+              <FontAwesomeIcon icon={faCheckCircle} style={{ color: 'var(--success-color)' }} />
               <span>：服務中</span>
-              <FontAwesomeIcon icon={faTimesCircle} style={{ color: '#f5222d' }} />
+              <FontAwesomeIcon icon={faTimesCircle} style={{ color: 'var(--error-color)' }} />
               <span>：暫停服務</span>
             </StyledOnlineDesc>
           </StyledBookstores>

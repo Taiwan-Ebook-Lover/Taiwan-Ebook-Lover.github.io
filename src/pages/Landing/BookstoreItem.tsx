@@ -33,9 +33,9 @@ const BookstoreItem: FunctionComponent<BookstoreData> = ({
         {displayName}
       </StyledBoostoreLink>
       {isOnline ? (
-        <FontAwesomeIcon icon={faCheckCircle} style={{ color: '#52c41a' }} />
+        <FontAwesomeIcon icon={faCheckCircle} style={{ color: 'var(--success-color)' }} />
       ) : (
-        <FontAwesomeIcon icon={faTimesCircle} style={{ color: '#f5222d' }} />
+        <FontAwesomeIcon icon={faTimesCircle} style={{ color: 'var(--error-color)' }} />
       )}
     </Box>
   );
