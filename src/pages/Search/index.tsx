@@ -15,6 +15,13 @@ import styled from 'styled-components';
 import ResultEmpty from './ResultEmpty';
 import ResultList from './ResultList';
 
+const StyledHeaderWrapper = styled.div`
+  position: sticky;
+  top: 0;
+  background-color: var(--gray-1);
+  z-index: 1;
+`;
+
 const StyledBorder = styled.div`
   border-bottom: 1px solid var(--gray-4);
   transform: translateY(3.2857rem);
@@ -38,18 +45,21 @@ const Search: FunctionComponent = () => {
 
   return (
     <>
-      <FullWidth>
-        <StyledBorder />
-      </FullWidth>
-      <Tabs
-        activeKey={currentTab}
-        tabBarGutter={28}
-        onChange={(key) => setCurrentTab(key as BooksOfBookstoreParamType)}
-      >
-        {[{ id: 'all', displayName: '全部' }, ...bookstores].map((bookstore) => (
-          <TabPane tab={bookstore.displayName} key={bookstore.id} />
-        ))}
-      </Tabs>
+      <StyledHeaderWrapper>
+        <FullWidth>
+          <StyledBorder />
+        </FullWidth>
+        <Tabs
+          activeKey={currentTab}
+          tabBarGutter={28}
+          onChange={(key) => setCurrentTab(key as BooksOfBookstoreParamType)}
+          tabBarStyle={{ marginBottom: 0 }}
+        >
+          {[{ id: 'all', displayName: '全部' }, ...bookstores].map((bookstore) => (
+            <TabPane tab={bookstore.displayName} key={bookstore.id} />
+          ))}
+        </Tabs>
+      </StyledHeaderWrapper>
       {isEmpty(booksOfCurrentTab) ? (
         <ResultEmpty />
       ) : (

@@ -17,7 +17,8 @@ const ResultList: FunctionComponent<ResultListProps> = ({ books, setCurrentTab }
       <Box px={['1rem', null, null, null, null, '0']}>
         <Box
           textColor="var(--gray-7)"
-          mb="2rem"
+          mt="1rem"
+          mb="1.5rem"
           display="flex"
           alignItems="center"
           justifyContent="space-between"
