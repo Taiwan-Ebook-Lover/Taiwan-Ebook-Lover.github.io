@@ -7,11 +7,11 @@ import { isEmpty } from 'lodash-es';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilCallback } from 'recoil';
 
-export interface useNavigateToSearch {
+export interface useNavigateToSearchInterface {
   (): () => void;
 }
 
-const useNavigateToSearch: useNavigateToSearch = () => {
+const useNavigateToSearch: useNavigateToSearchInterface = () => {
   const navigate = useNavigate();
 
   const onSearch = useRecoilCallback(
