@@ -24,15 +24,7 @@ export default new Router({
       name: 'searches',
       component: Search,
     },
-    {
-      path: '/search',
-      redirect: (to) => {
-        if (to?.query?.id) {
-          return '/searches/:id';
-        }
-
-        return '/searches';
-      },
-    },
+    { path: '/search', redirect: { name: 'search' } },
+    { path: '/search/:id', redirect: { name: 'searches' } },
   ],
 });
