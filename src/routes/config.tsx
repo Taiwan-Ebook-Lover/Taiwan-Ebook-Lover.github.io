@@ -1,5 +1,6 @@
 import { lazy } from 'react';
 import { RouteObject } from 'react-router';
+import { Navigate } from 'react-router-dom';
 
 const SearchLayout = lazy(() => import('@layouts/SearchLayout'));
 const Landing = lazy(() => import('@pages/Landing'));
@@ -23,6 +24,16 @@ const routeConfig: Array<RouteObject> = [
         element: <Search />,
       },
     ],
+  },
+  {
+    path: 'search/*',
+    element: (
+      <Navigate to={`${location.pathname}${location.search}`.replace(/^\/search/, '/searches')} />
+    ),
+  },
+  {
+    path: '*',
+    element: <Navigate to="/" />,
   },
 ];
 
