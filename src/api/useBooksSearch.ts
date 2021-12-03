@@ -50,7 +50,7 @@ const useBooksSearch = (params: string): useBooksResult => {
   if (!params) {
     return {
       isLoading: false,
-      error: { message: '缺少必要搜尋條件（關鍵字 or 書店）。' },
+      error: { message: '缺少搜尋關鍵字。' },
     };
   }
 

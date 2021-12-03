@@ -97,7 +97,7 @@ const BasicLayoutWrapper: FunctionComponent = () => {
   const { searchId } = useParams();
   const qsObject = useMemo(() => qsParse(qsExcludeOrder(location.search)), [location.search]);
 
-  if (!searchId && !(qsObject.q && qsObject.bookstores)) return <Navigate to="/" />;
+  if (!searchId && !qsObject.q) return <Navigate to="/" />;
   return (
     <BasicLayout urlParams={searchId || `?${qsStringify(qsObject, { arrayFormat: 'bracket' })}`} />
   );
