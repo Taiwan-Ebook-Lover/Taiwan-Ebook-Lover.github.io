@@ -49,7 +49,7 @@ const BasicLayout: FunctionComponent<BasicLayoutProps> = ({ urlParams }) => {
       navigate(`/searches/${searchResult.id}`);
       setSearchResults(searchResult.results);
     }
-  }, [searchResult]);
+  }, [searchResult, urlParams]);
 
   return (
     <StyledLayoutWrapper>
