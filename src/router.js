@@ -24,5 +24,7 @@ export default new Router({
       name: 'searches',
       component: Search,
     },
+    { path: '/search', redirect: { name: 'search' } },
+    { path: '/search/:id', redirect: { name: 'searches' } },
   ],
 });
