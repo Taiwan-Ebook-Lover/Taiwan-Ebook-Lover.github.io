@@ -8,7 +8,7 @@
       },
       {
         "appID": "G4JB6X9K6T.denkeni.EbookTW",
-        "paths": ["/searches"]
+        "paths": ["/search", "/searches"]
       }
     ]
   }
