@@ -1,7 +1,18 @@
-const path = require('path');
+import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
+import path from 'path';
 
-module.exports = {
-  webpack: {
+export default defineConfig({
+  define: {
+    __APP_VERSION__: JSON.stringify(process.env.npm_package_version),
+  },
+  plugins: [
+    react(),
+  ],
+  build: {
+    outDir: 'build',
+  },
+  resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src/'),
       '@api': path.resolve(__dirname, 'src/api'),
@@ -16,4 +27,4 @@ module.exports = {
       '@utils': path.resolve(__dirname, 'src/utils'),
     },
   },
-};
+});

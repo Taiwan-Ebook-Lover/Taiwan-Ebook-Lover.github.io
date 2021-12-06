@@ -27,12 +27,11 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "craco start & yarn auto-update-theme",
-    "build": "yarn compile-themes & craco build",
-    "test": "craco test",
-    "eject": "react-scripts eject",
+    "start": "vite & yarn auto-update-theme",
+    "build": "yarn compile-themes && vite build",
+    "preview": "vite preview",
     "prepare": "husky install",
-    "check-lint": "yarn eslint --max-warnings=0 --ext .ts,.tsx src -c .eslintrc.js",
+    "check-lint": "eslint ./src --ext .ts,.tsx --max-warnings=0 --ignore-path ./.gitignore",
     "auto-update-theme": "npx gulp auto-update-theme",
     "compile-themes": "npx gulp build"
   },
