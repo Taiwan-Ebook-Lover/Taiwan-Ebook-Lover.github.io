@@ -1,6 +1,7 @@
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 import path from 'path';
+import checker from 'vite-plugin-checker';
 
 export default defineConfig({
   define: {
@@ -8,9 +9,18 @@ export default defineConfig({
   },
   plugins: [
     react(),
+    checker({
+      eslint: {
+        files: ['./src'],
+        extensions: ['.tsx', '.ts'],
+      },
+    }),
   ],
   build: {
     outDir: 'build',
+  },
+  server: {
+    open: '/',
   },
   resolve: {
     alias: {
