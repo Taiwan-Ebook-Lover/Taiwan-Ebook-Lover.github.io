@@ -43,7 +43,7 @@ export type useBooksResult = {
 };
 
 const qsRegex = new RegExp(/^\?/);
-export const booksSearchUrl = `${process.env.REACT_APP_API_BASE_URL}/v1/searches/`;
+export const booksSearchUrl = `${import.meta.env.VITE_API_BASE_URL}/v1/searches/`;
 
 const useBooksSearch = (params: string): useBooksResult => {
   const client = useQueryClient();
