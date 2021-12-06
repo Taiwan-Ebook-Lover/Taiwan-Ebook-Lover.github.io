@@ -31,7 +31,8 @@
     "build": "yarn compile-themes && vite build",
     "preview": "vite preview",
     "prepare": "husky install",
-    "check-lint": "eslint ./src --ext .ts,.tsx --max-warnings=0 --ignore-path ./.gitignore",
+    "lint": "eslint ./src --ext .ts,.tsx --max-warnings=0 --ignore-path ./.gitignore",
+    "lint:fix": "yarn lint --fix",
     "auto-update-theme": "npx gulp auto-update-theme",
     "compile-themes": "npx gulp build"
   },
