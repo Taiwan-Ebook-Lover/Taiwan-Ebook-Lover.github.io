@@ -8,8 +8,8 @@ import ReactDOM from 'react-dom';
 import { ThemeProvider } from 'styled-components';
 
 const themes: { [key in ThemeEnum]: string } = {
-  [ThemeEnum.DARK]: `/dark-theme.css`,
-  [ThemeEnum.LIGHT]: `/light-theme.css`,
+  [ThemeEnum.DARK]: '/dark-theme.css',
+  [ThemeEnum.LIGHT]: '/light-theme.css',
 };
 
 ReactDOM.render(
