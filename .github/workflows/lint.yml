@@ -24,4 +24,4 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Check ESLint
-        run: yarn check-lint
+        run: yarn lint
