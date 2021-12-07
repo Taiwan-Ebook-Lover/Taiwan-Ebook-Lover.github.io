@@ -7,6 +7,7 @@ import SearchOptions from '@components/SearchOptions';
 import useNavigateToSearch from '@hooks/useNavigateToSearch';
 import { message, Typography } from 'antd';
 import { FunctionComponent, useEffect } from 'react';
+import GHCorner from 'react-gh-corner';
 import styled, { createGlobalStyle } from 'styled-components';
 import { maxWidth, MaxWidthProps } from 'styled-system';
 
@@ -68,6 +69,14 @@ const Landing: FunctionComponent = () => {
       <Box display={['flex', null, 'none']} justifyContent="center" p="2rem">
         <TwitterPromotion />
       </Box>
+      <GHCorner
+        href="https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io"
+        position="top-left"
+        bgColor="var(--primary-color)"
+        size={70}
+        ariaLabel="View source on GitHub"
+        openInNewTab
+      />
     </>
   );
 };
