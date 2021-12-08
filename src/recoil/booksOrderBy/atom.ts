@@ -1,5 +1,5 @@
-import { atom } from 'recoil';
 import { OrderByEnum } from '@customTypes/searchOptions';
+import { atom } from 'recoil';
 
 const booksOrderBy = atom<OrderByEnum>({
   key: 'booksOrderBy',

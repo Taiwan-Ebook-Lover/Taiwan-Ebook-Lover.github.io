@@ -70,6 +70,7 @@
     "eslint": "^8.3.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-react": "^7.25.2",
+    "eslint-plugin-simple-import-sort": "^7.0.0",
     "gulp": "^4.0.2",
     "gulp-cached": "^1.1.1",
     "gulp-clean-css": "^4.3.0",

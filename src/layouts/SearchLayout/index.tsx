@@ -1,4 +1,3 @@
-import searchResultsAtom from '@/recoil/searchResults';
 import useBooksSearch from '@api/useBooksSearch';
 import { breakpoints } from '@assets/themes/globalTheme';
 import Box from '@components/Box';
@@ -10,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import useNavigateToSearch from '@hooks/useNavigateToSearch';
 import bookstoreKeyword from '@recoil/bookstoreKeyword';
 import bookstoresFilter from '@recoil/bookstoresFilter';
+import searchResultsAtom from '@recoil/searchResults';
 import { qsExcludeOrder, qsParse, qsStringify } from '@utils/url/queryString';
 import { BackTop, message } from 'antd';
 import { isEmpty } from 'lodash-es';

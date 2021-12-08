@@ -1,10 +1,10 @@
+import FullWidth from '@components/FullWidth';
+import booksOrderBy from '@recoil/booksOrderBy';
 import {
   booksOfBookstore,
   BooksOfBookstoreParamType,
   bookstoresOfResults,
-} from '@/recoil/searchResults';
-import FullWidth from '@components/FullWidth';
-import booksOrderBy from '@recoil/booksOrderBy';
+} from '@recoil/searchResults';
 import { scrollToTop, shakeView } from '@utils/window/scroll';
 import { Tabs } from 'antd';
 import { isEmpty } from 'lodash-es';

@@ -16,12 +16,15 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
+  plugins: ['simple-import-sort'],
   rules: {
     'no-console': 'warn',
     indent: ['warn', 2],
     quotes: ['warn', 'single'],
     semi: ['warn', 'always'],
     'comma-dangle': ['warn', 'always-multiline'],
+    'simple-import-sort/imports': 'warn',
+    'simple-import-sort/exports': 'warn',
   },
   settings: {
     react: {
