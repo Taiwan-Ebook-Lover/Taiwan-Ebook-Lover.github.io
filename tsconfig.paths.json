@@ -7,11 +7,13 @@
       "@assets/*": ["./src/assets/*"],
       "@components/*": ["./src/components/*"],
       "@customTypes/*": ["./src/assets/types/*"],
+      "@hooks/*": ["./src/hooks/*"],
       "@layouts/*": ["./src/layouts/*"],
       "@pages/*": ["./src/pages/*"],
       "@recoil/*": ["./src/recoil/*"],
       "@routes": ["./src/routes"],
-      "@routes/*": ["./src/routes/*"]
+      "@routes/*": ["./src/routes/*"],
+      "@utils/*": ["./src/utils/*"]
     }
   }
 }

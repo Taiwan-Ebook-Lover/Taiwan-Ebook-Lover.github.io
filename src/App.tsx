@@ -1,12 +1,24 @@
-import { LoadingOutlined } from '@ant-design/icons';
 import Box from '@components/Box';
+import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Routes from '@routes';
 import { Suspense } from 'react';
 import { FunctionComponent } from 'react';
 import { useThemeSwitcher } from 'react-css-theme-switcher';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import { BrowserRouter } from 'react-router-dom';
-import { SWRConfig } from 'swr';
 import { RecoilRoot } from 'recoil';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      staleTime: 3600000, // 1 hour
+      retry: 2,
+    },
+  },
+});
 
 const SuspenseLoading: FunctionComponent = () => {
   return (
@@ -17,7 +29,7 @@ const SuspenseLoading: FunctionComponent = () => {
       justifyContent="center"
       alignItems="center"
     >
-      <LoadingOutlined style={{ fontSize: 48 }} />
+      <FontAwesomeIcon icon={faCircleNotch} className="fa-spin" style={{ fontSize: 24 }} />
       <Box mt="1rem">Loading...</Box>
     </Box>
   );
@@ -29,14 +41,7 @@ const App: FunctionComponent = () => {
   if (status !== 'loaded') return null;
 
   return (
-    <SWRConfig
-      value={{
-        onErrorRetry: (error, key, config, revalidate, { retryCount }) => {
-          if (retryCount >= 5) return;
-          setTimeout(() => revalidate({ retryCount }), 10000);
-        },
-      }}
-    >
+    <QueryClientProvider client={queryClient}>
       <RecoilRoot>
         <BrowserRouter>
           <Suspense fallback={<SuspenseLoading />}>
@@ -44,7 +49,8 @@ const App: FunctionComponent = () => {
           </Suspense>
         </BrowserRouter>
       </RecoilRoot>
-    </SWRConfig>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 };
 

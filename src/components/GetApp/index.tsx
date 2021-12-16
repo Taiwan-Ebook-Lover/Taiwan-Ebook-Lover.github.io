@@ -23,7 +23,7 @@ const StyledBadge = styled.img`
     margin: 1.5rem 0 0 0;
   }
 
-  @media (min-width: ${breakpoints.lg}) {
+  @media (min-width: ${breakpoints.md}) {
     max-height: 2.5rem;
 
     & + & {
@@ -33,7 +33,8 @@ const StyledBadge = styled.img`
 `;
 
 const StyledGetAppButton = styled(Button)<GetAppProps>`
-  color: ${({ textcolor }) => (textcolor === 'grey' ? 'var(--gray-7)' : 'var(--gray-1)')};
+  color: ${({ textcolor }) =>
+    textcolor === 'grey' ? 'var(--gray-7)' : 'var(--gray-1)'} !important;
 `;
 
 const links: Record<PlatformType, string> = {
@@ -62,10 +63,10 @@ const GetApp: FunctionComponent<GetAppProps> = ({ textcolor = 'grey' }) => {
 
   return (
     <>
-      <Box display={['none', null, null, null, 'flex']} height="2.5rem" width="16.5rem">
+      <Box display={['none', null, null, 'flex']} height="2.5rem" width="16.5rem">
         <Badges />
       </Box>
-      <Box display={['block', null, null, null, 'none']} height="2.5rem">
+      <Box display={['block', null, null, 'none']} height="2.5rem">
         <StyledGetAppButton type="text" textcolor={textcolor} onClick={() => setModalOpen(true)}>
           Get App
         </StyledGetAppButton>

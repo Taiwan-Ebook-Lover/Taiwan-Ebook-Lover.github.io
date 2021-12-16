@@ -1,9 +1,9 @@
-import { CheckCircleTwoTone, CloseCircleTwoTone } from '@ant-design/icons';
+import useBookstores from '@api/useBookstores';
+import { faCheckCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Popover } from 'antd';
 import { FunctionComponent } from 'react';
 import styled from 'styled-components';
-import { useSWRConfig } from 'swr';
-import { bookstoresUrl, BookstoreData } from '@api/useBookstores';
 
 import BookstoreItem from './BookstoreItem';
 
@@ -45,8 +45,7 @@ const StyledOnlineDesc = styled.div`
 `;
 
 const BookstoreSupport: FunctionComponent = () => {
-  const { cache } = useSWRConfig();
-  const bookstores: Array<BookstoreData> = cache.get(bookstoresUrl);
+  const { bookstores } = useBookstores();
 
   return (
     <StyledBookstoreSupport>
@@ -56,19 +55,19 @@ const BookstoreSupport: FunctionComponent = () => {
         trigger="click"
         content={
           <StyledBookstores>
-            {bookstores?.map((item) => (
-              <BookstoreItem key={item.id} {...item} />
-            ))}
+            {bookstores && bookstores.map((item) => <BookstoreItem key={item.id} {...item} />)}
             <StyledOnlineDesc>
-              <CheckCircleTwoTone twoToneColor="#52c41a" />
+              <FontAwesomeIcon icon={faCheckCircle} style={{ color: 'var(--success-color)' }} />
               <span>：服務中</span>
-              <CloseCircleTwoTone twoToneColor="#f5222d" />
+              <FontAwesomeIcon icon={faTimesCircle} style={{ color: 'var(--error-color)' }} />
               <span>：暫停服務</span>
             </StyledOnlineDesc>
           </StyledBookstores>
         }
       >
-        <StyledWhichBookstore>哪 {bookstores?.length} 間台灣線上電子書店</StyledWhichBookstore>
+        <StyledWhichBookstore>
+          哪{bookstores ? ` ${bookstores.length} ` : '幾'}間台灣線上電子書店
+        </StyledWhichBookstore>
       </Popover>
     </StyledBookstoreSupport>
   );

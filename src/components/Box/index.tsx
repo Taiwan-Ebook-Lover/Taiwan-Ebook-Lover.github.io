@@ -1,3 +1,4 @@
+import { color, ColorProps } from '@utils/style/color';
 import styled from 'styled-components';
 import {
   border,
@@ -17,6 +18,7 @@ import {
 
 export interface BoxProps
   extends BorderProps,
+    ColorProps,
     FlexboxProps,
     GridProps,
     LayoutProps,
@@ -24,7 +26,7 @@ export interface BoxProps
     SpaceProps {}
 
 const Box = styled.div<BoxProps>`
-  ${compose(border, flexbox, grid, layout, position, space)}
+  ${compose(border, color, flexbox, grid, layout, position, space)}
 `;
 
 export default Box;
