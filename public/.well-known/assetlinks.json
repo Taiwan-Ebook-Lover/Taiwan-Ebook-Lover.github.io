@@ -1,0 +1,18 @@
+[{
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "liou.rayyuan.ebooksearchtaiwan.debug",
+      "sha256_cert_fingerprints":
+      ["BF:4F:D5:8B:17:14:F3:EF:F8:9A:DF:12:D5:10:32:D1:88:2B:82:20:02:FC:A0:C5:61:23:02:F4:A2:CE:F0:AC"]
+    }
+  },
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "liou.rayyuan.ebooksearchtaiwan",
+      "sha256_cert_fingerprints":
+      ["E6:FB:D6:2F:42:04:DF:1B:80:D8:9B:CD:7A:29:D0:31:D4:9A:9F:3C:CC:78:EB:17:3E:07:FB:41:26:DC:15:E0"]
+    }
+}]

@@ -1,0 +1,15 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "249RY7L79K.nandalu.EbookTW",
+        "paths": ["/search"]
+      },
+      {
+        "appID": "G4JB6X9K6T.denkeni.EbookTW",
+        "paths": ["/search", "/search/*", "/searches", "/searches/*"]
+      }
+    ]
+  }
+}
