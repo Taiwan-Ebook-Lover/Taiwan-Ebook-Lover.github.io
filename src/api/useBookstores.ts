@@ -20,7 +20,7 @@ const useBookstores = (): useBookstoresResult => {
   const { data, isLoading, error } = useQuery<Array<BookstoreData>, ErrorType>(
     'bookstores',
     async () => {
-      const response = await fetch(`${process.env.REACT_APP_API_BASE_URL}/v1/bookstores`);
+      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/v1/bookstores`);
       if (!response.ok) {
         throw { message: '暫時無法取得書店列表。' };
       }
