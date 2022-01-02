@@ -1,19 +1,24 @@
-# 台灣電子書搜尋
+<h1 align="center" style="border-bottom: none;">台灣電子書搜尋</h1>
+<h3 align="center">台灣電子書搜尋服務，一次搜齊 9 間台灣線上書店 🔍</h3>
+<p align="center">
+  <a href="https://github.com/semantic-release/semantic-release">
+    <img alt="semantic-release: angular" src="https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release">
+  </a>
+</p>
 
-> 這個分支主要目的為將專案 refactor（好像有點像 rebuild ?） 至 Typescript，讓專案未來可依靠 TS 的特性，變得更加嚴謹。
-> 相對的，也會有一些框架及技術選擇的調整，技術選擇和保留項目的詳細資訊如下：
+## 目前支援書店
+- [Readmoo 讀墨](https://readmoo.com/)
+- [Taaze 讀冊生活](https://www.taaze.tw/)
+- [BOOKWALKER](https://www.bookwalker.com.tw/)
+- [樂天 kobo](https://www.kobo.com/)
+- [Pubu 電子商城](https://www.pubu.com.tw/)
+- [HyRead 電子書](https://ebook.hyread.com.tw/)
+- [Amazon Kindle](https://www.amazon.com/Kindle-eBooks/)
+- [Google Play 圖書](https://play.google.com/store/books)
+- [博客來](https://www.books.com.tw/)
 
-### 技術選擇
+---
 
-- 將 Vue 轉換為 React
-  - 以現在時空背景下，Vue 3 雖然有支援 TS，但 Vue 3 還沒有非常穩定，而穩定的 Vue 2 對 TS 的支援是不友善的，因此我們選擇接下來使用 React 來做未來的開發，並且 React 豐富的生態圈也可以協助我們未來做更多彈性的開發。
-- UI Library 選擇
-  - Ant Design。主要原因是 antd components 的 API 與功能相當完整，也支援 Dark mode、TS 和 Tree shaking。客製化樣式的部分，我們可以透過 styled-component 來修改。
+感謝使用「台灣電子書搜尋」的你們，
 
-### 保留
-
-- Code formatter: Prettier
-- Pre-commit check lint
-- CodeQL
-- Auto deploy
-- Check lint on PR
+如果你喜歡這個服務，歡迎在 [Twitter 上跟隨我們](https://twitter.com/TaiwanEBook)！❤
