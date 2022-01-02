@@ -56,6 +56,8 @@
     ]
   },
   "devDependencies": {
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/git": "^10.0.1",
     "@types/lodash-es": "^4.17.5",
     "@types/node": "^16.11.10",
     "@types/react": "^17.0.37",
@@ -81,10 +83,10 @@
     "husky": "^7.0.0",
     "less-plugin-npm-import": "^2.1.0",
     "postcss": "^8.3.6",
+    "semantic-release": "^18.0.1",
     "typescript": "~4.5.2",
     "vite": "^2.6.14",
-    "vite-plugin-checker": "^0.3.4",
-    "semantic-release": "^18.0.1"
+    "vite-plugin-checker": "^0.3.4"
   },
   "repository": {
     "type": "git",
