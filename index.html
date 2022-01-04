@@ -63,6 +63,18 @@
     </script>
     <!-- End Single Page Apps for GitHub Pages -->
 
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<%=VITE_GTAG_ID%>"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+
+      gtag('config', '<%=VITE_GTAG_ID%>');
+    </script>
+
     <!--styles-insertion-point-->
   </head>
   <body>
