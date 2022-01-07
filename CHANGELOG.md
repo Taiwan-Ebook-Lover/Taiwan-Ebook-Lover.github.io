@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/compare/v2.0.0...v2.0.1) (2022-01-07)
+
+
+### Bug Fixes
+
+* Import gtag id from secrets in build process. ([#67](https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/issues/67)) ([ec062b8](https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/commit/ec062b88d1d142a504658a27f206a6bafdbbfe89))
+
 # [2.0.0](https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/compare/v1.0.0...v2.0.0) (2022-01-07)
 
 
