@@ -31,6 +31,7 @@ jobs:
         run: yarn build
         env:
           VITE_API_BASE_URL: ${{ secrets.VITE_API_BASE_URL }}
+          VITE_GTAG_ID: ${{ secrets.VITE_GTAG_ID }}
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@4.1.7
