@@ -1,6 +1,6 @@
 {
   "name": "ebook",
-  "version": "0.1.0",
+  "version": "0.0.0-development",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
@@ -34,7 +34,8 @@
     "lint": "eslint ./src --ext .ts,.tsx --max-warnings=0 --ignore-path ./.gitignore",
     "lint:fix": "yarn lint --fix",
     "auto-update-theme": "npx gulp auto-update-theme",
-    "compile-themes": "npx gulp build"
+    "compile-themes": "npx gulp build",
+    "semantic-release": "semantic-release"
   },
   "eslintConfig": {
     "extends": [
@@ -55,6 +56,8 @@
     ]
   },
   "devDependencies": {
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/git": "^10.0.1",
     "@types/lodash-es": "^4.17.5",
     "@types/node": "^16.11.10",
     "@types/react": "^17.0.37",
@@ -80,8 +83,13 @@
     "husky": "^7.0.0",
     "less-plugin-npm-import": "^2.1.0",
     "postcss": "^8.3.6",
+    "semantic-release": "^18.0.1",
     "typescript": "~4.5.2",
     "vite": "^2.6.14",
     "vite-plugin-checker": "^0.3.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io.git"
   }
 }
