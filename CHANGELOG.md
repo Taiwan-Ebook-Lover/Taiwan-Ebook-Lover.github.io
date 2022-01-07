@@ -1,3 +1,15 @@
+# [2.0.0](https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/compare/v1.0.0...v2.0.0) (2022-01-07)
+
+
+### Features
+
+* New Version! ([b6669b0](https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/commit/b6669b006238ac4efe9750f2419c6f0049e078a6))
+
+
+### BREAKING CHANGES
+
+* The new version of Taiwan-Ebook-Lover.
+
 # 1.0.0 (2022-01-07)
 
 
