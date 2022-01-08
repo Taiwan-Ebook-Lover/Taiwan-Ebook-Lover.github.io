@@ -1,3 +1,10 @@
+## [2.0.2](https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/compare/v2.0.1...v2.0.2) (2022-01-08)
+
+
+### Bug Fixes
+
+* Shared URL is missing meta tag ([#68](https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/issues/68)) ([f019c3a](https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/commit/f019c3af662aadf4d1a71336af4b1de02a59a041))
+
 ## [2.0.1](https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/compare/v2.0.0...v2.0.1) (2022-01-07)
 
 
