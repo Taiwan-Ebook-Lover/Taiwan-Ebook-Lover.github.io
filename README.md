@@ -4,9 +4,16 @@
   <a href="https://github.com/semantic-release/semantic-release">
     <img alt="semantic-release: angular" src="https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release">
   </a>
+  <a href="https://lgtm.com/projects/g/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/alerts/">
+    <img alt="Total alerts" src="https://img.shields.io/lgtm/alerts/g/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io.svg?logo=lgtm&logoWidth=18"/>
+  </a>
+  <a href="https://lgtm.com/projects/g/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/context:javascript">
+    <img alt="Language grade: JavaScript" src="https://img.shields.io/lgtm/grade/javascript/g/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io.svg?logo=lgtm&logoWidth=18"/>
+  </a>
 </p>
 
 ## 目前支援書店
+
 - [Readmoo 讀墨](https://readmoo.com/)
 - [Taaze 讀冊生活](https://www.taaze.tw/)
 - [BOOKWALKER](https://www.bookwalker.com.tw/)
