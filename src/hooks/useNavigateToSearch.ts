@@ -14,7 +14,7 @@ export interface UseNavigateToSearchInterface {
 const useNavigateToSearch: UseNavigateToSearchInterface = () => {
   const navigate = useNavigate();
 
-  const onSearch = useRecoilCallback(
+  return useRecoilCallback(
     ({ snapshot }) =>
       () => {
         const keyword = snapshot.getLoadable(bookstoreKeyword).contents;
@@ -31,8 +31,6 @@ const useNavigateToSearch: UseNavigateToSearchInterface = () => {
       },
     [],
   );
-
-  return onSearch;
 };
 
 export default useNavigateToSearch;
