@@ -1,3 +1,10 @@
+## [2.0.3](https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/compare/v2.0.2...v2.0.3) (2022-01-09)
+
+
+### Bug Fixes
+
+* codeql setting ([#69](https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/issues/69)) ([b633319](https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/commit/b633319f6dc26a6c9ad298cf3031e6a49ee6dbbd))
+
 ## [2.0.2](https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/compare/v2.0.1...v2.0.2) (2022-01-08)
 
 
