@@ -21,9 +21,7 @@ const useBookstores = (): useBookstoresResult => {
     'bookstores',
     async () => {
       const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/v1/bookstores`);
-      if (!response.ok) {
-        throw { message: '暫時無法取得書店列表。' };
-      }
+      if (!response.ok) throw new Error('暫時無法取得書店列表。');
       return response.json();
     },
   );
