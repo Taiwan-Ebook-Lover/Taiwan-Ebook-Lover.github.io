@@ -10,6 +10,22 @@
   <a href="https://lgtm.com/projects/g/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/context:javascript">
     <img alt="Language grade: JavaScript" src="https://img.shields.io/lgtm/grade/javascript/g/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io.svg?logo=lgtm&logoWidth=18"/>
   </a>
+  <br />
+  <a href="https://sonarcloud.io/summary/new_code?id=Taiwan-Ebook-Lover_Taiwan-Ebook-Lover.github.io">
+    <img alt="Lines of Code" src="https://sonarcloud.io/api/project_badges/measure?project=Taiwan-Ebook-Lover_Taiwan-Ebook-Lover.github.io&metric=ncloc"/>
+  </a>
+  
+  <a href="https://sonarcloud.io/summary/new_code?id=Taiwan-Ebook-Lover_Taiwan-Ebook-Lover.github.io">
+    <img alt="Maintainability Rating" src="https://sonarcloud.io/api/project_badges/measure?project=Taiwan-Ebook-Lover_Taiwan-Ebook-Lover.github.io&metric=sqale_rating"/>
+  </a>
+  
+  <a href="https://sonarcloud.io/summary/new_code?id=Taiwan-Ebook-Lover_Taiwan-Ebook-Lover.github.io">
+    <img alt="Reliability Rating" src="https://sonarcloud.io/api/project_badges/measure?project=Taiwan-Ebook-Lover_Taiwan-Ebook-Lover.github.io&metric=reliability_rating"/>
+  </a>
+  
+  <a href="https://sonarcloud.io/summary/new_code?id=Taiwan-Ebook-Lover_Taiwan-Ebook-Lover.github.io">
+    <img alt="Security Rating" src="https://sonarcloud.io/api/project_badges/measure?project=Taiwan-Ebook-Lover_Taiwan-Ebook-Lover.github.io&metric=security_rating"/>
+  </a>
 </p>
 
 ## 目前支援書店
@@ -29,3 +45,5 @@
 感謝使用「台灣電子書搜尋」的你們，
 
 如果你喜歡這個服務，歡迎在 [Twitter 上跟隨我們](https://twitter.com/TaiwanEBook)！❤
+
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/summary/new_code?id=Taiwan-Ebook-Lover_Taiwan-Ebook-Lover.github.io)

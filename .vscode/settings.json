@@ -1,0 +1,9 @@
+{
+  "sonarlint.connectedMode.project": {
+    "connectionId": "taiwan-ebook-lover-web",
+    "projectKey": "Taiwan-Ebook-Lover_Taiwan-Ebook-Lover.github.io"
+  },
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  }
+}

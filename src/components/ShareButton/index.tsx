@@ -19,7 +19,7 @@ const ShareButton: FunctionComponent<ShareButtonProps> = ({
   const hasShare = useRef(!!navigator.share);
   const [modalOpen, setModalOpen] = useState(false);
   const content = useMemo(
-    () => `${document.title}${text ? `｜${text}` : ''}`,
+    () => document.title.concat(text ? `｜${text}` : ''),
     [document.title, text],
   );
 

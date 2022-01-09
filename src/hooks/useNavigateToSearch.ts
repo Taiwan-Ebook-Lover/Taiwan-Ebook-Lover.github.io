@@ -7,14 +7,14 @@ import { isEmpty } from 'lodash-es';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilCallback } from 'recoil';
 
-export interface useNavigateToSearchInterface {
+export interface UseNavigateToSearchInterface {
   (): () => void;
 }
 
-const useNavigateToSearch: useNavigateToSearchInterface = () => {
+const useNavigateToSearch: UseNavigateToSearchInterface = () => {
   const navigate = useNavigate();
 
-  const onSearch = useRecoilCallback(
+  return useRecoilCallback(
     ({ snapshot }) =>
       () => {
         const keyword = snapshot.getLoadable(bookstoreKeyword).contents;
@@ -31,8 +31,6 @@ const useNavigateToSearch: useNavigateToSearchInterface = () => {
       },
     [],
   );
-
-  return onSearch;
 };
 
 export default useNavigateToSearch;

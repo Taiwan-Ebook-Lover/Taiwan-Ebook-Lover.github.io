@@ -61,14 +61,14 @@ const useBooksSearch = (params: string): useBooksResult => {
       const response = await fetch(`${booksSearchUrl}${params}`, {
         method: isID ? 'GET' : 'POST',
       });
-      const data = await response.json();
-      if (isID && isEmpty(data)) {
-        throw { message: '找不到該紀錄，請重新搜尋。' };
+      const booksJson = await response.json();
+      if (isID && isEmpty(booksJson)) {
+        throw new Error('找不到該紀錄，請重新搜尋。');
       }
       if (!isID && !response.ok) {
-        throw { message: 'oops！搜尋出了點問題，請稍後再試。' };
+        throw new Error('oops！搜尋出了點問題，請稍後再試。');
       }
-      return data;
+      return booksJson;
     },
   );
 

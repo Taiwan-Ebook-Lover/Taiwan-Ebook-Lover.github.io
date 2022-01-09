@@ -1,4 +1,4 @@
-import { queryStringInterface } from '@customTypes/common';
+import { QueryStringInterface } from '@customTypes/common';
 import qs, { ParseOptions, StringifyOptions } from 'query-string';
 
 export type arrayFormatType =
@@ -20,12 +20,12 @@ export const qsClean = (urlSearch: string): string => {
 export const qsParse = (
   urlSearch: string,
   options: ParseOptions = { arrayFormat: 'bracket-separator', arrayFormatSeparator: ',' },
-): queryStringInterface => {
+): QueryStringInterface => {
   return qs.parse(qsClean(urlSearch), options);
 };
 
 export const qsStringify = (
-  urlSearchObj: queryStringInterface,
+  urlSearchObj: QueryStringInterface,
   options: StringifyOptions = { arrayFormat: 'bracket-separator', arrayFormatSeparator: ',' },
 ): string => {
   return qsClean(qs.stringify(urlSearchObj, options));

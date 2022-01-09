@@ -3,7 +3,6 @@ import { BookstoreEnum } from '@customTypes/bookstore';
 import { OrderByEnum } from '@customTypes/searchOptions';
 import booksOrderBy from '@recoil/booksOrderBy';
 import { selectorFamily } from 'recoil';
-
 import searchResults from './atom';
 
 export interface BookWithBookstore extends Book {
@@ -57,7 +56,9 @@ export const booksOfBookstore = selectorFamily<Array<BookWithBookstore>, BooksOf
             orderBy,
           );
         }
-        const result = results.find((result) => result.bookstore.id === bookstore);
+        const result = results.find(
+          (resultOfBookstore) => resultOfBookstore.bookstore.id === bookstore,
+        );
         return result ? sortBooks(mergeStoreIntoBook(result), orderBy) : [];
       },
   },
