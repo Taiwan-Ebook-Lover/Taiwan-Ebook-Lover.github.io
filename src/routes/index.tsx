@@ -3,8 +3,7 @@ import { useRoutes } from 'react-router-dom';
 import config from './routeConfig';
 
 const Routes: FunctionComponent = () => {
-  const element = useRoutes(config);
-  return element;
+  return useRoutes(config);
 };
 
 export default Routes;
