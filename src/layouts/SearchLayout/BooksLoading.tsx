@@ -183,10 +183,7 @@ const StyledBookshelfWrapper = styled.div`
       width: 100%;
       height: 100%;
       background: rgba(0, 0, 0, 0);
-      background-image: ${`radial-gradient(${rgba(
-        cssVar('--primary-color'),
-        0.5,
-      )} 30%, transparent 0)`};
+      background-image: radial-gradient(${rgba(cssVar('--primary-color'), 0.5)} 30%, transparent 0);
       background-size: 10px 10px;
       background-position: 0 -2.5px;
       top: 200%;
