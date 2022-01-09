@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/compare/v2.0.3...v2.1.0) (2022-01-09)
+
+
+### Features
+
+* Use SonarCloud ([#70](https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/issues/70)) ([1b5ea81](https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/commit/1b5ea81633184521c21ab75a287f640f0a8b9cdf))
+
 ## [2.0.3](https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/compare/v2.0.2...v2.0.3) (2022-01-09)
 
 
