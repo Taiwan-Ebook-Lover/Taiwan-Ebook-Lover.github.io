@@ -8,9 +8,9 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 import { faLink } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import useCopy from '@hooks/useCopy';
+import useCopyToClipboard from '@hooks/useCopyToClipboard';
 import { message, Modal } from 'antd';
-import { FunctionComponent } from 'react';
+import { FunctionComponent, useEffect } from 'react';
 import {
   FacebookShareButton,
   LineShareButton,
@@ -76,7 +76,15 @@ export interface ShareModalProps {
 }
 
 const ShareModal: FunctionComponent<ShareModalProps> = ({ open, onCancel, url, content }) => {
-  const copy = useCopy(url);
+  const [copy, copyStatus] = useCopyToClipboard(url);
+
+  useEffect(() => {
+    if (copyStatus === 'copied') {
+      message.success('連結已複製！');
+    } else if (copyStatus === 'failed') {
+      message.warning('複製失敗。');
+    }
+  }, [copyStatus]);
 
   return (
     <Modal title="分享" visible={open} centered footer={null} onCancel={onCancel}>
@@ -105,12 +113,7 @@ const ShareModal: FunctionComponent<ShareModalProps> = ({ open, onCancel, url, c
           <FontAwesomeIcon icon={faTwitter} style={{ color: '#1d9bf0' }} />
           Twitter
         </TwitterShareButton>
-        <StyledCopyButton
-          onClick={() => {
-            copy();
-            message.success('連結已複製！');
-          }}
-        >
+        <StyledCopyButton onClick={copy}>
           <FontAwesomeIcon icon={faLink} />
           複製連結
         </StyledCopyButton>
