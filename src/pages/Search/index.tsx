@@ -5,13 +5,13 @@ import {
 } from '@/recoil/searchResults';
 import FullWidth from '@components/FullWidth';
 import booksOrderBy from '@recoil/booksOrderBy';
-import { scrollToTop, shakeView } from '@utils/window/scroll';
+import { scrollToTop } from '@utils/window/scroll';
 import { Tabs } from 'antd';
 import { isEmpty } from 'lodash-es';
 import { FunctionComponent, useEffect, useState } from 'react';
+import { forceCheck } from 'react-lazyload';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-
 import ResultEmpty from './ResultEmpty';
 import ResultList from './ResultList';
 
@@ -37,12 +37,10 @@ const Search: FunctionComponent = () => {
 
   useEffect(() => setCurrentTab('all'), [bookstores]);
   useEffect(() => {
-    shakeView();
     scrollToTop();
+    forceCheck();
   }, [currentTab]);
-  useEffect(() => {
-    shakeView(); // To show books which lazyload.
-  }, [orderBy]);
+  useEffect(() => forceCheck(), [orderBy]);
 
   return (
     <>
