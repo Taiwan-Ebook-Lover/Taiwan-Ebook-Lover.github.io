@@ -1,3 +1,10 @@
+## [2.1.1](https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/compare/v2.1.0...v2.1.1) (2022-01-23)
+
+
+### Bug Fixes
+
+* Page overflow ([#74](https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/issues/74)) ([296caf2](https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/commit/296caf2d4280f9fde704f427a292f4186284af95))
+
 # [2.1.0](https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/compare/v2.0.3...v2.1.0) (2022-01-09)
 
 

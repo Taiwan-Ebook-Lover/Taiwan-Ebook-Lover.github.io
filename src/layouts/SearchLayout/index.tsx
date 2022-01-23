@@ -17,7 +17,6 @@ import { FunctionComponent, useEffect, useMemo } from 'react';
 import { Navigate, Outlet, useNavigate, useParams } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
-
 import BooksLoading from './BooksLoading';
 
 const StyledLayoutWrapper = styled.div`
@@ -67,7 +66,7 @@ const BasicLayout: FunctionComponent<BasicLayoutProps> = ({ urlParams }) => {
         </Box>
       </Box>
       <Box display="flex" justifyContent="center" flex="1">
-        <Box maxWidth={breakpoints.xl} width="100%">
+        <Box width="100%">
           {isLoading && (
             <Box height="100%" display="flex" justifyContent="center" alignItems="center">
               <BooksLoading />
