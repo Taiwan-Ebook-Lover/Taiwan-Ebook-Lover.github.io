@@ -1,3 +1,10 @@
+## [2.1.2](https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/compare/v2.1.1...v2.1.2) (2022-01-23)
+
+
+### Bug Fixes
+
+* Check element in viewport ([#75](https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/issues/75)) and upgrade node-fetch([#76](https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/issues/76))  ([f9fc72b](https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/commit/f9fc72bbeafbcf8af31cf3b47716a004f61928fb))
+
 ## [2.1.1](https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/compare/v2.1.0...v2.1.1) (2022-01-23)
 
 
