@@ -1,10 +1,9 @@
 import appStoreBadge from '@assets/images/storeBadge/app-store-badge.svg';
 import googlePlayBadge from '@assets/images/storeBadge/play-store-badge.svg';
-import { breakpoints } from '@assets/themes/globalTheme';
 import Box from '@components/Box';
-import { Button, Modal } from 'antd';
+import { Modal } from 'antd';
 import { FunctionComponent, useState } from 'react';
-import styled from 'styled-components';
+import { GetAppButton, PlatformBadge } from './styles';
 
 export interface GetAppProps {
   textcolor?: 'grey' | 'white';
@@ -14,28 +13,6 @@ export enum PlatformType {
   ANDROID,
   IOS,
 }
-
-const StyledBadge = styled.img`
-  cursor: pointer;
-  max-height: 5rem;
-
-  & + & {
-    margin: 1.5rem 0 0 0;
-  }
-
-  @media (min-width: ${breakpoints.md}) {
-    max-height: 2.5rem;
-
-    & + & {
-      margin: 0 0 0 0.5rem;
-    }
-  }
-`;
-
-const StyledGetAppButton = styled(Button)<GetAppProps>`
-  color: ${({ textcolor }) =>
-    textcolor === 'grey' ? 'var(--gray-7)' : 'var(--gray-1)'} !important;
-`;
 
 const links: Record<PlatformType, string> = {
   [PlatformType.ANDROID]:
@@ -49,8 +26,8 @@ const openLink = (platform: PlatformType) => {
 
 const Badges = () => (
   <>
-    <StyledBadge src={appStoreBadge} alt="App Store" onClick={() => openLink(PlatformType.IOS)} />
-    <StyledBadge
+    <PlatformBadge src={appStoreBadge} alt="App Store" onClick={() => openLink(PlatformType.IOS)} />
+    <PlatformBadge
       src={googlePlayBadge}
       alt="Google Play Store"
       onClick={() => openLink(PlatformType.ANDROID)}
@@ -67,9 +44,9 @@ const GetApp: FunctionComponent<GetAppProps> = ({ textcolor = 'grey' }) => {
         <Badges />
       </Box>
       <Box display={['block', null, null, 'none']} height="2.5rem">
-        <StyledGetAppButton type="text" textcolor={textcolor} onClick={() => setModalOpen(true)}>
+        <GetAppButton type="text" textcolor={textcolor} onClick={() => setModalOpen(true)}>
           Get App
-        </StyledGetAppButton>
+        </GetAppButton>
       </Box>
       <Modal
         title="Get App"
