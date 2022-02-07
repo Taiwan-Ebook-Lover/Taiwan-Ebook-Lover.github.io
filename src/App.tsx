@@ -1,13 +1,11 @@
-import Box from '@components/Box';
-import { faCircleNotch } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Routes from '@routes';
+import FullSizeLoading from '@components/FullSizeLoading';
 import { FunctionComponent, Suspense } from 'react';
 import { useThemeSwitcher } from 'react-css-theme-switcher';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { BrowserRouter } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
+import Routes from './routes';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -19,21 +17,6 @@ const queryClient = new QueryClient({
   },
 });
 
-const SuspenseLoading: FunctionComponent = () => {
-  return (
-    <Box
-      height="100vh"
-      display="flex"
-      flexDirection="column"
-      justifyContent="center"
-      alignItems="center"
-    >
-      <FontAwesomeIcon icon={faCircleNotch} className="fa-spin" style={{ fontSize: 24 }} />
-      <Box mt="1rem">Loading...</Box>
-    </Box>
-  );
-};
-
 const App: FunctionComponent = () => {
   const { status } = useThemeSwitcher();
 
@@ -43,7 +26,7 @@ const App: FunctionComponent = () => {
     <QueryClientProvider client={queryClient}>
       <RecoilRoot>
         <BrowserRouter>
-          <Suspense fallback={<SuspenseLoading />}>
+          <Suspense fallback={<FullSizeLoading />}>
             <Routes />
           </Suspense>
         </BrowserRouter>
