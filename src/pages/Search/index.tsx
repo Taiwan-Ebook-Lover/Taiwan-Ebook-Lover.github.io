@@ -12,26 +12,9 @@ import { isEmpty } from 'lodash-es';
 import { FunctionComponent, useEffect, useState } from 'react';
 import { forceCheck } from 'react-lazyload';
 import { useRecoilValue } from 'recoil';
-import styled from 'styled-components';
 import ResultEmpty from './ResultEmpty';
 import ResultList from './ResultList';
-
-const StyledHeaderWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  position: sticky;
-  top: 0;
-  background-color: var(--gray-1);
-  z-index: 1;
-`;
-
-const StyledBorder = styled.div`
-  position: absolute;
-  width: 100%;
-  left: 0;
-  bottom: 0;
-  border-bottom: 1px solid var(--gray-4);
-`;
+import { HeaderWrapper, TabsBorder } from './styles';
 
 const { TabPane } = Tabs;
 
@@ -50,7 +33,7 @@ const Search: FunctionComponent = () => {
 
   return (
     <>
-      <StyledHeaderWrapper>
+      <HeaderWrapper>
         <Tabs
           activeKey={currentTab}
           tabBarGutter={28}
@@ -65,8 +48,8 @@ const Search: FunctionComponent = () => {
             <TabPane tab={bookstore.displayName} key={bookstore.id} />
           ))}
         </Tabs>
-        <StyledBorder />
-      </StyledHeaderWrapper>
+        <TabsBorder />
+      </HeaderWrapper>
       <Box maxWidth={breakpoints.xl} mx="auto">
         {isEmpty(booksOfCurrentTab) ? (
           <ResultEmpty />
