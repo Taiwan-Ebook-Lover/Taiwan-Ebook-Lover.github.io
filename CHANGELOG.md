@@ -1,3 +1,10 @@
+## [2.1.3](https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/compare/v2.1.2...v2.1.3) (2022-06-08)
+
+
+### Bug Fixes
+
+* Styled components organization. ([#77](https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/issues/77)) ([9785b02](https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/commit/9785b02cb0e5791f912a6dfc8ed00595b65fcdf9))
+
 ## [2.1.2](https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/compare/v2.1.1...v2.1.2) (2022-01-23)
 
 
