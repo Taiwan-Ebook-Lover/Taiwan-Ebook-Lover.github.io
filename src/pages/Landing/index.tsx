@@ -8,23 +8,11 @@ import useNavigateToSearch from '@hooks/useNavigateToSearch';
 import { message, Typography } from 'antd';
 import { FunctionComponent, useEffect } from 'react';
 import GHCorner from 'react-gh-corner';
-import styled, { createGlobalStyle } from 'styled-components';
-import { maxWidth, MaxWidthProps } from 'styled-system';
-
 import BookstoreSupport from './BookstoreSupport';
+import { EbookLogo, LandingPageStyle } from './styles';
 import TwitterPromotion from './TwitterPromotion';
 
 const { Title } = Typography;
-
-const StyledLogo = styled.img<MaxWidthProps>`
-  ${maxWidth}
-`;
-
-const GlobalStyle = createGlobalStyle`
-  body {
-    background-color: var(--gray-3) !important;
-  }
-`;
 
 const Landing: FunctionComponent = () => {
   const onSubmit = useNavigateToSearch();
@@ -36,7 +24,7 @@ const Landing: FunctionComponent = () => {
 
   return (
     <>
-      <GlobalStyle />
+      <LandingPageStyle />
       <Box display="flex" padding="1rem" justifyContent="flex-end">
         <GetApp />
       </Box>
@@ -48,7 +36,7 @@ const Landing: FunctionComponent = () => {
         flex="1"
         px="1rem"
       >
-        <StyledLogo src={logo} maxWidth={['40vw', null, '16.4rem']} />
+        <EbookLogo src={logo} maxWidth={['40vw', null, '16.4rem']} />
         <Title level={2} style={{ marginTop: '1rem', marginBottom: '3rem', fontWeight: 400 }}>
           台灣電子書搜尋
         </Title>

@@ -1,44 +1,12 @@
 import ebookLogo from '@assets/images/logo/ebook-logo.svg';
-import { breakpoints } from '@assets/themes/globalTheme';
 import Box from '@components/Box';
 import FilterDrawer from '@components/FilterDrawer';
 import GetApp from '@components/GetApp';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button } from 'antd';
 import { FunctionComponent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-
-const StyledNavbar = styled.header`
-  padding: 1rem;
-  display: flex;
-  background-color: var(--primary-color);
-  color: var(--gray-1);
-  z-index: 100;
-  box-shadow: 0px 0.25rem 0.25rem rgba(0, 0, 0, 0.3);
-`;
-
-const StyledLogo = styled.img`
-  height: 2.5rem;
-  margin: 0 0.5rem;
-  cursor: pointer;
-`;
-
-const StyledTitle = styled.span`
-  font-size: 1.5rem;
-  font-weight: 300;
-  line-height: 1.5;
-  display: none;
-
-  @media (min-width: ${breakpoints.md}) {
-    display: inline;
-  }
-`;
-
-const StyledSearchButton = styled(Button)`
-  color: var(--gray-1) !important;
-`;
+import { Logo, NavbarWrapper, SearchButton, Title } from './styles';
 
 export interface NavbarProps {
   onConfirm?: () => void;
@@ -55,7 +23,7 @@ const Navbar: FunctionComponent<NavbarProps> = ({ onConfirm }) => {
 
   return (
     <>
-      <StyledNavbar>
+      <NavbarWrapper>
         <Box
           flex="2"
           display="flex"
@@ -68,8 +36,8 @@ const Navbar: FunctionComponent<NavbarProps> = ({ onConfirm }) => {
             alignItems="center"
             justifyContent={['center', null, null, 'flex-start']}
           >
-            <StyledLogo src={ebookLogo} onClick={() => navigate('/')} />
-            <StyledTitle>台灣電子書搜尋</StyledTitle>
+            <Logo src={ebookLogo} onClick={() => navigate('/')} />
+            <Title>台灣電子書搜尋</Title>
           </Box>
           <Box
             flex="1"
@@ -77,15 +45,15 @@ const Navbar: FunctionComponent<NavbarProps> = ({ onConfirm }) => {
             alignItems="center"
             justifyContent="flex-start"
           >
-            <StyledSearchButton type="text" onClick={() => setDrawerVisible(true)}>
+            <SearchButton type="text" onClick={() => setDrawerVisible(true)}>
               <FontAwesomeIcon icon={faSearch} style={{ fontSize: '1.5rem' }} />
-            </StyledSearchButton>
+            </SearchButton>
           </Box>
         </Box>
         <Box flex="1" display="flex" justifyContent="flex-end">
           <GetApp textcolor="white" />
         </Box>
-      </StyledNavbar>
+      </NavbarWrapper>
       <FilterDrawer visible={drawerVisible} onConfirm={onFormConfirm} onClose={onFormConfirm} />
     </>
   );
