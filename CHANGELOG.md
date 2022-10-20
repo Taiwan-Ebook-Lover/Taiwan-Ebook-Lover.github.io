@@ -1,3 +1,10 @@
+# [2.2.0](https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/compare/v2.1.3...v2.2.0) (2022-10-20)
+
+
+### Features
+
+* Add LogRocket to do session replay and error tracking ([#86](https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/issues/86)) ([bc2a743](https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/commit/bc2a743dd61e6a3e3c19495c88b27a4b62d63e0c))
+
 ## [2.1.3](https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/compare/v2.1.2...v2.1.3) (2022-06-08)
 
 
