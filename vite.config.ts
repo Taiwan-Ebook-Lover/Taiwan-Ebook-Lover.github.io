@@ -6,16 +6,11 @@ import checker from 'vite-plugin-checker';
 export default defineConfig(({ mode }) => {
   // Ref: https://github.com/vitejs/vite/issues/3105#issuecomment-939703781
   const env = loadEnv(mode, 'env');
-  const htmlPlugin = () => {
-    return {
-      name: 'html-transform',
-      transformIndexHtml(html: string) {
-        return html.replace(/<%=(.*?)%>/g, function (match, p1) {
-          return env[p1];
-        });
-      },
-    };
-  };
+  const htmlPlugin = () => ({
+    name: 'html-transform',
+    transformIndexHtml: (html: string) =>
+      html.replace(/<%=\s*([a-zA-Z_]+)\s*%>/g, (_match, variableName) => env[variableName]),
+  });
 
   return {
     define: {
