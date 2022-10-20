@@ -1,3 +1,10 @@
+## [2.2.1](https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/compare/v2.2.0...v2.2.1) (2022-10-20)
+
+
+### Bug Fixes
+
+* More precise way to parse EJS variables ([#87](https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/issues/87)) ([3e5173b](https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/commit/3e5173bf58aeb9a49ec4a0e3e9d399575da4e890))
+
 # [2.2.0](https://github.com/Taiwan-Ebook-Lover/Taiwan-Ebook-Lover.github.io/compare/v2.1.3...v2.2.0) (2022-10-20)
 
 
