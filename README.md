@@ -39,6 +39,7 @@
 - [Amazon Kindle](https://www.amazon.com/Kindle-eBooks/)
 - [Google Play 圖書](https://play.google.com/store/books)
 - [博客來](https://www.books.com.tw/)
+- [3ook.com](https://3ook.com/)
 
 ---
 

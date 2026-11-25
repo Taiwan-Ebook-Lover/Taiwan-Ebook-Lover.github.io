@@ -4,6 +4,7 @@ export enum BookstoreEnum {
   HYREAD = 'hyread',
   KINDLE = 'kindle',
   KOBO = 'kobo',
+  LIKER_LAND = 'likerLand',
   PLAY_STORE = 'playStore',
   PUBU = 'pubu',
   READMOO = 'readmoo',
