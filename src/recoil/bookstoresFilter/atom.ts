@@ -9,6 +9,7 @@ const bookstoresFilter = atom<Array<BookstoreEnum>>({
     BookstoreEnum.HYREAD,
     BookstoreEnum.KINDLE,
     BookstoreEnum.KOBO,
+    BookstoreEnum.LIKER_LAND,
     BookstoreEnum.PLAY_STORE,
     BookstoreEnum.PUBU,
     BookstoreEnum.READMOO,
